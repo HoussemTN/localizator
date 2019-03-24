@@ -15,12 +15,15 @@ Widget getErrorWidget(FlutterErrorDetails error) {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Loading...'),
+          title: Text( 'Localizer' ),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(
+                child: Text( "Oops..Something Went Wrong" ),
+              ),
               AwesomeLoader(
                 loaderType: AwesomeLoader.AwesomeLoader3,
                 color: Colors.teal,
