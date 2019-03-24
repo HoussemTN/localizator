@@ -1,7 +1,9 @@
 import 'views/MyLocationView.dart';
 import 'package:flutter/material.dart';
+import './views/ErrorView.dart';
 
 main() => runApp(MyApp());
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -12,9 +14,12 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   @override
+  @override
   Widget build(BuildContext context) {
+    ErrorWidget.builder = getErrorWidget;
     return MaterialApp(
-        home:MyLocationView()
+      home: new MyLocationView( ),
+
     );
   }
 }

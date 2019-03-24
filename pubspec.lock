@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
+  awesome_loader:
+    dependency: "direct main"
+    description:
+      name: awesome_loader
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -29,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.1"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   charcode:
     dependency: transitive
     description:
@@ -136,7 +150,7 @@ packages:
       name: location
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   logging:
     dependency: transitive
     description:

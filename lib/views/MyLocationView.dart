@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
@@ -14,24 +13,23 @@ class MyLocationView extends StatefulWidget {
 class MyLocationViewState extends State<MyLocationView> {
   //will get currentLocation
   var currentLocation = LocationData;
-  //will get the changed location
   Location location = new Location();
   String error;
   double lat;
   double long;
 
-  void initState() {
+  initState() {
     super.initState();
     location.onLocationChanged().listen((LocationData result) {
       print("Lat/LNG");
       lat = result.latitude;
       long = result.longitude;
+
       setState(() {
         print(lat.toString());
         print(long.toString());
       });
     });
-
   }
 
   @override
@@ -56,7 +54,6 @@ class MyLocationViewState extends State<MyLocationView> {
                     layers: [
                       new TileLayerOptions(
 
-                        maxZoom: 20.0,
                         urlTemplate: "https://api.tiles.mapbox.com/v4/"
                             "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                         additionalOptions: {
