@@ -3,6 +3,7 @@ import 'package:awesome_loader/awesome_loader.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 List _tips = [
+  ('Searching...'),
   ('Turn On Wifi'),
   ('Turn On GPS'),
 ];
