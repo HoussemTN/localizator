@@ -4,8 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 List _tips = [
   ('Searching...'),
-  ('Turn On Wifi'),
-  ('Turn On GPS'),
+  ('Tips :Turn On Wifi'),
+  ('Tips :Turn On GPS'),
 ];
 int i = 0;
 
@@ -16,13 +16,13 @@ Widget getErrorWidget(FlutterErrorDetails error) {
       ),
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text( 'Localizer' ),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               AwesomeLoader(
                 loaderType: AwesomeLoader.AwesomeLoader3,
                 color: Colors.teal,
@@ -41,7 +41,7 @@ Widget getErrorWidget(FlutterErrorDetails error) {
                         return Container(
                             width: 140.0,
                             child: Text(
-                              'Tips : $i ',
+                              ' $i ',
                               style: TextStyle(fontSize: 16.0),
                             ));
                       },

@@ -23,53 +23,61 @@ class _HomeViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: new ThemeData(
+            primarySwatch: Colors.teal ),
         home: Scaffold(
           appBar: AppBar(
+            centerTitle: true,
             title: Text( 'Home Page' ),
           ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container( child: Image.asset( 'images/HomeImage.jpg' ) ),
-              Container(
-                margin: EdgeInsets.symmetric( vertical: 5.0, horizontal: 20.0 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text( "Find My Location" ),
-                      onPressed: () =>
-                          Navigator.pushNamed( context, '/MyLocation' ),
+          body: ListView(
+              children: <Widget>[ Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container( child: Image.asset( 'images/HomeImage.jpg' ) ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 20.0 ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text( "Find My Location" ),
+                          onPressed: () =>
+                              Navigator.pushNamed( context, '/MyLocation' ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric( vertical: 5.0, horizontal: 20.0 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text( "Search a Location" ),
-                      onPressed: () {},
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 20.0 ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text( "Search a Location" ),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric( vertical: 5.0, horizontal: 20.0 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text( "About Localizer" ),
-                      onPressed: () {},
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: 5.0, horizontal: 20.0 ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          child: Text( "About Localizer" ),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+              ] ),
         ) );
   }
 }
