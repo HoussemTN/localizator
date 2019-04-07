@@ -16,6 +16,6 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
-    return HomeView( );
+    return HomeView();
   }
 }
