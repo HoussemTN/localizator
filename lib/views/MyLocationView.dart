@@ -44,7 +44,7 @@ class MyLocationViewState extends State<MyLocationView> {
   @override
   Widget build(BuildContext context) {
     _showSnackBar() {
-      print( 'SnackBar Code Executed' );
+      // print( 'SnackBar Code Executed' );
       final snackBar = SnackBar(
         content: Text( 'Location Copied!' ),
 
@@ -54,43 +54,7 @@ class MyLocationViewState extends State<MyLocationView> {
 
     return Scaffold(
       key: mykey,
-      appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Color.fromARGB( 255, 0, 128, 128 ),
-          title: this.appBarTitle,
-          actions: <Widget>[
-            new IconButton(
-                icon: actionIcon,
-                onPressed: () {
-                  setState( () {
-                    if (this.actionIcon.icon == Icons.my_location) {
-                      // print("my_location condition true");
-                      this.actionIcon = new Icon( Icons.content_copy );
-                      this.appBarTitle = new TextField(
-                        style: new TextStyle(
-                          color: Colors.white,
 
-                        ),
-                        decoration: new InputDecoration(
-                            prefixIcon: new Icon( Icons.my_location,
-                                color: Colors.white ),
-                            hintText: "$lat,$long",
-                            hintStyle: new TextStyle( color: Colors.white ) ),
-                      );
-                    } else if (this.actionIcon.icon == Icons.content_copy) {
-                      Clipboard.setData(
-                          new ClipboardData( text: "$lat,$long" ) );
-                      _showSnackBar( );
-                      this.actionIcon = new Icon( Icons.my_location );
-                      this.appBarTitle = new Text( "Find Location" );
-                    } else {
-                      // print("my_location condition false");
-                      this.actionIcon = new Icon( Icons.my_location );
-                      this.appBarTitle = new Text( "Find Location" );
-                    }
-                  } );
-                } ),
-          ] ),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -135,6 +99,15 @@ class MyLocationViewState extends State<MyLocationView> {
             ),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Clipboard.setData(
+              new ClipboardData( text: "$lat,$long" ) );
+          _showSnackBar( );
+        },
+        tooltip: 'Get your position',
+        child: Icon( Icons.content_copy ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import './views/ErrorView.dart';
-import './views/HomeView.dart';
+import './views/TabsView.dart';
 main() => runApp(MyApp());
 
 
@@ -16,6 +16,6 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
-    return HomeView( );
+    return TabsView( );
   }
 }
