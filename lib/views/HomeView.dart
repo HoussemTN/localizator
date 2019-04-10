@@ -9,7 +9,11 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Center( child: Text( 'Home View under Construction' ), );
+    return Container(
+      child: Center( child: Text( "under construction" ), ),
+    );
+
+    
   }
 }
 

@@ -26,7 +26,9 @@ class _TabsState extends State<TabsView> {
                 Tab(icon: Icon(Icons.search), text: 'Search Location'),
               ]),
             ),
-            body: TabBarView(children: <Widget>[
+            body: TabBarView(
+                physics: NeverScrollableScrollPhysics( ),
+                children: <Widget>[
               HomeView(),
               MyLocationView(),
               SearchView(),

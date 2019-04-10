@@ -3,23 +3,14 @@ import 'package:awesome_loader/awesome_loader.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 List _tips = [
-  ('Searching...'),
+  ('      Searching...'),
   ('Tips :Turn On Wifi'),
   ('Tips :Turn On GPS'),
 ];
 int i = 0;
 
 Widget getErrorWidget(FlutterErrorDetails error) {
-  return MaterialApp(
-      theme: new ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text( 'Localizer' ),
-        ),
-        body: Center(
+  return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -51,6 +42,6 @@ Widget getErrorWidget(FlutterErrorDetails error) {
               ),
             ],
           ),
-        ),
-      ));
+  );
+
 }

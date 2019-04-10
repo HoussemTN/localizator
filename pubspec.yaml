@@ -27,6 +27,7 @@ dependencies:
   location: ^2.3.0
   awesome_loader: ^0.0.3
   carousel_slider: ^1.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
