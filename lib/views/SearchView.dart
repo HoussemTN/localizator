@@ -8,32 +8,39 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  //to retreive position from TextField
+  //to retrieve position from TextField
   final myController = TextEditingController( );
 
   //changes after declaring the desired location
-  Widget _SearchView;
+  Widget _searchView;
   double lat = 0.00;
   double long = 0.00;
 
-  void dispose() {
+  bool _empty = false;
+
+  /* void dispose() {
     // Clean up the controller when the Widget is disposed
-    myController.dispose( );
-    super.dispose( );
-  }
+    myController.dispose();
+    super.dispose();
+  }*/
 
   _searchedLocation(double lat, double long) {
     if (lat == 0.00 || long == 0.00) {
-      _SearchView = Container(
+      _searchView = Container(
         child: Padding(
-          padding: const EdgeInsets.all( 20.0 ),
+          padding: const EdgeInsets.all( 8.0 ),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                TextField(
+                TextFormField(
                   controller: myController,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon( Icons.location_searching ),
+                    border: OutlineInputBorder( ),
+                    errorText: _empty ? 'Invalid Position' : null,
+                    hintText: 'Enter Latitude,Longitude',
+                  ),
                   style: TextStyle( fontSize: 20.00 ),
-                  onTap: () {},
                 ),
                 Padding(
                     padding: const EdgeInsets.all( 8.0 ),
@@ -42,12 +49,19 @@ class _SearchViewState extends State<SearchView> {
                       color: Colors.teal,
                       textColor: Colors.white,
                       onPressed: () {
+                        myController.text.isEmpty
+                            ? _empty = true
+                            : _empty = false;
                         setState( () {
-                          //Split entry position and parse it
-                          var _Position = myController.text.split( "," );
-                          this.lat = double.parse( _Position[0] );
-                          this.long = double.parse( _Position[1] );
-                          print( "LAT/LONG" + '$lat' + "/" + '$long' );
+                          //TexField not empty
+                          if (_empty == false) {
+                            //Split entry position and parse it
+                            List<String> _position =
+                            myController.text.split( "," );
+                            this.lat = double.tryParse( _position[0] );
+                            this.long = double.tryParse( _position[1] );
+                            print( "LAT/LONG" + '$lat' + "/" + '$long' );
+                          }
                         } );
                       },
                     ) ),
@@ -55,14 +69,14 @@ class _SearchViewState extends State<SearchView> {
         ),
       );
     } else {
-      _SearchView = Column(
+      _searchView = Column(
         children: <Widget>[
           Expanded(
             child: new FlutterMap(
               options: new MapOptions(
                 center: new LatLng( lat, long ),
                 minZoom: 2.0,
-                zoom: 17,
+                zoom: 14,
               ),
               layers: [
                 new TileLayerOptions(
@@ -101,7 +115,7 @@ class _SearchViewState extends State<SearchView> {
         ],
       );
     }
-    return _SearchView;
+    return _searchView;
   }
 
   @override

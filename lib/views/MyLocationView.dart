@@ -27,8 +27,8 @@ class MyLocationViewState extends State<MyLocationView> {
       long = result.longitude;
 
       setState(() {
-        print(lat.toString());
-        print(long.toString());
+        //print(lat.toString());
+        // print(long.toString());
       });
     });
   }
@@ -47,14 +47,12 @@ class MyLocationViewState extends State<MyLocationView> {
       // print( 'SnackBar Code Executed' );
       final snackBar = SnackBar(
         content: Text( 'Location Copied!' ),
-
       );
       mykey.currentState.showSnackBar( snackBar );
     }
 
     return Scaffold(
       key: mykey,
-
       body: Column(
         children: <Widget>[
           Expanded(
@@ -102,8 +100,7 @@ class MyLocationViewState extends State<MyLocationView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Clipboard.setData(
-              new ClipboardData( text: "$lat,$long" ) );
+          Clipboard.setData( new ClipboardData( text: "$lat,$long" ) );
           _showSnackBar( );
         },
         tooltip: 'Get your position',
