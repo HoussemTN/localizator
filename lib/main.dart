@@ -2,7 +2,14 @@
 import 'package:flutter/material.dart';
 import './views/ErrorView.dart';
 import './views/TabsView.dart';
-main() => runApp(MyApp());
+import 'package:flutter/services.dart';
+
+main() {
+  SystemChrome.setPreferredOrientations( [DeviceOrientation.portraitUp] )
+      .then( (_) {
+    runApp( MyApp( ) );
+  } );
+}
 
 
 class MyApp extends StatefulWidget {

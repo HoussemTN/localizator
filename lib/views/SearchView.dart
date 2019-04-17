@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../fix/bottom_sheet_fix.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -10,13 +12,50 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   //to retrieve position from TextField
   final myController = TextEditingController( );
-
+  final favoritePlaceController = TextEditingController( );
   //changes after declaring the desired location
   Widget _searchView;
   double lat = 0.00;
   double long = 0.00;
-
   bool _empty = false;
+  String placeName = "";
+  String placePosition = "";
+
+  _favoritePlaces() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance( );
+    placeName = favoritePlaceController.text;
+    placePosition = lat.toString( ) + ',' + long.toString( );
+    print( 'Place Name $placeName => $placePosition Captured.' );
+    await prefs.setString( '$placeName', '$placePosition' );
+  }
+
+  //declaring Bottom sheet widget
+  Widget buildSheetLogin(BuildContext context) {
+    return new Container(
+      child: Wrap( children: <Widget>[
+
+        TextFormField(
+          controller: favoritePlaceController,
+          decoration: InputDecoration(
+            labelText: "Name",
+            hintText: "Place name",
+            prefixIcon: Icon(
+              Icons.save_alt,
+              color: Colors.teal,
+            ),
+          ),
+        ),
+        RaisedButton(
+          child: Text( "Save" ),
+          onPressed: () {
+            _favoritePlaces( );
+          },
+        ),
+
+
+      ] ),
+    );
+  }
 
   /* void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -27,20 +66,41 @@ class _SearchViewState extends State<SearchView> {
   _searchedLocation(double lat, double long) {
     if (lat == 0.00 || long == 0.00) {
       _searchView = Container(
+        decoration: new BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage( "images/searchLocation.png" ),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all( 8.0 ),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextFormField(
+                  cursorColor: Colors.black,
                   controller: myController,
                   decoration: InputDecoration(
-                    prefixIcon: Icon( Icons.location_searching ),
-                    border: OutlineInputBorder( ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.location_searching,
+                      color: Colors.teal,
+                    ),
+
+                    //border color
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide( color: Colors.black ) ),
+                    // focused border color (erasing theme default color [teal])
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                            Radius.circular( 5.0 ) ),
+                        borderSide: BorderSide( color: Colors.black ) ),
                     errorText: _empty ? 'Invalid Position' : null,
                     hintText: 'Enter Latitude,Longitude',
+                    hintStyle: TextStyle( fontSize: 20.0, color: Colors.grey ),
                   ),
-                  style: TextStyle( fontSize: 20.00 ),
+                  style: TextStyle( fontSize: 20.00, color: Colors.black ),
                 ),
                 Padding(
                     padding: const EdgeInsets.all( 8.0 ),
@@ -60,7 +120,7 @@ class _SearchViewState extends State<SearchView> {
                             myController.text.split( "," );
                             this.lat = double.tryParse( _position[0] );
                             this.long = double.tryParse( _position[1] );
-                            print( "LAT/LONG" + '$lat' + "/" + '$long' );
+                            // print("LAT/LONG" + '$lat' + "/" + '$long');
                           }
                         } );
                       },
@@ -69,50 +129,66 @@ class _SearchViewState extends State<SearchView> {
         ),
       );
     } else {
-      _searchView = Column(
-        children: <Widget>[
-          Expanded(
-            child: new FlutterMap(
-              options: new MapOptions(
-                center: new LatLng( lat, long ),
-                minZoom: 2.0,
-                zoom: 14,
+      _searchView = Scaffold(
+        resizeToAvoidBottomPadding: true,
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: new FlutterMap(
+                options: new MapOptions(
+                  center: new LatLng( lat, long ),
+                  minZoom: 2.0,
+                  zoom: 14,
+                ),
+                layers: [
+                  new TileLayerOptions(
+                    urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                        "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                    additionalOptions: {
+                      'accessToken':
+                      'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                      'id': 'mapbox.streets',
+                    },
+                  ),
+                  new MarkerLayerOptions(
+                    markers: [
+                      new Marker(
+                        width: 50.0,
+                        height: 50.0,
+                        point: new LatLng( lat, long ),
+                        builder: (ctx) =>
+                        new Container(
+                            child: IconButton(
+                                icon: Icon(
+                                  Icons.adjust,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () {} ),
+                            decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.circular( 100.0 ),
+                              color: Colors.blue[100].withOpacity( 0.7 ),
+                            ) ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              layers: [
-                new TileLayerOptions(
-                  urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                      "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                  additionalOptions: {
-                    'accessToken':
-                    'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
-                    'id': 'mapbox.streets',
-                  },
-                ),
-                new MarkerLayerOptions(
-                  markers: [
-                    new Marker(
-                      width: 50.0,
-                      height: 50.0,
-                      point: new LatLng( lat, long ),
-                      builder: (ctx) =>
-                      new Container(
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.adjust,
-                                color: Colors.blue,
-                              ),
-                              onPressed: () {} ),
-                          decoration: new BoxDecoration(
-                            borderRadius: new BorderRadius.circular( 100.0 ),
-                            color: Colors.blue[100].withOpacity( 0.7 ),
-                          ) ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            // Calling bottom sheet Widget
+            showModalBottomSheetApp(
+                context: context,
+                builder: (builder) {
+                  return buildSheetLogin( context );
+                } );
+          },
+          tooltip: 'Favorite',
+          icon: Icon( Icons.favorite ),
+          label: Text( "Favorite" ),
+        ),
       );
     }
     return _searchView;
@@ -123,3 +199,4 @@ class _SearchViewState extends State<SearchView> {
     return _searchedLocation( this.lat, this.long );
   }
 }
+

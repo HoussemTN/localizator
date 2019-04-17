@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'MyLocationView.dart';
 import 'HomeView.dart';
 import 'SearchView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TabsView extends StatefulWidget {
   @override
@@ -9,6 +10,27 @@ class TabsView extends StatefulWidget {
 }
 
 class _TabsState extends State<TabsView> {
+
+  Future<List<Widget>> getAllPrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance( );
+    // I won't print those two keys neither remove them
+    // prefs.remove("lib_cached_image_data");
+    // prefs.remove("lib_cached_image_data_last_clean");
+    prefs.setString( "TN", "position" );
+    prefs.setString( "USA", "position" );
+    return prefs.getKeys( )
+        .where( (String key) =>
+    key != "lib_cached_image_data" &&
+        key != "lib_cached_image_data_last_clean" )
+        .map<Widget>( (key) =>
+        ListTile(
+          title: Text( key ),
+          subtitle: Text( prefs.get( key ).toString( ) ),
+        )
+
+    ).toList( growable: true );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -26,13 +48,38 @@ class _TabsState extends State<TabsView> {
                 Tab(icon: Icon(Icons.search), text: 'Search Location'),
               ]),
             ),
+            drawer: Drawer(
+              child: ListView( padding: EdgeInsets.zero, children: <Widget>[
+                DrawerHeader(
+                  child: Text(
+                    'Header',
+                    style: TextStyle( fontSize: 20.0, color: Colors.white ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                  ),
+                ),
+                FutureBuilder<List<Widget>>(
+                    future: getAllPrefs( ),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData)
+                        return Container(
+                          child: Text( "hello" ),
+                        );
+                      else {
+                        return Column( children: snapshot.data );
+                      }
+                    } ),
+              ] ),
+            ),
             body: TabBarView(
+              //disable tabs scroll
                 physics: NeverScrollableScrollPhysics( ),
                 children: <Widget>[
-              HomeView(),
-              MyLocationView(),
-              SearchView(),
-            ])),
+                  HomeView( ),
+                  MyLocationView( ),
+                  SearchView( ),
+                ] ) ),
       ),
     );
   }

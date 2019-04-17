@@ -22,10 +22,15 @@ class MyLocationViewState extends State<MyLocationView> {
   initState() {
     super.initState();
     location.onLocationChanged().listen((LocationData result) {
-      print("Lat/LNG");
+      // print("Lat/LNG");
+      try {
       lat = result.latitude;
       long = result.longitude;
-
+      } catch (Exception, e) {
+        lat = -1.0;
+        long = -1.0;
+        print( e.toString( ) );
+      }
       setState(() {
         //print(lat.toString());
         // print(long.toString());
@@ -54,6 +59,7 @@ class MyLocationViewState extends State<MyLocationView> {
     return Scaffold(
       key: mykey,
       body: Column(
+
         children: <Widget>[
           Expanded(
             child: new FlutterMap(
@@ -98,13 +104,14 @@ class MyLocationViewState extends State<MyLocationView> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Clipboard.setData( new ClipboardData( text: "$lat,$long" ) );
           _showSnackBar( );
         },
         tooltip: 'Get your position',
-        child: Icon( Icons.content_copy ),
+        icon: Icon( Icons.content_copy ),
+        label: Text( "Copy Position" ),
       ),
     );
   }
