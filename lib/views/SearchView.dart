@@ -33,7 +33,6 @@ class _SearchViewState extends State<SearchView> {
   Widget buildSheetLogin(BuildContext context) {
     return new Container(
       child: Wrap( children: <Widget>[
-
         TextFormField(
           controller: favoritePlaceController,
           decoration: InputDecoration(
@@ -51,8 +50,6 @@ class _SearchViewState extends State<SearchView> {
             _favoritePlaces( );
           },
         ),
-
-
       ] ),
     );
   }
@@ -199,4 +196,3 @@ class _SearchViewState extends State<SearchView> {
     return _searchedLocation( this.lat, this.long );
   }
 }
-

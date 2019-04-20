@@ -10,25 +10,23 @@ class TabsView extends StatefulWidget {
 }
 
 class _TabsState extends State<TabsView> {
-
   Future<List<Widget>> getAllPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance( );
-    // I won't print those two keys neither remove them
-    // prefs.remove("lib_cached_image_data");
-    // prefs.remove("lib_cached_image_data_last_clean");
-    prefs.setString( "TN", "position" );
-    prefs.setString( "USA", "position" );
-    return prefs.getKeys( )
+    //return  a list (Keys ,values) of sharedPreferences where valid keys into a ListTile Widget
+    return prefs
+        .getKeys( )
         .where( (String key) =>
     key != "lib_cached_image_data" &&
         key != "lib_cached_image_data_last_clean" )
         .map<Widget>( (key) =>
         ListTile(
           title: Text( key ),
-          subtitle: Text( prefs.get( key ).toString( ) ),
-        )
+          onTap: () {
 
-    ).toList( growable: true );
+          },
+          subtitle: Text( prefs.get( key ).toString( ) ),
+        ) )
+        .toList( growable: true );
   }
 
   @override
@@ -52,7 +50,7 @@ class _TabsState extends State<TabsView> {
               child: ListView( padding: EdgeInsets.zero, children: <Widget>[
                 DrawerHeader(
                   child: Text(
-                    'Header',
+                    'Favorite Places',
                     style: TextStyle( fontSize: 20.0, color: Colors.white ),
                   ),
                   decoration: BoxDecoration(

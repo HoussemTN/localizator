@@ -24,11 +24,11 @@ class MyLocationViewState extends State<MyLocationView> {
     location.onLocationChanged().listen((LocationData result) {
       // print("Lat/LNG");
       try {
-      lat = result.latitude;
-      long = result.longitude;
+        lat = result.latitude;
+        long = result.longitude;
       } catch (Exception, e) {
-        lat = -1.0;
-        long = -1.0;
+        lat = 0.0;
+        long = 0.0;
         print( e.toString( ) );
       }
       setState(() {
@@ -59,7 +59,6 @@ class MyLocationViewState extends State<MyLocationView> {
     return Scaffold(
       key: mykey,
       body: Column(
-
         children: <Widget>[
           Expanded(
             child: new FlutterMap(
