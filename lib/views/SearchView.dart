@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../fix/bottom_sheet_fix.dart';
+import 'SearchFavoriteView.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _SearchViewState extends State<SearchView> {
   //to retrieve position from TextField
   final myController = TextEditingController( );
   final favoritePlaceController = TextEditingController( );
+
   //changes after declaring the desired location
   Widget _searchView;
   double lat = 0.00;
@@ -23,10 +25,14 @@ class _SearchViewState extends State<SearchView> {
 
   _favoritePlaces() async {
     SharedPreferences prefs = await SharedPreferences.getInstance( );
+    // get the favorite position then added to prefs
     placeName = favoritePlaceController.text;
+    //convert position to string and concat it
     placePosition = lat.toString( ) + ',' + long.toString( );
     print( 'Place Name $placeName => $placePosition Captured.' );
     await prefs.setString( '$placeName', '$placePosition' );
+    // clear Text Field after adding position to favorite places
+    favoritePlaceController.clear( );
   }
 
   //declaring Bottom sheet widget
@@ -36,19 +42,30 @@ class _SearchViewState extends State<SearchView> {
         TextFormField(
           controller: favoritePlaceController,
           decoration: InputDecoration(
-            labelText: "Name",
-            hintText: "Place name",
+            labelText: "Place name",
+            hintText: "Enter Place Name",
             prefixIcon: Icon(
               Icons.save_alt,
               color: Colors.teal,
             ),
           ),
         ),
-        RaisedButton(
-          child: Text( "Save" ),
-          onPressed: () {
-            _favoritePlaces( );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only( right: 8.0 ),
+              child: RaisedButton(
+                color: Colors.teal,
+                textColor: Colors.white,
+                child: Text( "Save" ),
+                onPressed: () {
+                  _favoritePlaces( );
+                  Navigator.pop( context );
+                },
+              ),
+            ),
+          ],
         ),
       ] ),
     );
@@ -61,7 +78,8 @@ class _SearchViewState extends State<SearchView> {
   }*/
 
   _searchedLocation(double lat, double long) {
-    if (lat == 0.00 || long == 0.00) {
+    if ((lat == 0.00 || long == 0.00) &&
+        SearchFavoriteView.isFavorite == false) {
       _searchView = Container(
         decoration: new BoxDecoration(
           image: new DecorationImage(
@@ -126,6 +144,11 @@ class _SearchViewState extends State<SearchView> {
         ),
       );
     } else {
+      if (SearchFavoriteView.isFavorite == true) {
+        lat = SearchFavoriteView.favoriteLat;
+        long = SearchFavoriteView.favoriteLong;
+        SearchFavoriteView.isFavorite = false;
+      }
       _searchView = Scaffold(
         resizeToAvoidBottomPadding: true,
         body: Column(
@@ -174,6 +197,7 @@ class _SearchViewState extends State<SearchView> {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
+          heroTag: "btn1",
           onPressed: () {
             // Calling bottom sheet Widget
             showModalBottomSheetApp(
