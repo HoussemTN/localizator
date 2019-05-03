@@ -5,14 +5,11 @@ import 'SearchView.dart';
 import 'DrawerView.dart';
 
 class TabsView extends StatefulWidget {
-
   @override
   _TabsState createState() => _TabsState();
 }
 
 class _TabsState extends State<TabsView> {
-
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -40,7 +37,6 @@ class _TabsState extends State<TabsView> {
                   SearchView( ),
                 ] ) ),
       ),
-
     );
   }
 }

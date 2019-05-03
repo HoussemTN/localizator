@@ -4,6 +4,7 @@ import 'package:latlong/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../fix/bottom_sheet_fix.dart';
 import 'SearchFavoriteView.dart';
+import 'FavoriteLocationDropDownView.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -28,9 +29,13 @@ class _SearchViewState extends State<SearchView> {
     // get the favorite position then added to prefs
     placeName = favoritePlaceController.text;
     //convert position to string and concat it
-    placePosition = lat.toString( ) + ',' + long.toString( );
+    placePosition = lat.toString( ) + ',' + long.toString( ) + ',' +
+        FavoriteLocationDropDown.currentImage.toString( );
     print( 'Place Name $placeName => $placePosition Captured.' );
-    await prefs.setString( '$placeName', '$placePosition' );
+    //test
+    var a = FavoriteLocationDropDown.currentImage.toString( );
+    print( 'image index = ' + a );
+    await prefs.setString( '$placeName', '$placePosition', );
     // clear Text Field after adding position to favorite places
     favoritePlaceController.clear( );
   }
@@ -39,17 +44,31 @@ class _SearchViewState extends State<SearchView> {
   Widget buildSheetLogin(BuildContext context) {
     return new Container(
       child: Wrap( children: <Widget>[
-        TextFormField(
-          controller: favoritePlaceController,
-          decoration: InputDecoration(
-            labelText: "Place name",
-            hintText: "Enter Place Name",
-            prefixIcon: Icon(
-              Icons.save_alt,
-              color: Colors.teal,
+
+        Container(
+          padding: new EdgeInsets.only( left: 10.0, top: 10.0 ),
+          width: 300.0,
+          child: TextFormField(
+            controller: favoritePlaceController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderSide: BorderSide( color: Colors.black ) ),
+              // focused border color (erasing theme default color [teal])
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all( Radius.circular( 5.0 ) ),
+                  borderSide: BorderSide( color: Colors.black ) ),
+              labelText: "Place name",
+              hintText: "Enter Place Name",
+              prefixIcon: Icon(
+                Icons.save_alt,
+                color: Colors.teal,
+              ),
             ),
           ),
         ),
+
+        Container( child: FavoriteLocationDropDown( ) ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -68,6 +87,7 @@ class _SearchViewState extends State<SearchView> {
           ],
         ),
       ] ),
+
     );
   }
 

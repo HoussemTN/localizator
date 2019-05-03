@@ -9,7 +9,8 @@ class SearchFavoriteView extends StatefulWidget {
   static double favoriteLat;
   static double favoriteLong;
   static bool isFavorite = false;
-  static String FavoritePlaceName = "Favorite Place";
+  static String favoritePlaceName = "Favorite Place";
+
 
   @override
   _SearchFavoriteViewState createState() => _SearchFavoriteViewState(lat, long);
@@ -20,7 +21,7 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
   Widget _searchView;
   double lat = 0.00;
   double long = 0.00;
-  String placeName = SearchFavoriteView.FavoritePlaceName;
+  String placeName = SearchFavoriteView.favoritePlaceName;
   String placePosition = "";
   final myController = TextEditingController();
   final favoritePlaceController = TextEditingController();

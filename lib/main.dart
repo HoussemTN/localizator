@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import './views/ErrorView.dart';
 import './views/TabsView.dart';
 
-
 main() {
+
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
   runApp( MyApp( ) );
   // });
