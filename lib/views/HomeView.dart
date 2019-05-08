@@ -10,7 +10,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text( "under construction" ),
+        child: Text( "Under Construction" ),
       ),
     );
   }

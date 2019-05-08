@@ -13,7 +13,11 @@ class _TabsState extends State<TabsView> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      theme: new ThemeData(primarySwatch: Colors.teal),
+      theme: new ThemeData( primarySwatch: Colors.teal,
+
+
+      ),
+
       title: 'Home',
       home: DefaultTabController(
         length: 3,

@@ -23,15 +23,15 @@ class MyLocationViewState extends State<MyLocationView> {
     super.initState();
     location.onLocationChanged().listen((LocationData result) {
       // print("Lat/LNG");
-      try {
-        lat = result.latitude;
-        long = result.longitude;
-      } catch (Exception, e) {
-        lat = 0.0;
-        long = 0.0;
-        print( e.toString( ) );
-      }
-      setState(() {
+      setState( () {
+        try {
+          lat = result.latitude;
+          long = result.longitude;
+        } catch (Exception, e) {
+          lat = 0.0;
+          long = 0.0;
+          print( e.toString( ) );
+        }
         //print(lat.toString());
         // print(long.toString());
       });

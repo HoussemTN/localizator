@@ -18,33 +18,36 @@ class DrawerViewState extends State<DrawerView> {
 
   Future<List<Widget>> getAllPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    //return  a list (Keys ,values) of sharedPreferences where valid keys into a ListTile Widget
+    //return  a list (Keys ,values) of sharedPreferences and not cache records
     return prefs
         .getKeys()
         .where((String key) =>
     key != "lib_cached_image_data" &&
-        key != "lib_cached_image_data_last_clean")
+        key != "lib_cached_image_data_last_clean" )
         .map<Widget>((key) => ListTile(
       leading: CircleAvatar(
-        backgroundImage: AssetImage( _getPrefData( prefs.get( key ), 2 ) ),
+        backgroundColor: Colors.white,
+        child: Image.asset( _getPrefData( prefs.get( key ), 2 ) ),
       ),
       subtitle: Text( "" +
           _getPrefData( prefs.get( key ), 0 ) +
           ',' +
           _getPrefData( prefs.get( key ), 1 ) ),
-      title: Text(key),
+      title: Text( key ),
       onTap: () {
         List<String> splitArr = prefs.get( key ).toString( ).split( "," );
         SearchFavoriteView.favoriteLat = double.tryParse( splitArr[0] );
         SearchFavoriteView.favoriteLong = double.tryParse( splitArr[1] );
+        SearchFavoriteView.locationImage = splitArr[2];
+        print( splitArr[2] );
         SearchFavoriteView.favoritePlaceName = key;
         SearchFavoriteView.isFavorite = true;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SearchFavoriteView()),
+          MaterialPageRoute( builder: (context) => SearchFavoriteView( ) ),
         );
       },
-    ))
+    ) )
         .toList(growable: true);
   }
 

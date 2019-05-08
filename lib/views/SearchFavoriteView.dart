@@ -10,6 +10,7 @@ class SearchFavoriteView extends StatefulWidget {
   static double favoriteLong;
   static bool isFavorite = false;
   static String favoritePlaceName = "Favorite Place";
+  static String locationImage;
 
 
   @override
@@ -59,20 +60,19 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
                 new MarkerLayerOptions(
                   markers: [
                     new Marker(
-                      width: 50.0,
-                      height: 50.0,
+                      width: 60.0,
+                      height: 60.0,
                       point: new LatLng(lat, long),
                       builder: (ctx) => new Container(
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.adjust,
-                                color: Colors.blue,
-                              ),
-                              onPressed: () {}),
-                          decoration: new BoxDecoration(
+
+                        child: FlatButton(
+                            child: Image.asset(
+                                SearchFavoriteView.locationImage ),
+                            onPressed: null ),
+                        /* decoration: new BoxDecoration(
                             borderRadius: new BorderRadius.circular(100.0),
                             color: Colors.blue[100].withOpacity(0.7),
-                          )),
+                          )*/ ),
                     ),
                   ],
                 ),

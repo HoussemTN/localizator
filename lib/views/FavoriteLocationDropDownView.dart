@@ -9,9 +9,13 @@ class FavoriteLocationDropDown extends StatefulWidget {
 }
 
 class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
-  final Map<int, String> favoriteLocationImage = {
-    0: "images/searchLocation.png",
-    1: "images/house.png"
+  final Map<String, String> favoriteLocationImage = {
+    "House": "images/house.png",
+    "Store": "images/store.png",
+    "Hotel": "images/hotel.png",
+    "School": "images/school.png",
+    "Bank": "images/bank.png",
+    "Hospital": "images/hospital.png",
   };
   List<DropdownMenuItem<String>> _dropDownMenuItems;
 
@@ -24,13 +28,19 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
-    for (String image in favoriteLocationImage.values) {
+    for (String imageKey in favoriteLocationImage.keys) {
       items.add(new DropdownMenuItem(
-        value: image,
+        value: favoriteLocationImage[imageKey],
         child: Wrap(
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: AssetImage(image),
+              radius: 20.0,
+              backgroundColor: Colors.white,
+              child: Image.asset( favoriteLocationImage[imageKey] ),
+            ),
+            Container(
+              padding: new EdgeInsets.only( top: 10.0, left: 4.0 ),
+              child: Text( "$imageKey" ),
             ),
           ],
         ),
@@ -43,18 +53,27 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
   Widget build(BuildContext context) {
     return new Container(
       padding: new EdgeInsets.all(12.0),
-      width: 100.0,
-      color: Colors.white,
+      width: MediaQuery
+          .of( context )
+          .size
+          .width / 2.5,
+      //dropDown Background Color
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+      ),
       child: new Center(
           child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+            // crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Container(),
-          new DropdownButton(
-            value: FavoriteLocationDropDown.currentImage,
-            items: _dropDownMenuItems,
-            onChanged: changedDropDownItem,
+          //new Container(),
+          DropdownButtonHideUnderline(
+            child: new DropdownButton(
+              value: FavoriteLocationDropDown.currentImage,
+              items: _dropDownMenuItems,
+              onChanged: changedDropDownItem,
+              iconSize: 30.0,
+            ),
           )
         ],
       )),

@@ -29,13 +29,19 @@ class _SearchViewState extends State<SearchView> {
     // get the favorite position then added to prefs
     placeName = favoritePlaceController.text;
     //convert position to string and concat it
-    placePosition = lat.toString( ) + ',' + long.toString( ) + ',' +
+    placePosition = lat.toString( ) +
+        ',' +
+        long.toString( ) +
+        ',' +
         FavoriteLocationDropDown.currentImage.toString( );
     print( 'Place Name $placeName => $placePosition Captured.' );
-    //test
-    var a = FavoriteLocationDropDown.currentImage.toString( );
-    print( 'image index = ' + a );
-    await prefs.setString( '$placeName', '$placePosition', );
+    /*   //test
+    var a = FavoriteLocationDropDown.currentImage.toString( );*/
+
+    await prefs.setString(
+      '$placeName',
+      '$placePosition',
+    );
     // clear Text Field after adding position to favorite places
     favoritePlaceController.clear( );
   }
@@ -44,10 +50,12 @@ class _SearchViewState extends State<SearchView> {
   Widget buildSheetLogin(BuildContext context) {
     return new Container(
       child: Wrap( children: <Widget>[
-
         Container(
           padding: new EdgeInsets.only( left: 10.0, top: 10.0 ),
-          width: 300.0,
+          width: MediaQuery
+              .of( context )
+              .size
+              .width / 1.7,
           child: TextFormField(
             controller: favoritePlaceController,
             decoration: InputDecoration(
@@ -66,9 +74,7 @@ class _SearchViewState extends State<SearchView> {
             ),
           ),
         ),
-
         Container( child: FavoriteLocationDropDown( ) ),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -87,7 +93,6 @@ class _SearchViewState extends State<SearchView> {
           ],
         ),
       ] ),
-
     );
   }
 
