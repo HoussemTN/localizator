@@ -29,6 +29,8 @@ dependencies:
   awesome_loader: ^0.0.3
   carousel_slider: ^1.3.0
   direct_select: ^1.0.0
+  http: ^0.11.3
+  intl: ^0.15.6
 
 
 dev_dependencies:

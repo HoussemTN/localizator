@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import 'package:localizer/models/WeatherData.dart';
+
+class Weather extends StatelessWidget {
+  final WeatherData weather;
+
+  Weather({Key key, @required this.weather}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
+    var temp = (weather.temp-273.15).round() ;
+
+
+    return Column(
+      children: <Widget>[
+        Text(weather.name, style: new TextStyle(color: Colors.black)),
+        Text(weather.main,
+            style: new TextStyle(color: Colors.black, fontSize: 32.0)),
+        Text('${temp.toString()}°C',
+            style: new TextStyle(color: Colors.black)),
+        Image.network('https://openweathermap.org/img/w/${weather.icon}.png'),
+        Text(new DateFormat.yMMMd().format(weather.date),
+            style: new TextStyle(color: Colors.black)),
+        // Weather Date
+        Text(new DateFormat.Hm().format(weather.date),
+            style: new TextStyle(color: Colors.white)),
+      ],
+    );
+  }
+}
