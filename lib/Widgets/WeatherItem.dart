@@ -10,7 +10,7 @@ class WeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var temp = (weather.temp-273.15).round();
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -19,7 +19,7 @@ class WeatherItem extends StatelessWidget {
           children: <Widget>[
             Text(weather.name, style: new TextStyle(color: Colors.black)),
             Text(weather.main, style: new TextStyle(color: Colors.black, fontSize: 24.0)),
-            Text('${temp.toString()}°C',  style: new TextStyle(color: Colors.black)),
+            Text('${weather.temp.toString()}°C',  style: new TextStyle(color: Colors.black)),
             Image.network('https://openweathermap.org/img/w/${weather.icon}.png'),
             Text(new DateFormat.yMMMd().format(weather.date), style: new TextStyle(color: Colors.black)),
             Text(new DateFormat.Hm().format(weather.date), style: new TextStyle(color: Colors.black)),

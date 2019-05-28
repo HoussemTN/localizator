@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'MyLocationView.dart';
 
 import 'package:localizer/Widgets/Weather.dart';
 import 'package:localizer/Widgets/WeatherItem.dart';
 
+
 import 'package:localizer/models/WeatherData.dart';
 import 'package:localizer/models/ForecastData.dart';
+
+import '../libraries/globals.dart' as globals;
+
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -17,15 +22,22 @@ class _HomeViewState extends State<HomeView> {
   WeatherData weatherData;
   ForecastData forecastData;
 
+  double lat=MyLocationViewState.lat;
+  double long=MyLocationViewState.long ;
+
+
   @override
   void initState() {
     super.initState();
 
-    loadWeather();
-  }
+   loadWeather();
+   }
+
+
+
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
         child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -67,21 +79,20 @@ class _HomeViewState extends State<HomeView> {
               )
             ]
         ),
-    );
+        );
   }
   loadWeather() async {
     setState(() {
+
       isLoading = true;
     });
 
-    final lat =36.46 ;
-    final lon = 10.74;
-    final weatherResponse = await http.get(
+  final weatherResponse = await http.get(
         'https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat
-            .toString()}&lon=${lon.toString()}');
-    final forecastResponse = await http.get(
-        'https://api.openweathermap.org/data/2.5/forecast?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat
-            .toString()}&lon=${lon.toString()}');
+            .toString()}&lon=${long.toString()}&units=metric');
+   final forecastResponse = await http.get(
+        'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=e438793d26f931f5c2d283df4f520108&lat=${lat
+            .toString()}&lon=${long.toString()}&units=metric');
 
     if (weatherResponse.statusCode == 200 &&
         forecastResponse.statusCode == 200) {
@@ -93,6 +104,7 @@ class _HomeViewState extends State<HomeView> {
     }
 
     setState(() {
+
       isLoading = false;
     });
   }
