@@ -30,7 +30,11 @@ class _WeatherState extends State<WeatherView> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+
+      child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,21 +43,21 @@ class _WeatherState extends State<WeatherView> {
                 padding: const EdgeInsets.all(8.0),
                 child: weatherData != null
                     ? Weather(weather: weatherData)
-                    : Container(),
+                    : Container(child: Text("Searching.."),),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(0.0),
                 child: isLoading
                     ? CircularProgressIndicator(
-                        strokeWidth: 4.0,
-                        valueColor: new AlwaysStoppedAnimation(Colors.red),
-                      )
+                  strokeWidth: 4.0,
+                  valueColor: new AlwaysStoppedAnimation(Colors.red),
+                )
                     : IconButton(
-                        icon: new Icon(Icons.refresh),
-                        tooltip: 'Refresh',
-                        onPressed: loadWeather,
-                        color: Colors.red,
-                      ),
+                  icon: new Icon(Icons.refresh),
+                  tooltip: 'Refresh',
+                  onPressed: loadWeather,
+                  color: Colors.red,
+                ),
               ),
             ],
           ),
@@ -83,9 +87,9 @@ class _WeatherState extends State<WeatherView> {
     });
 
     final weatherResponse = await http.get(
-        'https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric');
+        'https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric&lang=eng');
     final forecastResponse = await http.get(
-        'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric');
+        'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric&lang=eng');
 
     if (weatherResponse.statusCode == 200 &&
         forecastResponse.statusCode == 200) {

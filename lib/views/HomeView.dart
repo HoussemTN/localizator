@@ -10,7 +10,7 @@ import 'package:localizer/Widgets/WeatherItem.dart';
 import 'package:localizer/models/WeatherData.dart';
 import 'package:localizer/models/ForecastData.dart';
 
-import '../libraries/globals.dart' as globals;
+
 
 class HomeView extends StatefulWidget {
   @override

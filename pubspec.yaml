@@ -58,6 +58,8 @@ flutter:
   - images/hotel.png
   - images/store.png
   - images/school.png
+  - images/sunrise.png
+  - images/sunset.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

@@ -53,6 +53,7 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
   Widget build(BuildContext context) {
     return new Container(
       padding: new EdgeInsets.all(12.0),
+      // Ensure the desired width on different devices
       width: MediaQuery
           .of( context )
           .size
