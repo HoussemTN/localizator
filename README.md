@@ -6,10 +6,12 @@ Localizer is a flutter application implements flutter_map and location plugins t
 
 | Version    | New Features| Plugins Added|
 |------------|-------------|-------------| 
-|:heavy_check_mark: 0.1.0| Find Your location|location</br>flutter_map|
-|:heavy_check_mark: 0.2.0| Search locations||
-|:heavy_check_mark: 0.3.0| Save Your Favorite location|shared_preferences|
-|:red_circle: 0.4.1| Get Current Weather|OpenWeatherMap API|
-
+|  <img alt="StackOverflow" src="https://img.shields.io/badge/version-0.1.0-green.svg" />| Find Your location|location</br>flutter_map|
+|  <img alt="StackOverflow" src="https://img.shields.io/badge/version-0.2.0-green.svg" />| Search locations||
+|  <img alt="StackOverflow" src="https://img.shields.io/badge/version-0.3.0-green.svg" />| Save Your Favorite location|shared_preferences|
+|  <img alt="StackOverflow" src="https://img.shields.io/badge/version-0.4.1-green.svg" />| Get Current Weather|OpenWeatherMap API|
+ 
+  
+ 
 
 
