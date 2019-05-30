@@ -8,8 +8,11 @@ class WeatherData {
   final int humidity ;
   final DateTime sunrise ;
   final DateTime sunset ;
+  final double windSpeed ;
+  final int pressure ;
 
-  WeatherData({this.date, this.name, this.temp, this.main,this.description, this.icon,this.humidity,this.sunrise,this.sunset});
+
+  WeatherData({this.date, this.name, this.temp, this.main,this.description, this.icon,this.humidity,this.sunrise,this.sunset,this.windSpeed,this.pressure});
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
     return WeatherData(
@@ -22,6 +25,11 @@ class WeatherData {
       humidity: json['main']['humidity'],
       sunrise:  new DateTime.fromMillisecondsSinceEpoch(json['sys']['sunrise']*1000, isUtc: false),
       sunset: new DateTime.fromMillisecondsSinceEpoch(json['sys']['sunset']*1000, isUtc: false),
+      //converting WindSpeed from m/s to Km/h
+      windSpeed: json['wind']['speed']*3.6,
+      pressure: json['main']['pressure'],
+
+
     );
   }
 }

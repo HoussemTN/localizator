@@ -64,7 +64,7 @@ class _WeatherState extends State<WeatherView> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: 200.0,
+              height: 180.0,
               child: forecastData != null
                   ? ListView.builder(
                       itemCount: forecastData.list.length,

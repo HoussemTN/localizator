@@ -23,7 +23,7 @@ class Weather extends StatelessWidget {
                   //sunrise Card
                   Card(
                       child: Container(
-                    width: MediaQuery.of(context).size.width / 3.6,
+                    width: MediaQuery.of(context).size.width / 3.8,
                     height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +37,8 @@ class Weather extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
                               '${new DateFormat.Hm().format(weather.sunrise)}',
-                              style: new TextStyle(color: Colors.black)),
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
                         ),
                       ],
                     ),
@@ -45,7 +46,7 @@ class Weather extends StatelessWidget {
 
                   Card(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery.of(context).size.width / 2.7,
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -56,7 +57,9 @@ class Weather extends StatelessWidget {
                             height: 30,
                           ),
                           Text(new DateFormat.yMMMd().format(weather.date),
-                              style: new TextStyle(color: Colors.black)),
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
+
                         ],
                       ),
                     ),
@@ -64,7 +67,7 @@ class Weather extends StatelessWidget {
                   //sunset Card
                   Card(
                       child: Container(
-                    width: MediaQuery.of(context).size.width / 3.6,
+                    width: MediaQuery.of(context).size.width / 3.8,
                     height: 50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +81,8 @@ class Weather extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
                               '${new DateFormat.Hm().format(weather.sunset)}',
-                              style: new TextStyle(color: Colors.black)),
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
                         ),
                       ],
                     ),
@@ -86,25 +90,64 @@ class Weather extends StatelessWidget {
                 ],
               ),
               //TODO Add Background here
-              Card(
-                child: Column(
-                  children: <Widget>[
-                    Text(weather.name, style: new TextStyle(color: Colors.black)),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Image.network(
-                          'https://openweathermap.org/img/w/${weather.icon}.png'),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Card(
+                  child: Container(
+                    decoration: new BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage(
+                            'images/weatherMain/${weather.main}.jpg'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    Text(weather.main,
-                        style:
-                            new TextStyle(color: Colors.black, fontSize: 32.0)),
-                  ],
-                ),
-                  ],
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(weather.name,
+                                  style: new TextStyle(
+                                      color: Colors.white, fontSize: 18.0)),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.network(
+                                'https://openweathermap.org/img/w/${weather.icon}.png'),
+                            Text(weather.main,
+                                style: new TextStyle(
+                                    color: Colors.black, fontSize: 32.0)),
+
+                          ],
+                        ),
+                        //show Current Time
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom:8.0),
+                              child: Icon(
+                                Icons.update,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right:8.0,bottom: 8.0),
+                              child: Text(
+                                  '${new DateFormat.Hm().format(weather.date)}',
+                                  style: new TextStyle(
+                                      color: Colors.white, fontSize: 18.0)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -118,7 +161,7 @@ class Weather extends StatelessWidget {
                   //Temperature Card
                   Card(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 2.9,
+                      width: MediaQuery.of(context).size.width / 2.3,
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -129,7 +172,8 @@ class Weather extends StatelessWidget {
                             height: 35,
                           ),
                           Text('${'Temp : ' + weather.temp.toString()}°C',
-                              style: new TextStyle(color: Colors.black)),
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
                         ],
                       ),
                     ),
@@ -137,19 +181,20 @@ class Weather extends StatelessWidget {
                   //Humidity Card
                   Card(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery.of(context).size.width / 2.3,
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           new Image.asset(
                             'images/humidity.png',
-                            width: 35,
-                            height: 30,
+                            width: 40,
+                            height: 35,
                           ),
                           Text(
                               '${'Humidity : ' + weather.humidity.toString()} %',
-                              style: new TextStyle(color: Colors.black)),
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
                         ],
                       ),
                     ),
@@ -160,45 +205,47 @@ class Weather extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  //Temperature Card
+                  //WindSpeed Card
                   Card(
                     child: Container(
-                      width: MediaQuery.of(context).size.width / 2.9,
+                      width: MediaQuery.of(context).size.width / 2.3,
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           new Image.asset(
-                            'images/temp.png',
-                            width: 35,
-                            height: 35,
-                          ),
-                          Text('${'Temp : ' + weather.temp.toString()}°C',
-                              style: new TextStyle(color: Colors.black)),
-                        ],
-                      ),
-                    ),
-                  ), //end Temperature Card
-                  //Humidity Card
-                  Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Image.asset(
-                            'images/humidity.png',
+                            'images/wind.png',
                             width: 35,
                             height: 30,
                           ),
                           Text(
-                              '${'Humidity : ' + weather.humidity.toString()} %',
-                              style: new TextStyle(color: Colors.black)),
+                              '${'Wind : ' + weather.windSpeed.floor().toString()} km/h',
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
                         ],
                       ),
                     ),
-                  ), //end Temperature Card
+                  ), //end WindSpeed Card
+                  //pressure Card
+                  Card(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2.3,
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          new Image.asset(
+                            'images/pressure.png',
+                            width: 35,
+                            height: 30,
+                          ),
+                          Text('${'Pressure : ' + weather.pressure.toString()}',
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 18.0)),
+                        ],
+                      ),
+                    ),
+                  ), //end pressure Card
                 ],
               ), //end Row 2
             ],

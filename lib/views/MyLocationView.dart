@@ -67,7 +67,7 @@ class MyLocationViewState extends State<MyLocationView> {
               options: new MapOptions(
                 center: new LatLng(lat, long),
                 minZoom: 2.0,
-                zoom: 17,
+                zoom: 15,
               ),
               layers: [
                 new TileLayerOptions(

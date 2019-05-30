@@ -64,6 +64,12 @@ flutter:
   - images/date.png
   - images/time.png
   - images/humidity.png
+  - images/wind.png
+  - images/pressure.png
+  - images/weatherMain/Clouds.jpg
+  - images/weatherMain/Clear.jpg
+  - images/weatherMain/Rain.jpg
+  - images/weatherMain/Snow.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
