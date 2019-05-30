@@ -29,12 +29,10 @@ class _WeatherState extends State<WeatherView> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Column(
 
-      child: Column(
-          mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -52,12 +50,12 @@ class _WeatherState extends State<WeatherView> {
                   strokeWidth: 4.0,
                   valueColor: new AlwaysStoppedAnimation(Colors.red),
                 )
-                    : IconButton(
+                    : /*IconButton(
                   icon: new Icon(Icons.refresh),
                   tooltip: 'Refresh',
                   onPressed: loadWeather,
                   color: Colors.red,
-                ),
+                ),*/Container()
               ),
             ],
           ),
@@ -77,8 +75,8 @@ class _WeatherState extends State<WeatherView> {
             ),
           ),
         )
-      ]),
-    );
+      ]);
+
   }
 
   loadWeather() async {

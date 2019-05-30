@@ -85,13 +85,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  direct_select:
-    dependency: "direct main"
-    description:
-      name: direct_select
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -214,13 +207,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  scoped_model:
-    dependency: "direct main"
-    description:
-      name: scoped_model
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
