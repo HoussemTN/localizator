@@ -29,54 +29,51 @@ class _WeatherState extends State<WeatherView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-
-        mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: weatherData != null
-                    ? Weather(weather: weatherData)
-                    : Container(child: Text("Searching.."),),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: isLoading
-                    ? CircularProgressIndicator(
-                  strokeWidth: 4.0,
-                  valueColor: new AlwaysStoppedAnimation(Colors.red),
+    return ListView(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child:
+            weatherData != null ? Weather(weather: weatherData) : Container(),
+      ),
+      Column(
+        children: <Widget>[
+          isLoading
+              ? Column(
+                  children: <Widget>[
+                    Text("Searching.."),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 4.0,
+                        valueColor: new AlwaysStoppedAnimation(Colors.teal),
+                      ),
+                    ),
+                  ],
                 )
-                    : /*IconButton(
-                  icon: new Icon(Icons.refresh),
-                  tooltip: 'Refresh',
-                  onPressed: loadWeather,
-                  color: Colors.red,
-                ),*/Container()
-              ),
-            ],
+              : Container() /*IconButton(
+              icon: new Icon(Icons.refresh),
+              tooltip: 'Refresh',
+              onPressed: loadWeather,
+              color: Colors.red,
+            ),*/
+        ],
+      ),
+      SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 180.0,
+            child: forecastData != null
+                ? ListView.builder(
+                    itemCount: forecastData.list.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => WeatherItem(
+                        weather: forecastData.list.elementAt(index)))
+                : Container(),
           ),
         ),
-        SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 180.0,
-              child: forecastData != null
-                  ? ListView.builder(
-                      itemCount: forecastData.list.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => WeatherItem(
-                          weather: forecastData.list.elementAt(index)))
-                  : Container(),
-            ),
-          ),
-        )
-      ]);
-
+      )
+    ]);
   }
 
   loadWeather() async {
