@@ -3,7 +3,7 @@ class WeatherData {
   final String name;
   final double temp;
   final String main;
- final String description ;
+  final String description ;
   final String icon;
   final int humidity ;
   final DateTime sunrise ;
@@ -18,7 +18,7 @@ class WeatherData {
     return WeatherData(
       date: new DateTime.fromMillisecondsSinceEpoch(json['dt']*1000, isUtc: false),
       name: json['name'],
-      temp: json['main']['temp'],
+      temp: json['main']['temp']-273.15,
       main: json['weather'][0]['main'],
       description: json['weather'][0]['description'],
       icon: json['weather'][0]['icon'],

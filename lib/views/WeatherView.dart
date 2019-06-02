@@ -21,6 +21,8 @@ class _WeatherState extends State<WeatherView> {
   final double lat = globals.lat;
   final double long = globals.long;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +35,7 @@ class _WeatherState extends State<WeatherView> {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child:
-            weatherData != null ? Weather(weather: weatherData) : Container(),
+            weatherData !=null ? Weather(weather: weatherData) : Container(),
       ),
       Column(
         children: <Widget>[
@@ -58,7 +60,7 @@ class _WeatherState extends State<WeatherView> {
             ),*/
         ],
       ),
-      SafeArea(
+     SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -77,12 +79,12 @@ class _WeatherState extends State<WeatherView> {
   }
 
   loadWeather() async {
-    setState(() {
+    setState((){
       isLoading = true;
     });
 
     final weatherResponse = await http.get(
-        'https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric&lang=eng');
+        "https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}");
     final forecastResponse = await http.get(
         'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric&lang=eng');
 
