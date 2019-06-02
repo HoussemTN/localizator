@@ -162,7 +162,7 @@ class Weather extends StatelessWidget {
                             width: 35,
                             height: 35,
                           ),
-                          Text('${'Temp : ' + weather.temp.toString()}°C',
+                          Text('${'Temp : ' + weather.temp.toStringAsFixed(2)}°C',
                               style: new TextStyle(
                                   color: Colors.black, fontSize: 12.0)),
                         ],
