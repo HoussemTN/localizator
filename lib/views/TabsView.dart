@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'MyLocationView.dart';
-import 'HomeView.dart';
 import 'SearchView.dart';
 import 'DrawerView.dart';
 import 'WeatherView.dart';
@@ -33,10 +32,10 @@ class _TabsState extends State<TabsView> {
             ),
             drawer: DrawerView(),
             body: TabBarView(
-                //disable tabs scroll
+              //disable tabs scroll
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
-                 // HomeView(),
+                  // HomeView(),
                   MyLocationView(),
                   WeatherView(),
                   SearchView(),

@@ -21,8 +21,6 @@ class _WeatherState extends State<WeatherView> {
   final double lat = globals.lat;
   final double long = globals.long;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -31,55 +29,66 @@ class _WeatherState extends State<WeatherView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:
-            weatherData !=null ? Weather(weather: weatherData) : Container(),
-      ),
-      Column(
-        children: <Widget>[
-          isLoading
-              ? Column(
-                  children: <Widget>[
-                    Text("Searching.."),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(
-                        strokeWidth: 4.0,
-                        valueColor: new AlwaysStoppedAnimation(Colors.teal),
-                      ),
-                    ),
-                  ],
-                )
-              : Container() /*IconButton(
-              icon: new Icon(Icons.refresh),
-              tooltip: 'Refresh',
-              onPressed: loadWeather,
-              color: Colors.red,
-            ),*/
-        ],
-      ),
-     SafeArea(
-        child: Padding(
+    return Scaffold(
+      body: ListView(children: <Widget>[
+        Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 180.0,
-            child: forecastData != null
-                ? ListView.builder(
-                    itemCount: forecastData.list.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => WeatherItem(
-                        weather: forecastData.list.elementAt(index)))
-                : Container(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: weatherData != null
+                    ? Weather(weather: weatherData)
+                    : Container(),
+              ),
+            ],
           ),
         ),
-      )
-    ]);
+       Column(
+         children: <Widget>[
+           Container(
+             width:MediaQuery.of(context).size.width/1.05 ,
+             height: MediaQuery.of(context).size.height/1.7,
+             child: forecastData != null
+                 ? ListView.builder(
+                     itemCount: forecastData.list.length,
+                     scrollDirection: Axis.vertical,
+                     itemBuilder: (context, index) => WeatherItem(
+                         weather: forecastData.list.elementAt(index)))
+                 : Container(),
+
+             ),
+         ],
+       ),
+        Column(
+          children: <Widget>[
+            isLoading
+                ? Column(
+                    children: <Widget>[
+                      Text("Searching.."),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 4.0,
+                          valueColor: new AlwaysStoppedAnimation(Colors.teal),
+                        ),
+                      ),
+                    ],
+                  )
+                : Container() /*IconButton(
+                icon: new Icon(Icons.refresh),
+                tooltip: 'Refresh',
+                onPressed: loadWeather,
+                color: Colors.red,
+              ),*/
+          ],
+        )
+      ]),
+    );
   }
 
   loadWeather() async {
-    setState((){
+    setState(() {
       isLoading = true;
     });
 

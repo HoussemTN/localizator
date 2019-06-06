@@ -13,77 +13,81 @@ class Weather extends StatelessWidget {
     return Container(
       //Main Column
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+       // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           // Place Name Main  information centred
           Column(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  //sunrise Card
-                  Card(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width / 4,
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Image.asset(
-                          'images/sunrise.png',
-                          width: 40,
-                          height: 35,
-                        ),
-                        Text(
-                            '${new DateFormat.Hm().format(weather.sunrise)}',
-                            style: new TextStyle(
-                                color: Colors.black, fontSize: 12.0)),
-                      ],
-                    ),
-                  )), // end sunrise Card
-
-                  Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.7,
+              Padding(
+                padding: const EdgeInsets.only(top:8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //sunrise Card
+                    Card(
+                        child: Container(
+                      width: MediaQuery.of(context).size.width / 4,
                       height: 40,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           new Image.asset(
-                            'images/date.png',
+                            'images/sunrise.png',
                             width: 40,
-                            height: 30,
+                            height: 35,
                           ),
-                          Text(new DateFormat.yMMMd().format(weather.date),
+                          Text(
+                              '${new DateFormat.Hm().format(weather.sunrise)}',
                               style: new TextStyle(
-                                  color: Colors.black, fontSize: 12.0)),
-
+                                  color: Colors.black, fontSize: 16.0)),
                         ],
                       ),
-                    ),
-                  ), //end  Date Card
-                  //sunset Card
-                  Card(
+                    )), // end sunrise Card
+
+                    Card(
                       child: Container(
-                    width: MediaQuery.of(context).size.width / 4,
-                    height: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Image.asset(
-                          'images/sunset.png',
-                          width: 40,
-                          height: 35,
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Image.asset(
+                              'images/date.png',
+                              width: 40,
+                              height: 30,
+                            ),
+                            Text(new DateFormat.yMMMd().format(weather.date),
+                                style: new TextStyle(
+                                    color: Colors.black, fontSize: 16.0)),
+
+                          ],
                         ),
-                        Text(
-                            '${new DateFormat.Hm().format(weather.sunset)}',
-                            style: new TextStyle(
-                                color: Colors.black, fontSize: 12.0)),
-                      ],
-                    ),
-                  )),
-                ],
+                      ),
+                    ), //end  Date Card
+                    //sunset Card
+                    Card(
+                        child: Container(
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: 40,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Image.asset(
+                            'images/sunset.png',
+                            width: 40,
+                            height: 35,
+                          ),
+                          Text(
+                              '${new DateFormat.Hm().format(weather.sunset)}',
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 16.0)),
+                        ],
+                      ),
+                    )),
+                  ],
+                ),
               ),
-              //TODO Add Background here
+
               Card(
                 child: Container(
                   decoration: new BoxDecoration(
@@ -100,9 +104,14 @@ class Weather extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
+                            Icon(
+                              Icons.gps_fixed,
+                              color: Colors.white,
+                            ),
                             Text(weather.name,
                                 style: new TextStyle(
-                                    color: Colors.white, fontSize: 12.0)),
+                                    color: Colors.white, fontSize: 18.0,fontWeight: FontWeight.bold,),
+                            ),
                           ],
                         ),
                       ),
@@ -133,7 +142,7 @@ class Weather extends StatelessWidget {
                             child: Text(
                                 '${new DateFormat.Hm().format(weather.date)}',
                                 style: new TextStyle(
-                                    color: Colors.white, fontSize: 12.0)),
+                                    color: Colors.white, fontSize: 16.0,fontWeight: FontWeight.bold,)),
                           ),
                         ],
                       ),
@@ -144,102 +153,105 @@ class Weather extends StatelessWidget {
             ],
           ),
 
-          Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  //Temperature Card
-                  Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.3,
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Image.asset(
-                            'images/temp.png',
-                            width: 35,
-                            height: 35,
-                          ),
-                          Text('${'Temp : ' + weather.temp.toStringAsFixed(2)}°C',
-                              style: new TextStyle(
-                                  color: Colors.black, fontSize: 12.0)),
-                        ],
+          Padding(
+            padding: const EdgeInsets.only(top:8.0),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //Temperature Card
+                    Card(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.15,
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Image.asset(
+                              'images/temp.png',
+                              width: 35,
+                              height: 35,
+                            ),
+                            Text('${'Temp : ' + weather.temp.toStringAsFixed(2)}°C',
+                                style: new TextStyle(
+                                    color: Colors.black, fontSize: 16.0)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ), //end Temperature Card
-                  //Humidity Card
-                  Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.3,
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Image.asset(
-                            'images/humidity.png',
-                            width: 40,
-                            height: 35,
-                          ),
-                          Text(
-                              '${'Humidity : ' + weather.humidity.toString()} %',
-                              style: new TextStyle(
-                                  color: Colors.black, fontSize: 12.0)),
-                        ],
+                    ), //end Temperature Card
+                    //Humidity Card
+                    Card(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.2,
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Image.asset(
+                              'images/humidity.png',
+                              width: 40,
+                              height: 35,
+                            ),
+                            Text(
+                                '${'Humidity : ' + weather.humidity.toString()} %',
+                                style: new TextStyle(
+                                    color: Colors.black, fontSize: 16.0)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ), //end Temperature Card
-                ],
-              ), //end Row 1
-              // Row 2
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  //WindSpeed Card
-                  Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.3,
-                      height: 40,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Image.asset(
-                            'images/wind.png',
-                            width: 35,
-                            height: 30,
-                          ),
-                          Text(
-                              '${'Wind : ' + weather.windSpeed.floor().toString()} km/h',
-                              style: new TextStyle(
-                                  color: Colors.black, fontSize: 12.0)),
-                        ],
+                    ), //end Temperature Card
+                  ],
+                ), //end Row 1
+                // Row 2
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //WindSpeed Card
+                    Card(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.2,
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Image.asset(
+                              'images/wind.png',
+                              width: 35,
+                              height: 30,
+                            ),
+                            Text(
+                                '${'Wind : ' + weather.windSpeed.floor().toString()} km/h',
+                                style: new TextStyle(
+                                    color: Colors.black, fontSize: 16.0)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ), //end WindSpeed Card
-                  //pressure Card
-                  Card(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.3,
-                      height:40 ,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Image.asset(
-                            'images/pressure.png',
-                            width: 35,
-                            height: 30,
-                          ),
-                          Text('${'Pressure : ' + weather.pressure.toString()}',
-                              style: new TextStyle(
-                                  color: Colors.black, fontSize: 12.0)),
-                        ],
+                    ), //end WindSpeed Card
+                    //pressure Card
+                    Card(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 2.15,
+                        height:40 ,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Image.asset(
+                              'images/pressure.png',
+                              width: 35,
+                              height: 30,
+                            ),
+                            Text('${'Pressure : ' + weather.pressure.toString()}',
+                                style: new TextStyle(
+                                    color: Colors.black, fontSize: 16.0)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ), //end pressure Card
-                ],
-              ), //end Row 2
-            ],
+                    ), //end pressure Card
+                  ],
+                ), //end Row 2
+              ],
+            ),
           ),
         ],
       ),
