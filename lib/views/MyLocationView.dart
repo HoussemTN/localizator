@@ -24,12 +24,12 @@ class MyLocationViewState extends State<MyLocationView> {
     super.initState();
     location.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
     location.onLocationChanged().listen((LocationData result) {
-
       // print("Lat/LNG");
       setState(() {
         try {
           lat = result.latitude;
           long = result.longitude;
+          //MoveCamera to the updated Position
           mapController.move(LatLng(lat,long),5.0);
 
         } catch (Exception, e) {
