@@ -23,7 +23,7 @@ class DrawerViewState extends State<DrawerView> {
         .getKeys()
         .where((String key) =>
     key != "lib_cached_image_data" &&
-        key != "lib_cached_image_data_last_clean" )
+      key != "lib_cached_image_data_last_clean" )
         .map<Widget>((key) => ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.white,

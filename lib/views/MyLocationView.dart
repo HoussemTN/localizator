@@ -18,6 +18,7 @@ class MyLocationViewState extends State<MyLocationView> {
   String error;
   static double lat;
   static double long;
+  MapController mapController = new MapController();
 
   initState() {
     super.initState();
@@ -29,6 +30,8 @@ class MyLocationViewState extends State<MyLocationView> {
         try {
           lat = result.latitude;
           long = result.longitude;
+          mapController.move(LatLng(lat,long),5.0);
+
         } catch (Exception, e) {
           lat = 0.0;
           long = 0.0;
@@ -64,10 +67,11 @@ class MyLocationViewState extends State<MyLocationView> {
         children: <Widget>[
           Expanded(
             child: new FlutterMap(
+              mapController: mapController,
               options: new MapOptions(
                 center: new LatLng(lat, long),
                 minZoom: 2.0,
-                zoom: 15,
+                zoom: 5,
               ),
               layers: [
                 new TileLayerOptions(
@@ -75,7 +79,7 @@ class MyLocationViewState extends State<MyLocationView> {
                       "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                   additionalOptions: {
                     'accessToken':
-                        'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                    'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
                     'id': 'mapbox.streets',
                   },
                 ),
