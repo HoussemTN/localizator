@@ -31,28 +31,25 @@ class _WeatherState extends State<WeatherView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                child: weatherData != null
-                    ? Weather(weather: weatherData)
-                    : Container(),
-              ),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: weatherData != null
+                  ? Weather(weather: weatherData)
+                  : Container(),
+            ),
+          ],
         ),
        Column(
          children: <Widget>[
            Container(
-             width:MediaQuery.of(context).size.width/1.05 ,
-             height: MediaQuery.of(context).size.height/1.7,
+             width:MediaQuery.of(context).size.width/0.8 ,
+             height: MediaQuery.of(context).size.height/3,
              child: forecastData != null
                  ? ListView.builder(
                      itemCount: forecastData.list.length,
-                     scrollDirection: Axis.vertical,
+                     scrollDirection: Axis.horizontal,
                      itemBuilder: (context, index) => WeatherItem(
                          weather: forecastData.list.elementAt(index)))
                  : Container(),
@@ -109,6 +106,7 @@ class _WeatherState extends State<WeatherView> {
     }
 
     setState(() {
+     // print(isLoading.toString());
       isLoading = false;
     });
   }

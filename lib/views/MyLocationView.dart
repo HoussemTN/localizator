@@ -131,7 +131,6 @@ class MyLocationViewState extends State<MyLocationView>
           )
         ],
       ),
-
       ///floatingActionButtons
       floatingActionButton: new Column(
         mainAxisSize: MainAxisSize.min,

@@ -6,6 +6,7 @@ import '../fix/bottom_sheet_fix.dart';
 import 'SearchFavoriteView.dart';
 import 'FavoriteLocationDropDownView.dart';
 
+
 class SearchView extends StatefulWidget {
   @override
   _SearchViewState createState() => _SearchViewState();
@@ -16,7 +17,7 @@ class _SearchViewState extends State<SearchView> {
   final myController = TextEditingController( );
   final favoritePlaceController = TextEditingController( );
 
-  //changes after declaring the desired location
+  ///changes after declaring the desired location
   Widget _searchView;
   double lat = 0.00;
   double long = 0.00;
@@ -26,23 +27,15 @@ class _SearchViewState extends State<SearchView> {
 
   _favoritePlaces() async {
     SharedPreferences prefs = await SharedPreferences.getInstance( );
-    // get the favorite position then added to prefs
+    /// get the favorite position then added to prefs
     placeName = favoritePlaceController.text;
-    //convert position to string and concat it
-    placePosition = lat.toString( ) +
-        ',' +
-        long.toString( ) +
-        ',' +
+    ///convert position to string and concat it
+    placePosition = lat.toString( ) + ',' + long.toString( ) + ',' +
         FavoriteLocationDropDown.currentImage.toString( );
     print( 'Place Name $placeName => $placePosition Captured.' );
-    /*   //test
-    var a = FavoriteLocationDropDown.currentImage.toString( );*/
+    await prefs.setString( '$placeName','$placePosition', );
 
-    await prefs.setString(
-      '$placeName',
-      '$placePosition',
-    );
-    // clear Text Field after adding position to favorite places
+    /// clear Text Field after adding position to favorite places
     favoritePlaceController.clear( );
   }
 

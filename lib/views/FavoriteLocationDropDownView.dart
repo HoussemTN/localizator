@@ -54,10 +54,7 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
     return new Container(
       padding: new EdgeInsets.all(12.0),
       // Ensure the desired width on different devices
-      width: MediaQuery
-          .of( context )
-          .size
-          .width / 2.5,
+      width: MediaQuery.of( context ).size.width / 2.5,
       //dropDown Background Color
       decoration: BoxDecoration(
         color: Colors.transparent,

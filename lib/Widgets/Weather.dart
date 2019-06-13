@@ -33,8 +33,8 @@ class Weather extends StatelessWidget {
                         children: <Widget>[
                           new Image.asset(
                             'images/sunrise.png',
-                            width: 40,
-                            height: 35,
+                            width: MediaQuery.of(context).size.width/12,
+                            height:MediaQuery.of(context).size.height,
                           ),
                           Text(
                               '${new DateFormat.Hm().format(weather.sunrise)}',
@@ -53,8 +53,8 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/date.png',
-                              width: 40,
-                              height: 30,
+                              width: MediaQuery.of(context).size.width/12,
+                              height:MediaQuery.of(context).size.height,
                             ),
                             Text(new DateFormat.yMMMd().format(weather.date),
                                 style: new TextStyle(
@@ -74,8 +74,8 @@ class Weather extends StatelessWidget {
                         children: <Widget>[
                           new Image.asset(
                             'images/sunset.png',
-                            width: 40,
-                            height: 35,
+                            width: MediaQuery.of(context).size.width/12,
+                            height:MediaQuery.of(context).size.height,
                           ),
                           Text(
                               '${new DateFormat.Hm().format(weather.sunset)}',
@@ -163,15 +163,15 @@ class Weather extends StatelessWidget {
                     //Temperature Card
                     Card(
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 2.15,
+                        width: MediaQuery.of(context).size.width / 2.2,
                         height: 40,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             new Image.asset(
                               'images/temp.png',
-                              width: 35,
-                              height: 35,
+                              width: MediaQuery.of(context).size.width/12,
+                              height:MediaQuery.of(context).size.height,
                             ),
                             Text('${'Temp : ' + weather.temp.toStringAsFixed(2)}°C',
                                 style: new TextStyle(
@@ -190,8 +190,8 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/humidity.png',
-                              width: 40,
-                              height: 35,
+                              width: MediaQuery.of(context).size.width/12,
+                              height:MediaQuery.of(context).size.height,
                             ),
                             Text(
                                 '${'Humidity : ' + weather.humidity.toString()} %',
@@ -217,8 +217,8 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/wind.png',
-                              width: 35,
-                              height: 30,
+                              width: MediaQuery.of(context).size.width/12,
+                              height:MediaQuery.of(context).size.height,
                             ),
                             Text(
                                 '${'Wind : ' + weather.windSpeed.floor().toString()} km/h',
@@ -231,15 +231,15 @@ class Weather extends StatelessWidget {
                     //pressure Card
                     Card(
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 2.15,
+                        width: MediaQuery.of(context).size.width / 2.2,
                         height:40 ,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             new Image.asset(
                               'images/pressure.png',
-                              width: 35,
-                              height: 30,
+                              width: MediaQuery.of(context).size.width/12,
+                              height:MediaQuery.of(context).size.height,
                             ),
                             Text('${'Pressure : ' + weather.pressure.toString()}',
                                 style: new TextStyle(
