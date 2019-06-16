@@ -18,8 +18,8 @@ class _WeatherState extends State<WeatherView> {
   bool isLoading = false;
   WeatherData weatherData;
   ForecastData forecastData;
-  final double lat = globals.lat;
-  final double long = globals.long;
+  double lat = globals.lat;
+  double long = globals.long;
 
   @override
   void initState() {

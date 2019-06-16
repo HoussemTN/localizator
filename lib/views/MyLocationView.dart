@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
+import '../libraries/globals.dart' as globals;
 
 import "dart:math" as math;
 
@@ -44,6 +45,8 @@ class MyLocationViewState extends State<MyLocationView>
         try {
           lat = result.latitude;
           long = result.longitude;
+          globals.lat=lat;
+          globals.long=long;
           //MoveCamera to the updated Position
           if (isMoving == true) {
             mapController.move(LatLng(lat, long), 10.0);
@@ -76,14 +79,14 @@ class MyLocationViewState extends State<MyLocationView>
   Widget build(BuildContext context) {
     Color backgroundColor = Theme.of(context).cardColor;
     Color foregroundColor = Theme.of(context).accentColor;
+
     /// Show Snack Bar Messages
     _showSnackBar(String message) {
-      final snackBar = SnackBar(
-        content: Text('$message'),
-          duration: Duration(seconds:1 )
-      );
+      final snackBar =
+          SnackBar(content: Text('$message'), duration: Duration(seconds: 1));
       mykey.currentState.showSnackBar(snackBar);
     }
+
     return Scaffold(
       key: mykey,
       body: Column(
@@ -118,7 +121,7 @@ class MyLocationViewState extends State<MyLocationView>
                                 Icons.adjust,
                                 color: Colors.blue,
                               ),
-                              onPressed: () {}),
+                              onPressed:null),
                           decoration: new BoxDecoration(
                             borderRadius: new BorderRadius.circular(100.0),
                             color: Colors.blue[100].withOpacity(0.7),
@@ -131,6 +134,7 @@ class MyLocationViewState extends State<MyLocationView>
           )
         ],
       ),
+
       ///floatingActionButtons
       floatingActionButton: new Column(
         mainAxisSize: MainAxisSize.min,
@@ -160,10 +164,12 @@ class MyLocationViewState extends State<MyLocationView>
                       isMoving = false;
                       _showSnackBar("Camera Lock Disabled!");
                     }
-                  ///OnPress CopyPosition button
-                  }else if (index == 1) {
+
+                    ///OnPress CopyPosition button
+                  } else if (index == 1) {
                     ///Copy Current Position
                     Clipboard.setData(new ClipboardData(text: "$lat,$long"));
+
                     _showSnackBar("Location Copied!");
                   }
                 },
