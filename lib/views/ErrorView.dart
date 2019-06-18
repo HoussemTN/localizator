@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:awesome_loader/awesome_loader.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'MyLocationView.dart';
 
 List _tips = [
   ('      Searching...'),
@@ -25,22 +26,22 @@ Widget getErrorWidget(FlutterErrorDetails error) {
             viewportFraction: 1.0,
             enlargeCenterPage: true,
             autoPlay: true,
-            autoPlayInterval: Duration( seconds: 3 ),
-            autoPlayAnimationDuration: Duration( milliseconds: 800 ),
-            items: _tips.map( (i) {
+            autoPlayInterval: Duration(seconds: 3),
+            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            items: _tips.map((i) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
                       width: 140.0,
                       child: Text(
                         ' $i ',
-                        style: TextStyle( fontSize: 16.0 ),
-                      ) );
+                        style: TextStyle(fontSize: 16.0),
+                      ));
                 },
               );
-            } ).toList( ),
+            }).toList(),
           ),
-        ),
+        )
       ],
     ),
   );

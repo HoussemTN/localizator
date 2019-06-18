@@ -45,7 +45,7 @@ class _WeatherState extends State<WeatherView> {
          children: <Widget>[
            Container(
              width:MediaQuery.of(context).size.width/0.8 ,
-             height: MediaQuery.of(context).size.height/3,
+             height: 200,
              child: forecastData != null
                  ? ListView.builder(
                      itemCount: forecastData.list.length,

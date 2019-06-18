@@ -33,7 +33,7 @@ class MyLocationViewState extends State<MyLocationView>
   static double long;
   MapController mapController = new MapController();
 
-  /// Is camera Position is moving default FALSE
+  /// Is camera Position Lock is enabled default FALSE
   bool isMoving = false;
 
   initState() {
@@ -83,7 +83,7 @@ class MyLocationViewState extends State<MyLocationView>
     /// Show Snack Bar Messages
     _showSnackBar(String message) {
       final snackBar =
-          SnackBar(content: Text('$message'), duration: Duration(seconds: 1));
+      SnackBar(content: Text('$message'), duration: Duration(seconds: 1));
       mykey.currentState.showSnackBar(snackBar);
     }
 
@@ -105,7 +105,7 @@ class MyLocationViewState extends State<MyLocationView>
                       "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                   additionalOptions: {
                     'accessToken':
-                        'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                    'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
                     'id': 'mapbox.streets',
                   },
                 ),

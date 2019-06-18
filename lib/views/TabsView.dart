@@ -3,6 +3,7 @@ import 'MyLocationView.dart';
 import 'SearchView.dart';
 import 'DrawerView.dart';
 import 'WeatherView.dart';
+import 'ErrorView.dart';
 
 class TabsView extends StatefulWidget {
   @override
@@ -12,7 +13,9 @@ class TabsView extends StatefulWidget {
 class _TabsState extends State<TabsView> {
   @override
   Widget build(BuildContext context) {
+    ErrorWidget.builder = getErrorWidget;
     return new MaterialApp(
+
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),

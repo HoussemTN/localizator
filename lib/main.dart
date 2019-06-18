@@ -5,29 +5,24 @@ import './views/TabsView.dart';
 main() {
 
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
-     runApp( MyApp( ) );
+  runApp( MyApp( ) );
 
-   //});
+  //});
 
 }
 
 
 
-class MyApp extends StatefulWidget {
-
-  @override
-  State<StatefulWidget> createState() {
-    return MyAppState();
-  }
-}
-
-class MyAppState extends State<MyApp> {
-  //will get currentLocation
-
+class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
-    return TabsView( );
+  return  MaterialApp(
+  home:TabsView(),
+  );
+
   }
 }
+
+
