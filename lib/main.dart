@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './views/ErrorView.dart';
-import './views/TabsView.dart';
+
+import './views/splashView.dart';
 
 main() {
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
   return  MaterialApp(
-  home:TabsView(),
+  home:splashView(),
   );
 
   }
