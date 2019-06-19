@@ -84,7 +84,7 @@ class _WeatherState extends State<WeatherView> {
     );
   }
 
-  loadWeather() async {
+  loadWeather() async{
     setState(() {
       isLoading = true;
     });
@@ -105,9 +105,10 @@ class _WeatherState extends State<WeatherView> {
       });
     }
 
-    setState(() {
+    setState((){
      // print(isLoading.toString());
       isLoading = false;
     });
   }
+
 }

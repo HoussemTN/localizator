@@ -6,7 +6,6 @@ import '../fix/bottom_sheet_fix.dart';
 import 'SearchFavoriteView.dart';
 import 'FavoriteLocationDropDownView.dart';
 
-
 class SearchView extends StatefulWidget {
   @override
   _SearchViewState createState() => _SearchViewState();
@@ -14,8 +13,8 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State<SearchView> {
   //to retrieve position from TextField
-  final myController = TextEditingController( );
-  final favoritePlaceController = TextEditingController( );
+  final myController = TextEditingController();
+  final favoritePlaceController = TextEditingController();
 
   ///changes after declaring the desired location
   Widget _searchView;
@@ -26,38 +25,43 @@ class _SearchViewState extends State<SearchView> {
   String placePosition = "";
 
   _favoritePlaces() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance( );
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     /// get the favorite position then added to prefs
     placeName = favoritePlaceController.text;
+
     ///convert position to string and concat it
-    placePosition = lat.toString( ) + ',' + long.toString( ) + ',' +
-        FavoriteLocationDropDown.currentImage.toString( );
-    print( 'Place Name $placeName => $placePosition Captured.' );
-    await prefs.setString( '$placeName','$placePosition', );
+    placePosition = lat.toString() +
+        ',' +
+        long.toString() +
+        ',' +
+        FavoriteLocationDropDown.currentImage.toString();
+    print('Place Name $placeName => $placePosition Captured.');
+    await prefs.setString(
+      '$placeName',
+      '$placePosition',
+    );
 
     /// clear Text Field after adding position to favorite places
-    favoritePlaceController.clear( );
+    favoritePlaceController.clear();
   }
 
   //declaring Bottom sheet widget
   Widget buildSheetLogin(BuildContext context) {
     return new Container(
-      child: Wrap( children: <Widget>[
+      child: Wrap(children: <Widget>[
         Container(
-          padding: new EdgeInsets.only( left: 10.0, top: 10.0 ),
-          width: MediaQuery
-              .of( context )
-              .size
-              .width / 1.7,
+          padding: new EdgeInsets.only(left: 10.0, top: 10.0),
+          width: MediaQuery.of(context).size.width / 1.7,
           child: TextFormField(
             controller: favoritePlaceController,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                  borderSide: BorderSide( color: Colors.black ) ),
+                  borderSide: BorderSide(color: Colors.black)),
               // focused border color (erasing theme default color [teal])
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all( Radius.circular( 5.0 ) ),
-                  borderSide: BorderSide( color: Colors.black ) ),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(color: Colors.black)),
               labelText: "Place name",
               hintText: "Enter Place Name",
               prefixIcon: Icon(
@@ -67,25 +71,25 @@ class _SearchViewState extends State<SearchView> {
             ),
           ),
         ),
-        Container( child: FavoriteLocationDropDown( ) ),
+        Container(child: FavoriteLocationDropDown()),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only( right: 8.0 ),
+              padding: const EdgeInsets.only(right: 8.0),
               child: RaisedButton(
                 color: Colors.teal,
                 textColor: Colors.white,
-                child: Text( "Save" ),
+                child: Text("Save"),
                 onPressed: () {
-                  _favoritePlaces( );
-                  Navigator.pop( context );
+                  _favoritePlaces();
+                  Navigator.pop(context);
                 },
               ),
             ),
           ],
         ),
-      ] ),
+      ]),
     );
   }
 
@@ -101,12 +105,12 @@ class _SearchViewState extends State<SearchView> {
       _searchView = Container(
         decoration: new BoxDecoration(
           image: new DecorationImage(
-            image: new AssetImage( "images/searchLocation.png" ),
+            image: new AssetImage("images/searchLocation.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all( 8.0 ),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -123,42 +127,41 @@ class _SearchViewState extends State<SearchView> {
 
                     //border color
                     border: OutlineInputBorder(
-                        borderSide: BorderSide( color: Colors.black ) ),
+                        borderSide: BorderSide(color: Colors.black)),
                     // focused border color (erasing theme default color [teal])
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular( 5.0 ) ),
-                        borderSide: BorderSide( color: Colors.black ) ),
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: Colors.black)),
                     errorText: _empty ? 'Invalid Position' : null,
                     hintText: 'Enter Latitude,Longitude',
-                    hintStyle: TextStyle( fontSize: 20.0, color: Colors.grey ),
+                    hintStyle: TextStyle(fontSize: 20.0, color: Colors.grey),
                   ),
-                  style: TextStyle( fontSize: 20.00, color: Colors.black ),
+                  style: TextStyle(fontSize: 20.00, color: Colors.black),
                 ),
                 Padding(
-                    padding: const EdgeInsets.all( 8.0 ),
+                    padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
-                      child: Text( "Search" ),
+                      child: Text("Search"),
                       color: Colors.teal,
                       textColor: Colors.white,
                       onPressed: () {
                         myController.text.isEmpty
                             ? _empty = true
                             : _empty = false;
-                        setState( () {
+                        setState(() {
                           //TexField not empty
                           if (_empty == false) {
                             //Split entry position and parse it
                             List<String> _position =
-                            myController.text.split( "," );
-                            this.lat = double.tryParse( _position[0] );
-                            this.long = double.tryParse( _position[1] );
+                                myController.text.split(",");
+                            this.lat = double.tryParse(_position[0]);
+                            this.long = double.tryParse(_position[1]);
                             // print("LAT/LONG" + '$lat' + "/" + '$long');
                           }
-                        } );
+                        });
                       },
-                    ) ),
-              ] ),
+                    )),
+              ]),
         ),
       );
     } else {
@@ -174,7 +177,7 @@ class _SearchViewState extends State<SearchView> {
             Expanded(
               child: new FlutterMap(
                 options: new MapOptions(
-                  center: new LatLng( lat, long ),
+                  center: new LatLng(lat, long),
                   minZoom: 2.0,
                   zoom: 14,
                 ),
@@ -184,7 +187,7 @@ class _SearchViewState extends State<SearchView> {
                         "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                     additionalOptions: {
                       'accessToken':
-                      'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                          'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
                       'id': 'mapbox.streets',
                     },
                   ),
@@ -193,19 +196,18 @@ class _SearchViewState extends State<SearchView> {
                       new Marker(
                         width: 50.0,
                         height: 50.0,
-                        point: new LatLng( lat, long ),
-                        builder: (ctx) =>
-                        new Container(
+                        point: new LatLng(lat, long),
+                        builder: (ctx) => new Container(
                             child: IconButton(
                                 icon: Icon(
                                   Icons.adjust,
                                   color: Colors.blue,
                                 ),
-                                onPressed: () {} ),
+                                onPressed: () {}),
                             decoration: new BoxDecoration(
-                              borderRadius: new BorderRadius.circular( 100.0 ),
-                              color: Colors.blue[100].withOpacity( 0.7 ),
-                            ) ),
+                              borderRadius: new BorderRadius.circular(100.0),
+                              color: Colors.blue[100].withOpacity(0.7),
+                            )),
                       ),
                     ],
                   ),
@@ -221,12 +223,12 @@ class _SearchViewState extends State<SearchView> {
             showModalBottomSheetApp(
                 context: context,
                 builder: (builder) {
-                  return buildSheetLogin( context );
-                } );
+                  return buildSheetLogin(context);
+                });
           },
           tooltip: 'Favorite',
-          icon: Icon( Icons.favorite ),
-          label: Text( "Favorite" ),
+          icon: Icon(Icons.favorite),
+          label: Text("Favorite"),
         ),
       );
     }
@@ -235,6 +237,6 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   Widget build(BuildContext context) {
-    return _searchedLocation( this.lat, this.long );
+    return _searchedLocation(this.lat, this.long);
   }
 }

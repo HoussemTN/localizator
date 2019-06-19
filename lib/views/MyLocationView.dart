@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:localizer/Widgets/NoLocation.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 import '../libraries/globals.dart' as globals;
+
 
 import "dart:math" as math;
 
@@ -19,6 +21,7 @@ class MyLocationViewState extends State<MyLocationView>
   /// Controllor for FloatActionButtons
   AnimationController _controller;
 
+
   /// Icons List For FloatActionButtons
   static const List<IconData> icons = const [
     Icons.track_changes,
@@ -27,39 +30,51 @@ class MyLocationViewState extends State<MyLocationView>
 
   ///will get currentLocation
   var currentLocation = LocationData;
-  Location location = new Location();
+  var location = new Location();
+
   String error;
-  static double lat;
-  static double long;
+  double lat;
+  double long;
   MapController mapController = new MapController();
+  bool isLocalized = false;
 
   /// Is camera Position Lock is enabled default FALSE
   bool isMoving = false;
+  _Localize() {
+    // ignore: unrelated_type_equality_checks
+    if (location.serviceEnabled() != false) {
+      location.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
+      location.onLocationChanged().listen((LocationData result) {
+        // print("Lat/LNG");
+        setState(() {
+          try {
+            this.lat = result.latitude;
+            this.long = result.longitude;
+            globals.lat = lat;
+            globals.long = long;
+            isLocalized = true;
+
+            ///MoveCamera to the updated Position
+            if (isMoving == true) {
+              mapController.move(LatLng(lat, long), 10.0);
+            }
+          } on PlatformException catch (e) {
+            lat = 0.0;
+            long = 0.0;
+            isLocalized = false;
+            print(e);
+          }
+          //print(lat.toString());
+          // print(long.toString());
+        });
+      });
+    }
+  }
 
   initState() {
     super.initState();
-    location.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
-    location.onLocationChanged().listen((LocationData result) {
-      // print("Lat/LNG");
-      setState(() {
-        try {
-          lat = result.latitude;
-          long = result.longitude;
-          globals.lat=lat;
-          globals.long=long;
-          //MoveCamera to the updated Position
-          if (isMoving == true) {
-            mapController.move(LatLng(lat, long), 10.0);
-          }
-        } catch (Exception, e) {
-          lat = 0.0;
-          long = 0.0;
-          print(e.toString());
-        }
-        //print(lat.toString());
-        // print(long.toString());
-      });
-    });
+      _Localize();
+
     _controller = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -72,66 +87,72 @@ class MyLocationViewState extends State<MyLocationView>
   /// to retrieve the appbar title
   Widget appBarTitle = Text("Find Location");
 
-  //to show a snackBar after copy
+  ///to show a snackBar after copy
   final GlobalKey<ScaffoldState> mykey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    ///Float Action Button Background Color
     Color backgroundColor = Theme.of(context).cardColor;
     Color foregroundColor = Theme.of(context).accentColor;
 
     /// Show Snack Bar Messages
     _showSnackBar(String message) {
       final snackBar =
-      SnackBar(content: Text('$message'), duration: Duration(seconds: 1));
+          SnackBar(content: Text('$message'), duration: Duration(seconds: 1));
       mykey.currentState.showSnackBar(snackBar);
     }
 
+    /// returned build
     return Scaffold(
       key: mykey,
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: new FlutterMap(
-              mapController: mapController,
-              options: new MapOptions(
-                center: new LatLng(lat, long),
-                minZoom: 2.0,
-                zoom: 10,
-              ),
-              layers: [
-                new TileLayerOptions(
-                  urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                      "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                  additionalOptions: {
-                    'accessToken':
-                    'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
-                    'id': 'mapbox.streets',
-                  },
-                ),
-                new MarkerLayerOptions(
-                  markers: [
-                    new Marker(
-                      width: 50.0,
-                      height: 50.0,
-                      point: new LatLng(lat, long),
-                      builder: (ctx) => new Container(
-                          child: IconButton(
-                              icon: Icon(
-                                Icons.adjust,
-                                color: Colors.blue,
-                              ),
-                              onPressed:null),
-                          decoration: new BoxDecoration(
-                            borderRadius: new BorderRadius.circular(100.0),
-                            color: Colors.blue[100].withOpacity(0.7),
-                          )),
+          isLocalized
+              ? Expanded(
+                  child: new FlutterMap(
+                    mapController: mapController,
+                    options: new MapOptions(
+                      center: new LatLng(lat, long),
+                      minZoom: 2.0,
+                      //TODO change this dynamic
+                      zoom: 10,
                     ),
-                  ],
-                ),
-              ],
-            ),
-          )
+                    layers: [
+                      new TileLayerOptions(
+                        urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                            "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                        additionalOptions: {
+                          'accessToken':
+                              'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                          'id': 'mapbox.streets',
+                        },
+                      ),
+                      new MarkerLayerOptions(
+                        markers: [
+                          new Marker(
+                            width: 50.0,
+                            height: 50.0,
+                            point: new LatLng(lat, long),
+                            builder: (ctx) => new Container(
+                                child: IconButton(
+                                    icon: Icon(
+                                      Icons.adjust,
+                                      color: Colors.blue,
+                                    ),
+                                    onPressed: null),
+                                decoration: new BoxDecoration(
+                                  borderRadius:
+                                      new BorderRadius.circular(100.0),
+                                  color: Colors.blue[100].withOpacity(0.7),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              : NoLocation(),
         ],
       ),
 

@@ -12,9 +12,16 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
-        () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TabsView())));
+        Duration(seconds: 1),
+        () => Navigator.pushReplacementNamed(context,"TabsView" ));
+
+  }
+
+  @override
+  void dispose() {
+
+
+    super.dispose();
   }
 
   @override
