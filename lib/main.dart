@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
   return  MaterialApp(
-  home:splashView(),
+  home:SplashView(),
   );
 
   }

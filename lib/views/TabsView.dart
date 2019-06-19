@@ -15,7 +15,6 @@ class _TabsState extends State<TabsView> {
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
     return new MaterialApp(
-
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
@@ -28,14 +27,23 @@ class _TabsState extends State<TabsView> {
               title: Text('Localizer'),
               bottom: TabBar(tabs: <Widget>[
                 //Tab(icon: Icon(Icons.home), text: 'Home'),
-                Tab(icon: Icon(Icons.my_location), text: 'Location'),
-                Tab(icon: Icon(Icons.cloud), text: 'Weather'),
-                Tab(icon: Icon(Icons.search), text: 'Search'),
+                new Container(
+                  height: 70,
+                  child: Tab(icon: Icon(Icons.my_location), text: 'Location'),
+                ),
+                new Container(
+                  height: 70,
+                  child: Tab(icon: Icon(Icons.cloud), text: 'Weather'),
+                ),
+                new Container(
+                  height: 70,
+                  child: Tab(icon: Icon(Icons.search), text: 'Search'),
+                ),
               ]),
             ),
             drawer: DrawerView(),
             body: TabBarView(
-              //disable tabs scroll
+                //disable tabs scroll
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
                   // HomeView(),
