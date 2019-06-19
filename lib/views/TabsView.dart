@@ -15,9 +15,6 @@ class _TabsState extends State<TabsView> {
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
     return new MaterialApp(
-      routes: {
-        'TabsView':(context)=>TabsView(),
-      },
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
