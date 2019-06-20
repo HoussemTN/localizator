@@ -28,10 +28,10 @@ class MyLocationViewState extends State<MyLocationView>
       LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
   double lat;
   double long;
-  double _OutZoom = 2.0;
-  double _InZoom = 15.0;
+  double _outZoom = 2.0;
+  double _inZoom = 15.0;
   MapController mapController = new MapController();
-  List<Placemark> placemark;
+
   /// Is camera Position Lock is enabled default false
   bool isMoving = false;
 
@@ -40,10 +40,10 @@ class MyLocationViewState extends State<MyLocationView>
   initState() {
     super.initState();
     setState(() {
-      if(long==null || lat ==null){
-      _checkGPS();}else {
-        _Localize( );
-
+      if (long == null || lat == null) {
+        _checkGPS();
+      } else {
+        localize();
       }
     });
     _controller = new AnimationController(
@@ -51,18 +51,14 @@ class MyLocationViewState extends State<MyLocationView>
       duration: const Duration(milliseconds: 500),
     );
   }
+
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _controller.dispose();
-
   }
 
-
-
-
-  StreamSubscription<Position> _Localize() {
-
+  StreamSubscription<Position> localize() {
     return geolocator
         .getPositionStream(locationOptions)
         .listen((Position position) {
@@ -72,7 +68,7 @@ class MyLocationViewState extends State<MyLocationView>
         globals.long = long;
         globals.lat = lat;
         if (isMoving = true) {
-          mapController.move(LatLng(lat, long), _InZoom);
+          mapController.move(LatLng(lat, long), _inZoom);
           icons[0] = Icons.gps_fixed;
         }
       });
@@ -86,7 +82,6 @@ class MyLocationViewState extends State<MyLocationView>
   }
 
   _checkGPS() async {
-
     var status = await geolocator.checkGeolocationPermissionStatus();
     if (status == GeolocationStatus.denied) {
     }
@@ -105,12 +100,10 @@ class MyLocationViewState extends State<MyLocationView>
     /// GPS Service Granted
     else if (status == GeolocationStatus.granted) {
       /// Localize Position
-      _Localize();
+      localize();
       isMoving = true;
-      mapController.move(LatLng(lat, long), _InZoom);
+      mapController.move(LatLng(lat, long), _inZoom);
       icons[0] = Icons.gps_fixed;
-
-
     }
   }
 
@@ -128,9 +121,7 @@ class MyLocationViewState extends State<MyLocationView>
             mapController: mapController,
             options: new MapOptions(
               center: new LatLng(lat, long),
-              //TODO change this dynamic
-
-              zoom: _InZoom,
+              zoom: _inZoom,
             ),
             layers: [
               new TileLayerOptions(
@@ -170,14 +161,12 @@ class MyLocationViewState extends State<MyLocationView>
           icons[0] = Icons.gps_not_fixed;
         });
 
-
         ///[Position Not Found/Not Found yet]
         return Expanded(
           child: new FlutterMap(
             mapController: mapController,
             options: new MapOptions(
-              //TODO change this dynamic
-              zoom: _OutZoom,
+              zoom: _outZoom,
             ),
             layers: [
               new TileLayerOptions(
@@ -244,21 +233,18 @@ class MyLocationViewState extends State<MyLocationView>
                           icons[index] = Icons.gps_fixed;
                           isMoving = true;
                         });
-                        mapController.move(LatLng(lat, long), _InZoom);
+                        mapController.move(LatLng(lat, long), _inZoom);
                         _showSnackBar("Camera Lock Enabled!");
                       } else {
                         _showSnackBar("Couldn't get your Position!");
                       }
                     } else {
+                      setState(() {
+                        icons[index] = Icons.gps_not_fixed;
+                        isMoving = false;
+                      });
 
-                        setState(() {
-                          icons[index] = Icons.gps_not_fixed;
-                          isMoving = false;
-                        });
-
-
-                        _showSnackBar("Camera Lock Disabled!");
-
+                      _showSnackBar("Camera Lock Disabled!");
                     }
 
                     ///OnPress CopyPosition button
