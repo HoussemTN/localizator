@@ -10,7 +10,6 @@ class WeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -18,11 +17,16 @@ class WeatherItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(weather.name, style: new TextStyle(color: Colors.black)),
-            Text(weather.main, style: new TextStyle(color: Colors.black, fontSize: 26.0)),
-            Text('${weather.temp.toString()}°C',  style: new TextStyle(color: Colors.black)),
-            Image.network('https://openweathermap.org/img/w/${weather.icon}.png'),
-            Text(new DateFormat.yMMMd().format(weather.date), style: new TextStyle(color: Colors.black)),
-            Text(new DateFormat.Hm().format(weather.date), style: new TextStyle(color: Colors.black)),
+            Text(weather.main,
+                style: new TextStyle(color: Colors.black, fontSize: 26.0)),
+            Text('${weather.temp.toString()}°C',
+                style: new TextStyle(color: Colors.black)),
+            Image.network(
+                'https://openweathermap.org/img/w/${weather.icon}.png'),
+            Text(new DateFormat.yMMMd().format(weather.date),
+                style: new TextStyle(color: Colors.black)),
+            Text(new DateFormat.Hm().format(weather.date),
+                style: new TextStyle(color: Colors.black)),
           ],
         ),
       ),

@@ -13,13 +13,13 @@ class Weather extends StatelessWidget {
     return Container(
       //Main Column
       child: Column(
-       // crossAxisAlignment: CrossAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           // Place Name Main  information centred
           Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top:8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -33,11 +33,10 @@ class Weather extends StatelessWidget {
                         children: <Widget>[
                           new Image.asset(
                             'images/sunrise.png',
-                            width: MediaQuery.of(context).size.width/12,
-                            height:MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width / 12,
+                            height: MediaQuery.of(context).size.height,
                           ),
-                          Text(
-                              '${new DateFormat.Hm().format(weather.sunrise)}',
+                          Text('${new DateFormat.Hm().format(weather.sunrise)}',
                               style: new TextStyle(
                                   color: Colors.black, fontSize: 16.0)),
                         ],
@@ -53,13 +52,12 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/date.png',
-                              width: MediaQuery.of(context).size.width/12,
-                              height:MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width / 12,
+                              height: MediaQuery.of(context).size.height,
                             ),
                             Text(new DateFormat.yMMMd().format(weather.date),
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
-
                           ],
                         ),
                       ),
@@ -74,11 +72,10 @@ class Weather extends StatelessWidget {
                         children: <Widget>[
                           new Image.asset(
                             'images/sunset.png',
-                            width: MediaQuery.of(context).size.width/12,
-                            height:MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width / 12,
+                            height: MediaQuery.of(context).size.height,
                           ),
-                          Text(
-                              '${new DateFormat.Hm().format(weather.sunset)}',
+                          Text('${new DateFormat.Hm().format(weather.sunset)}',
                               style: new TextStyle(
                                   color: Colors.black, fontSize: 16.0)),
                         ],
@@ -87,7 +84,6 @@ class Weather extends StatelessWidget {
                   ],
                 ),
               ),
-
               Card(
                 child: Container(
                   decoration: new BoxDecoration(
@@ -108,9 +104,13 @@ class Weather extends StatelessWidget {
                               Icons.gps_fixed,
                               color: Colors.white,
                             ),
-                            Text(weather.name,
-                                style: new TextStyle(
-                                    color: Colors.white, fontSize: 18.0,fontWeight: FontWeight.bold,),
+                            Text(
+                              weather.name,
+                              style: new TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -123,7 +123,6 @@ class Weather extends StatelessWidget {
                           Text(weather.main,
                               style: new TextStyle(
                                   color: Colors.black, fontSize: 32.0)),
-
                         ],
                       ),
                       //show Current Time
@@ -131,18 +130,22 @@ class Weather extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(bottom:8.0),
+                            padding: const EdgeInsets.only(bottom: 8.0),
                             child: Icon(
                               Icons.update,
                               color: Colors.white,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right:8.0,bottom: 8.0),
+                            padding:
+                                const EdgeInsets.only(right: 8.0, bottom: 8.0),
                             child: Text(
                                 '${new DateFormat.Hm().format(weather.date)}',
                                 style: new TextStyle(
-                                    color: Colors.white, fontSize: 16.0,fontWeight: FontWeight.bold,)),
+                                  color: Colors.white,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                )),
                           ),
                         ],
                       ),
@@ -154,7 +157,7 @@ class Weather extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top:8.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: Column(
               children: <Widget>[
                 Row(
@@ -170,10 +173,11 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/temp.png',
-                              width: MediaQuery.of(context).size.width/12,
-                              height:MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width / 12,
+                              height: MediaQuery.of(context).size.height,
                             ),
-                            Text('${'Temp : ' + weather.temp.toStringAsFixed(2)}°C',
+                            Text(
+                                '${'Temp : ' + weather.temp.toStringAsFixed(2)}°C',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],
@@ -190,8 +194,8 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/humidity.png',
-                              width: MediaQuery.of(context).size.width/12,
-                              height:MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width / 12,
+                              height: MediaQuery.of(context).size.height,
                             ),
                             Text(
                                 '${'Humidity : ' + weather.humidity.toString()} %',
@@ -217,8 +221,8 @@ class Weather extends StatelessWidget {
                           children: <Widget>[
                             new Image.asset(
                               'images/wind.png',
-                              width: MediaQuery.of(context).size.width/12,
-                              height:MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width / 12,
+                              height: MediaQuery.of(context).size.height,
                             ),
                             Text(
                                 '${'Wind : ' + weather.windSpeed.floor().toString()} km/h',
@@ -232,16 +236,17 @@ class Weather extends StatelessWidget {
                     Card(
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2.2,
-                        height:40 ,
+                        height: 40,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             new Image.asset(
                               'images/pressure.png',
-                              width: MediaQuery.of(context).size.width/12,
-                              height:MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width / 12,
+                              height: MediaQuery.of(context).size.height,
                             ),
-                            Text('${'Pressure : ' + weather.pressure.toString()}',
+                            Text(
+                                '${'Pressure : ' + weather.pressure.toString()}',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],

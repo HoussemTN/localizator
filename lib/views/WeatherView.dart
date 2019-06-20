@@ -41,37 +41,37 @@ class _WeatherState extends State<WeatherView> {
             ),
           ],
         ),
-       Column(
-         children: <Widget>[
-           Container(
-             width:MediaQuery.of(context).size.width/0.8 ,
-             height: 200,
-             child: forecastData != null
-                 ? ListView.builder(
-                     itemCount: forecastData.list.length,
-                     scrollDirection: Axis.horizontal,
-                     itemBuilder: (context, index) => WeatherItem(
-                         weather: forecastData.list.elementAt(index)))
-                 : Container(),
+        Column(
+          children: <Widget>[
+            Container(
+              width:MediaQuery.of(context).size.width/0.8 ,
+              height: 200,
+              child: forecastData != null
+                  ? ListView.builder(
+                  itemCount: forecastData.list.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => WeatherItem(
+                      weather: forecastData.list.elementAt(index)))
+                  : Container(),
 
-             ),
-         ],
-       ),
+            ),
+          ],
+        ),
         Column(
           children: <Widget>[
             isLoading
                 ? Column(
-                    children: <Widget>[
-                      Text("Searching.."),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(
-                          strokeWidth: 4.0,
-                          valueColor: new AlwaysStoppedAnimation(Colors.teal),
-                        ),
-                      ),
-                    ],
-                  )
+              children: <Widget>[
+                Text("Searching.."),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 4.0,
+                    valueColor: new AlwaysStoppedAnimation(Colors.teal),
+                  ),
+                ),
+              ],
+            )
                 : Container() /*IconButton(
                 icon: new Icon(Icons.refresh),
                 tooltip: 'Refresh',
@@ -98,15 +98,15 @@ class _WeatherState extends State<WeatherView> {
         forecastResponse.statusCode == 200) {
       return setState(() {
         weatherData =
-            new WeatherData.fromJson(jsonDecode(weatherResponse.body));
+        new WeatherData.fromJson(jsonDecode(weatherResponse.body));
         forecastData =
-            new ForecastData.fromJson(jsonDecode(forecastResponse.body));
+        new ForecastData.fromJson(jsonDecode(forecastResponse.body));
         isLoading = false;
       });
     }
 
     setState((){
-     // print(isLoading.toString());
+      // print(isLoading.toString());
       isLoading = false;
     });
   }

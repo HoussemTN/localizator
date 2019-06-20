@@ -15,11 +15,10 @@ class MyLocationView extends StatefulWidget {
   }
 }
 
-class MyLocationViewState extends State<MyLocationView>
-    with TickerProviderStateMixin {
+class MyLocationViewState extends State<MyLocationView> with TickerProviderStateMixin {
+  ///=========================================[Declare]=============================================
   /// Controllor for FloatActionButtons
   AnimationController _controller;
-
   /// Icons List For FloatActionButtons
   static const List<IconData> icons = const [
     Icons.track_changes,
@@ -31,14 +30,18 @@ class MyLocationViewState extends State<MyLocationView>
   var location = new Location();
 
   String error;
-  double lat;
-  double long;
+   double lat;
+   double long;
+   double minZoom=2.0;
+   double maxZoom=15.0;
   MapController mapController = new MapController();
+  MapController notFoundmapController = new MapController();
   bool isLocalized = false;
 
   /// Is camera Position Lock is enabled default FALSE
   bool isMoving = false;
 
+  ///=========================================[initState]=============================================
   initState() {
     super.initState();
 
@@ -56,136 +59,152 @@ class MyLocationViewState extends State<MyLocationView>
 
   ///to show a snackBar after copy
   final GlobalKey<ScaffoldState> mykey = new GlobalKey<ScaffoldState>();
-Widget _buildWidget ;
+///=========================================[BUILD]=============================================
+
   @override
   Widget build(BuildContext context) {
-    // ignore: unrelated_type_equality_checks
-    if (location.serviceEnabled( ) != false) {
-      location.changeSettings(
-          accuracy: LocationAccuracy.HIGH, interval: 1000 );
-      location.onLocationChanged( ).listen( (LocationData result) {
+
+
+    Widget _loadBuild() {
+      if (lat!=null && long!=null) {
+
+        ///=========================================[Position Found Render Marker]=============================================
+        return Expanded(
+          child: new FlutterMap(
+            mapController: mapController,
+            options: new MapOptions(
+              center: new LatLng( lat, long ),
+              //TODO change this dynamic
+              minZoom: maxZoom,
+              zoom: maxZoom+1,
+            ),
+            layers: [
+              new TileLayerOptions(
+                urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                    "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                additionalOptions: {
+                  'accessToken':
+                  'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                  'id': 'mapbox.streets',
+                },
+              ),
+              new MarkerLayerOptions(
+                markers: [
+                  new Marker(
+                    width: 50.0,
+                    height: 50.0,
+                    point: new LatLng( lat, long ),
+                    builder: (ctx) =>
+                    new Container(
+                        child: IconButton(
+                            icon: Icon(
+                              Icons.adjust,
+                              color: Colors.blue,
+                            ),
+                            onPressed: null ),
+                        decoration: new BoxDecoration(
+                          borderRadius: new BorderRadius.circular( 100.0 ),
+                          color: Colors.blue[100].withOpacity( 0.7 ),
+                        ) ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      }else{
+
+        ///=========================================[Position Not Found]=============================================
+        return Expanded(
+          child: new FlutterMap(
+            mapController: notFoundmapController,
+            options: new MapOptions(
+              //TODO change this dynamic
+              minZoom: minZoom,
+           zoom: minZoom,
+            ),
+            layers: [
+              new TileLayerOptions(
+                urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                    "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                additionalOptions: {
+                  'accessToken':
+                  'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                  'id': 'mapbox.streets',
+                },
+              ),
+            ],
+          ),
+        );
+      }
+      /*Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 4.0,
+                      valueColor: new AlwaysStoppedAnimation(Colors.teal),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );*/
+
+    }
+
+      location.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
+      location.onLocationChanged().listen((LocationData result) {
         // print("Lat/LNG");
-        setState( () {
+        setState(() {
           try {
-            this.lat = result.latitude;
-            this.long = result.longitude;
+            lat = result.latitude;
+            long = result.longitude;
             globals.lat = lat;
             globals.long = long;
-            setState( () {
-              isLocalized = true;
-            } );
-
+            isLocalized = true;
             ///MoveCamera to the updated Position
-            if (isMoving == true) {
-              mapController.move( LatLng( lat, long ), 10.0 );
+            if (isMoving == true && lat!=null && long!=null) {
+              mapController.move(LatLng(lat, long), maxZoom);
             }
           } on PlatformException catch (e) {
             lat = 0.0;
             long = 0.0;
             isLocalized = false;
-            print( e );
+
+            print(e);
           }
           //print(lat.toString());
           // print(long.toString());
-        } );
-      } );
-    }
+        });
+      });
+
 
     ///Float Action Button Background Color
-    Color backgroundColor = Theme
-        .of( context )
-        .cardColor;
-    Color foregroundColor = Theme
-        .of( context )
-        .accentColor;
+    Color backgroundColor = Theme.of(context).cardColor;
+    Color foregroundColor = Theme.of(context).accentColor;
 
     /// Show Snack Bar Messages
     _showSnackBar(String message) {
       final snackBar =
-      SnackBar( content: Text( '$message' ), duration: Duration( seconds: 1 ) );
-      mykey.currentState.showSnackBar( snackBar );
+          SnackBar(content: Text('$message'), duration: Duration(seconds: 1));
+      mykey.currentState.showSnackBar(snackBar);
     }
-    Widget _loadBuild() {
-      _buildWidget = isLocalized
-          ? Expanded(
-        child: new FlutterMap(
-          mapController: mapController,
-          options: new MapOptions(
-            center: new LatLng( lat, long ),
-            minZoom: 2.0,
-            //TODO change this dynamic
-            zoom: 10,
-          ),
-          layers: [
-            new TileLayerOptions(
-              urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                  "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-              additionalOptions: {
-                'accessToken':
-                'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
-                'id': 'mapbox.streets',
-              },
-            ),
-            new MarkerLayerOptions(
-              markers: [
-                new Marker(
-                  width: 50.0,
-                  height: 50.0,
-                  point: new LatLng( lat, long ),
-                  builder: (ctx) =>
-                  new Container(
-                      child: IconButton(
-                          icon: Icon(
-                            Icons.adjust,
-                            color: Colors.blue,
-                          ),
-                          onPressed: null ),
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular( 100.0 ),
-                        color: Colors.blue[100].withOpacity( 0.7 ),
-                      ) ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      )
-          : Expanded(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all( 8.0 ),
-                child: CircularProgressIndicator(
-                  strokeWidth: 4.0,
-                  valueColor: new AlwaysStoppedAnimation( Colors.teal ),
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      );
-      return _buildWidget;
-    }
-
-
-
 
     /// returned build
     return Scaffold(
       key: mykey,
       body: Column(
-        children: <Widget>[
-          _loadBuild( )
-        ],
+        children: <Widget>[_loadBuild()],
       ),
 
       ///floatingActionButtons
       floatingActionButton: new Column(
         mainAxisSize: MainAxisSize.min,
-        children: new List.generate( icons.length, (int index) {
+        children: new List.generate(icons.length, (int index) {
           Widget child = new Container(
             height: 70.0,
             width: 56.0,
@@ -193,39 +212,38 @@ Widget _buildWidget ;
             child: new ScaleTransition(
               scale: new CurvedAnimation(
                 parent: _controller,
-                curve: new Interval( 0.0, 1.0 - index / icons.length / 2.0,
-                    curve: Curves.easeOut ),
+                curve: new Interval(0.0, 1.0 - index / icons.length / 2.0,
+                    curve: Curves.easeOut),
               ),
               child: new FloatingActionButton(
                 heroTag: null,
                 backgroundColor: backgroundColor,
                 mini: true,
-                child: new Icon( icons[index], color: foregroundColor ),
+                child: new Icon(icons[index], color: foregroundColor),
                 onPressed: () {
                   ///onPress LockCamera button
                   if (index == 0) {
                     if (isMoving == false) {
                       isMoving = true;
-                      _showSnackBar( "Camera Lock Enabled!" );
+                      _showSnackBar("Camera Lock Enabled!");
                     } else {
                       isMoving = false;
-                      _showSnackBar( "Camera Lock Disabled!" );
+                      _showSnackBar("Camera Lock Disabled!");
                     }
 
                     ///OnPress CopyPosition button
                   } else if (index == 1) {
                     ///Copy Current Position
-                    Clipboard.setData(
-                        new ClipboardData( text: "$lat,$long" ) );
+                    Clipboard.setData(new ClipboardData(text: "$lat,$long"));
 
-                    _showSnackBar( "Location Copied!" );
+                    _showSnackBar("Location Copied!");
                   }
                 },
               ),
             ),
           );
           return child;
-        } ).toList( )
+        }).toList()
           ..add(
             new FloatingActionButton(
               heroTag: null,
@@ -234,24 +252,24 @@ Widget _buildWidget ;
                 builder: (BuildContext context, Widget child) {
                   return new Transform(
                     transform: new Matrix4.rotationZ(
-                        _controller.value * 0.5 * math.pi ),
+                        _controller.value * 0.5 * math.pi),
                     alignment: FractionalOffset.center,
                     child: new Icon(
-                        _controller.isDismissed ? Icons.add : Icons.close ),
+                        _controller.isDismissed ? Icons.add : Icons.close),
                   );
                 },
               ),
               onPressed: () {
                 if (_controller.isDismissed) {
-                  _controller.forward( );
+                  _controller.forward();
                 } else {
-                  _controller.reverse( );
+                  _controller.reverse();
                 }
               },
             ),
           ),
       ),
     );
+
   }
 }
-
