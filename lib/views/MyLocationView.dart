@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import '../libraries/globals.dart' as globals;
-
 import "dart:math" as math;
+import 'dart:async';
 
 class MyLocationView extends StatefulWidget {
   @override
@@ -15,68 +14,123 @@ class MyLocationView extends StatefulWidget {
   }
 }
 
-class MyLocationViewState extends State<MyLocationView> with TickerProviderStateMixin {
+class MyLocationViewState extends State<MyLocationView>
+    with TickerProviderStateMixin {
   ///=========================================[Declare]=============================================
   /// Controllor for FloatActionButtons
   AnimationController _controller;
+
   /// Icons List For FloatActionButtons
-  static const List<IconData> icons = const [
-    Icons.track_changes,
-    Icons.content_copy
-  ];
+  List<IconData> icons = [Icons.gps_fixed, Icons.content_copy];
 
-  ///will get currentLocation
-  var currentLocation = LocationData;
-  var location = new Location();
-
-  String error;
-   double lat;
-   double long;
-   double minZoom=2.0;
-   double maxZoom=15.0;
+  var geolocator = Geolocator();
+  var locationOptions =
+      LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+  double lat;
+  double long;
+  double _OutZoom = 2.0;
+  double _InZoom = 15.0;
   MapController mapController = new MapController();
-  MapController notFoundmapController = new MapController();
-  bool isLocalized = false;
-
-  /// Is camera Position Lock is enabled default FALSE
+  List<Placemark> placemark;
+  /// Is camera Position Lock is enabled default false
   bool isMoving = false;
 
   ///=========================================[initState]=============================================
+
   initState() {
     super.initState();
+    setState(() {
+      if(long==null || lat ==null){
+      _checkGPS();}else {
+        _Localize( );
 
+      }
+    });
     _controller = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
   }
+  @override
+  void dispose(){
+    super.dispose();
+    _controller.dispose();
 
-  ///to compare with this icon
-  Icon actionIcon = Icon(Icons.my_location);
+  }
 
-  /// to retrieve the appbar title
-  Widget appBarTitle = Text("Find Location");
+
+
+
+  StreamSubscription<Position> _Localize() {
+
+    return geolocator
+        .getPositionStream(locationOptions)
+        .listen((Position position) {
+      setState(() {
+        this.lat = position.latitude;
+        this.long = position.longitude;
+        globals.long = long;
+        globals.lat = lat;
+        if (isMoving = true) {
+          mapController.move(LatLng(lat, long), _InZoom);
+          icons[0] = Icons.gps_fixed;
+        }
+      });
+
+      print(position == null
+          ? 'Unknown'
+          : position.latitude.toString() +
+              ', ' +
+              position.longitude.toString());
+    });
+  }
+
+  _checkGPS() async {
+
+    var status = await geolocator.checkGeolocationPermissionStatus();
+    if (status == GeolocationStatus.denied) {
+    }
+    // Take user to permission settings
+    else if (status == GeolocationStatus.disabled) {
+    }
+
+    /// GPS Service restricted
+    else if (status == GeolocationStatus.restricted) {
+    }
+
+    /// GPS Service unknown
+    else if (status == GeolocationStatus.unknown) {
+    }
+
+    /// GPS Service Granted
+    else if (status == GeolocationStatus.granted) {
+      /// Localize Position
+      _Localize();
+      isMoving = true;
+      mapController.move(LatLng(lat, long), _InZoom);
+      icons[0] = Icons.gps_fixed;
+
+
+    }
+  }
 
   ///to show a snackBar after copy
   final GlobalKey<ScaffoldState> mykey = new GlobalKey<ScaffoldState>();
-///=========================================[BUILD]=============================================
 
+  ///=========================================[BUILD]=============================================
   @override
   Widget build(BuildContext context) {
-
-
     Widget _loadBuild() {
-      if (lat!=null && long!=null) {
-
-        ///=========================================[Position Found Render Marker]=============================================
+      ///[Position Found Render Marker]
+      if (lat != null && long != null) {
         return Expanded(
           child: new FlutterMap(
             mapController: mapController,
             options: new MapOptions(
-              center: new LatLng( lat, long ),
+              center: new LatLng(lat, long),
               //TODO change this dynamic
-              minZoom: maxZoom,
-              zoom: maxZoom+1,
+
+              zoom: _InZoom,
             ),
             layers: [
               new TileLayerOptions(
@@ -84,7 +138,7 @@ class MyLocationViewState extends State<MyLocationView> with TickerProviderState
                     "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                 additionalOptions: {
                   'accessToken':
-                  'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                      'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
                   'id': 'mapbox.streets',
                 },
               ),
@@ -93,35 +147,37 @@ class MyLocationViewState extends State<MyLocationView> with TickerProviderState
                   new Marker(
                     width: 50.0,
                     height: 50.0,
-                    point: new LatLng( lat, long ),
-                    builder: (ctx) =>
-                    new Container(
+                    point: new LatLng(lat, long),
+                    builder: (ctx) => new Container(
                         child: IconButton(
                             icon: Icon(
                               Icons.adjust,
                               color: Colors.blue,
                             ),
-                            onPressed: null ),
+                            onPressed: null),
                         decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular( 100.0 ),
-                          color: Colors.blue[100].withOpacity( 0.7 ),
-                        ) ),
+                          borderRadius: new BorderRadius.circular(100.0),
+                          color: Colors.blue[100].withOpacity(0.7),
+                        )),
                   ),
                 ],
               ),
             ],
           ),
         );
-      }else{
+      } else {
+        setState(() {
+          icons[0] = Icons.gps_not_fixed;
+        });
 
-        ///=========================================[Position Not Found]=============================================
+
+        ///[Position Not Found/Not Found yet]
         return Expanded(
           child: new FlutterMap(
-            mapController: notFoundmapController,
+            mapController: mapController,
             options: new MapOptions(
               //TODO change this dynamic
-              minZoom: minZoom,
-           zoom: minZoom,
+              zoom: _OutZoom,
             ),
             layers: [
               new TileLayerOptions(
@@ -129,7 +185,7 @@ class MyLocationViewState extends State<MyLocationView> with TickerProviderState
                     "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                 additionalOptions: {
                   'accessToken':
-                  'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                      'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
                   'id': 'mapbox.streets',
                 },
               ),
@@ -137,51 +193,7 @@ class MyLocationViewState extends State<MyLocationView> with TickerProviderState
           ),
         );
       }
-      /*Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircularProgressIndicator(
-                      strokeWidth: 4.0,
-                      valueColor: new AlwaysStoppedAnimation(Colors.teal),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );*/
-
     }
-
-      location.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
-      location.onLocationChanged().listen((LocationData result) {
-        // print("Lat/LNG");
-        setState(() {
-          try {
-            lat = result.latitude;
-            long = result.longitude;
-            globals.lat = lat;
-            globals.long = long;
-            isLocalized = true;
-            ///MoveCamera to the updated Position
-            if (isMoving == true && lat!=null && long!=null) {
-              mapController.move(LatLng(lat, long), maxZoom);
-            }
-          } on PlatformException catch (e) {
-            lat = 0.0;
-            long = 0.0;
-            isLocalized = false;
-
-            print(e);
-          }
-          //print(lat.toString());
-          // print(long.toString());
-        });
-      });
-
 
     ///Float Action Button Background Color
     Color backgroundColor = Theme.of(context).cardColor;
@@ -223,12 +235,30 @@ class MyLocationViewState extends State<MyLocationView> with TickerProviderState
                 onPressed: () {
                   ///onPress LockCamera button
                   if (index == 0) {
+                    /// if Camera not locked
                     if (isMoving == false) {
-                      isMoving = true;
-                      _showSnackBar("Camera Lock Enabled!");
+                      /// if position not null [LatLng]
+                      if (lat != null && long != null) {
+                        setState(() {
+                          ///change icon to lockedCamera
+                          icons[index] = Icons.gps_fixed;
+                          isMoving = true;
+                        });
+                        mapController.move(LatLng(lat, long), _InZoom);
+                        _showSnackBar("Camera Lock Enabled!");
+                      } else {
+                        _showSnackBar("Couldn't get your Position!");
+                      }
                     } else {
-                      isMoving = false;
-                      _showSnackBar("Camera Lock Disabled!");
+
+                        setState(() {
+                          icons[index] = Icons.gps_not_fixed;
+                          isMoving = false;
+                        });
+
+
+                        _showSnackBar("Camera Lock Disabled!");
+
                     }
 
                     ///OnPress CopyPosition button
@@ -270,6 +300,5 @@ class MyLocationViewState extends State<MyLocationView> with TickerProviderState
           ),
       ),
     );
-
   }
 }
