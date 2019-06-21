@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import '../libraries/globals.dart' as globals;
 import "dart:math" as math;
-import 'dart:async';
+
 
 class MyLocationView extends StatefulWidget {
   @override
@@ -58,8 +58,8 @@ class MyLocationViewState extends State<MyLocationView>
     _controller.dispose();
   }
 
-  StreamSubscription<Position> localize() {
-    return geolocator
+  void localize() {
+     geolocator
         .getPositionStream(locationOptions)
         .listen((Position position) {
       setState(() {
