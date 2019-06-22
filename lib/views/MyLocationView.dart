@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import '../libraries/globals.dart' as globals;
 import "dart:math" as math;
-
+import 'package:app_settings/app_settings.dart';
 
 class MyLocationView extends StatefulWidget {
   @override
@@ -23,9 +23,11 @@ class MyLocationViewState extends State<MyLocationView>
   /// Icons List For FloatActionButtons
   List<IconData> icons = [Icons.gps_fixed, Icons.content_copy];
 
-  var geolocator = Geolocator();
+  var geolocator = Geolocator()..forceAndroidLocationManager = true;
+
   var locationOptions =
-      LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+      LocationOptions(accuracy: LocationAccuracy.best, distanceFilter: 0);
+
   double lat;
   double long;
   double _outZoom = 2.0;
@@ -36,17 +38,41 @@ class MyLocationViewState extends State<MyLocationView>
   bool isMoving = false;
 
   ///=========================================[initState]=============================================
-
+  void _showDialog(String body) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Location Permission"),
+            content: Text(body),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("Settings"),
+                onPressed: () {
+                   AppSettings.openLocationSettings();
+                },
+              ),
+            ],
+          );
+        });
+  }
   initState() {
     super.initState();
 
-      if (long == null || lat == null) {
-        ///checks GPS then call localize
-        _checkGPS();
-      } else {
-        /// GPS is Okey just localize
-        localize();
-      }
+    if (long == null || lat == null) {
+      ///checks GPS then call localize
+
+      _checkGPS();
+    } else {
+      /// GPS is Okey just localize
+      localize();
+    }
 
     _controller = new AnimationController(
       vsync: this,
@@ -60,73 +86,55 @@ class MyLocationViewState extends State<MyLocationView>
     _controller.dispose();
   }
 
-  void localize() {
-     geolocator
-        .getPositionStream(locationOptions)
-        .listen((Position position) {
-          if(mounted) {
-            setState( () {
-              this.lat = position.latitude;
-              this.long = position.longitude;
-              globals.long = long;
-              globals.lat = lat;
-              if (isMoving = true) {
-                mapController.move( LatLng( lat, long ), _inZoom );
-                icons[0] = Icons.gps_fixed;
-              }
-            } );
-          }
 
-      print(position == null
-          ? 'Unknown'
-          : position.latitude.toString() +
-              ', ' +
-              position.longitude.toString());
+
+  void localize() {
+    geolocator.getPositionStream(locationOptions).listen((Position position) {
+      if (!mounted) {
+        return;
+      }
+      if (mounted) {
+        setState(() {
+          this.lat = position.latitude;
+          this.long = position.longitude;
+          globals.long = long;
+          globals.lat = lat;
+          if (isMoving = true) {
+            mapController.move(LatLng(lat, long), _inZoom);
+            icons[0] = Icons.gps_fixed;
+          }
+        });
+      }
     });
   }
 
   _checkGPS() async {
     /// when back to this tab should get previous position from libraries
-    if(mounted && globals.lat!=null && globals.long != null){
+    if (mounted && globals.lat != null && globals.long != null) {
       setState(() {
-        lat=globals.lat;
-        long =globals.long;
+        lat = globals.lat;
+        long = globals.long;
       });
     }
     var status = await geolocator.checkGeolocationPermissionStatus();
-    if (status == GeolocationStatus.denied) {
-    }
-    // Take user to permission settings
-    else if (status == GeolocationStatus.disabled) {
-    }
 
-    /// GPS Service restricted
-    else if (status == GeolocationStatus.restricted) {
-    }
-
-    /// GPS Service unknown
-    else if (status == GeolocationStatus.unknown) {
-    }
-
-    /// GPS Service Granted
-    else if (status == GeolocationStatus.granted) {
+   if (status == GeolocationStatus.granted && await geolocator.isLocationServiceEnabled()==true) {
       /// Localize Position
       localize();
       isMoving = true;
       mapController.move(LatLng(lat, long), _inZoom);
       icons[0] = Icons.gps_fixed;
-    }
+    }else{
+     _showDialog("Turn On Yuur GPS");
+   }
   }
 
   ///to show a snackBar after copy
   final GlobalKey<ScaffoldState> mykey = new GlobalKey<ScaffoldState>();
 
-
-
   ///=========================================[BUILD]=============================================
   @override
   Widget build(BuildContext context) {
-
     Widget _loadBuild() {
       ///[Position Found Render Marker]
       if (lat != null && long != null) {

@@ -42,8 +42,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    	<string>This Application acess to  Your GPS </string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    	<string>This Application acess to  Your GPS </string>
+    	<string>Need location when in use</string>
+    	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    	<string>Always and when in use!</string>
+    	<key>NSLocationUsageDescription</key>
+    	<string>Older devices need location.</string>
+    	<key>NSLocationAlwaysUsageDescription</key>
+    	<string>Always and when in use!</string>
 </dict>
 </plist>

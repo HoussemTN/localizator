@@ -28,6 +28,7 @@ dependencies:
   carousel_slider: ^1.3.0
   http: ^0.11.3
   geolocator: ^5.0.1
+  app_settings: 1.0.6
 
 
 
@@ -36,7 +37,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: "^0.7.2"
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/splash/splash.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
