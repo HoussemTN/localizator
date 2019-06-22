@@ -10,16 +10,28 @@ class TabsView extends StatefulWidget {
   _TabsState createState() => _TabsState();
 }
 
-class _TabsState extends State<TabsView> {
+class _TabsState extends State<TabsView>{
+
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
     return new MaterialApp(
+
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
       title: 'Home',
       home: DefaultTabController(
+
         length: 3,
         child: Scaffold(
             appBar: AppBar(
@@ -43,6 +55,7 @@ class _TabsState extends State<TabsView> {
             ),
             drawer: DrawerView(),
             body: TabBarView(
+
                 //disable tabs scroll
                 physics: NeverScrollableScrollPhysics(),
                 children: <Widget>[
@@ -54,4 +67,5 @@ class _TabsState extends State<TabsView> {
       ),
     );
   }
+
 }
