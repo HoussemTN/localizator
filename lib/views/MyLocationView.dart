@@ -39,13 +39,15 @@ class MyLocationViewState extends State<MyLocationView>
 
   initState() {
     super.initState();
-    setState(() {
+
       if (long == null || lat == null) {
+        ///checks GPS then call localize
         _checkGPS();
       } else {
+        /// GPS is Okey just localize
         localize();
       }
-    });
+
     _controller = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -62,16 +64,18 @@ class MyLocationViewState extends State<MyLocationView>
      geolocator
         .getPositionStream(locationOptions)
         .listen((Position position) {
-      setState(() {
-        this.lat = position.latitude;
-        this.long = position.longitude;
-        globals.long = long;
-        globals.lat = lat;
-        if (isMoving = true) {
-          mapController.move(LatLng(lat, long), _inZoom);
-          icons[0] = Icons.gps_fixed;
-        }
-      });
+          if(mounted) {
+            setState( () {
+              this.lat = position.latitude;
+              this.long = position.longitude;
+              globals.long = long;
+              globals.lat = lat;
+              if (isMoving = true) {
+                mapController.move( LatLng( lat, long ), _inZoom );
+                icons[0] = Icons.gps_fixed;
+              }
+            } );
+          }
 
       print(position == null
           ? 'Unknown'
@@ -82,6 +86,13 @@ class MyLocationViewState extends State<MyLocationView>
   }
 
   _checkGPS() async {
+    /// when back to this tab should get previous position from libraries
+    if(mounted && globals.lat!=null && globals.long != null){
+      setState(() {
+        lat=globals.lat;
+        long =globals.long;
+      });
+    }
     var status = await geolocator.checkGeolocationPermissionStatus();
     if (status == GeolocationStatus.denied) {
     }
@@ -110,9 +121,12 @@ class MyLocationViewState extends State<MyLocationView>
   ///to show a snackBar after copy
   final GlobalKey<ScaffoldState> mykey = new GlobalKey<ScaffoldState>();
 
+
+
   ///=========================================[BUILD]=============================================
   @override
   Widget build(BuildContext context) {
+
     Widget _loadBuild() {
       ///[Position Found Render Marker]
       if (lat != null && long != null) {
