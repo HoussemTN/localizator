@@ -1,6 +1,6 @@
-# Localizer
+# Localizator
 
-Localizer is a flutter application implements flutter_map and location plugins to provide your current/given position then render it on a map.
+Localizator is a flutter application implements flutter_map and location plugins to provide your current/given position then render it on a map.
 
 ##  :stars: Features
 
