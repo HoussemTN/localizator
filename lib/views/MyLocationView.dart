@@ -89,6 +89,7 @@ class MyLocationViewState extends State<MyLocationView>
 
   void localize() {
     geolocator.getPositionStream(locationOptions).listen((Position position) {
+      /// To not call setState when this state is not active
       if (!mounted) {
         return;
       }
@@ -125,7 +126,7 @@ class MyLocationViewState extends State<MyLocationView>
       mapController.move(LatLng(lat, long), _inZoom);
       icons[0] = Icons.gps_fixed;
     } else {
-      _showDialog("Turn On Yuur GPS");
+      _showDialog("Turn On Your GPS");
     }
   }
 
