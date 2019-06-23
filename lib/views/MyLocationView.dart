@@ -55,13 +55,14 @@ class MyLocationViewState extends State<MyLocationView>
               FlatButton(
                 child: Text("Settings"),
                 onPressed: () {
-                   AppSettings.openLocationSettings();
+                  AppSettings.openLocationSettings();
                 },
               ),
             ],
           );
         });
   }
+
   initState() {
     super.initState();
 
@@ -85,8 +86,6 @@ class MyLocationViewState extends State<MyLocationView>
     super.dispose();
     _controller.dispose();
   }
-
-
 
   void localize() {
     geolocator.getPositionStream(locationOptions).listen((Position position) {
@@ -118,15 +117,16 @@ class MyLocationViewState extends State<MyLocationView>
     }
     var status = await geolocator.checkGeolocationPermissionStatus();
 
-   if (status == GeolocationStatus.granted && await geolocator.isLocationServiceEnabled()==true) {
+    if (status == GeolocationStatus.granted &&
+        await geolocator.isLocationServiceEnabled() == true) {
       /// Localize Position
       localize();
       isMoving = true;
       mapController.move(LatLng(lat, long), _inZoom);
       icons[0] = Icons.gps_fixed;
-    }else{
-     _showDialog("Turn On Yuur GPS");
-   }
+    } else {
+      _showDialog("Turn On Yuur GPS");
+    }
   }
 
   ///to show a snackBar after copy

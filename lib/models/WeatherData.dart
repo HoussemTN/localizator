@@ -23,8 +23,8 @@ class WeatherData {
       description: json['weather'][0]['description'],
       icon: json['weather'][0]['icon'],
       humidity: json['main']['humidity'],
-      sunrise:  new DateTime.fromMillisecondsSinceEpoch(json['sys']['sunrise']*1000, isUtc: true),
-      sunset: new DateTime.fromMillisecondsSinceEpoch(json['sys']['sunset']*1000, isUtc: true),
+      sunrise:  new DateTime.fromMillisecondsSinceEpoch((json['sys']['sunrise']+json['timezone'])*1000, isUtc: true),
+      sunset: new DateTime.fromMillisecondsSinceEpoch((json['sys']['sunset']+json['timezone'])*1000, isUtc: true),
       //converting WindSpeed from m/s to Km/h
       windSpeed: json['wind']['speed']*3.6,
       pressure: json['main']['pressure'],
