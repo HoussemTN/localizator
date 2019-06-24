@@ -99,7 +99,7 @@ class MyLocationViewState extends State<MyLocationView>
           this.long = position.longitude;
           globals.long = long;
           globals.lat = lat;
-          if (isMoving = true) {
+          if (isMoving == true) {
             mapController.move(LatLng(lat, long), _inZoom);
             icons[0] = Icons.gps_fixed;
           }
@@ -122,7 +122,7 @@ class MyLocationViewState extends State<MyLocationView>
         await geolocator.isLocationServiceEnabled() == true) {
       /// Localize Position
       localize();
-      isMoving = true;
+    isMoving = true;
       mapController.move(LatLng(lat, long), _inZoom);
       icons[0] = Icons.gps_fixed;
     } else {
