@@ -1,3 +1,4 @@
+import 'package:localizer/libraries/globals.dart' as globals;
 class WeatherData {
   final DateTime date;
   final String name;
@@ -15,6 +16,7 @@ class WeatherData {
   WeatherData({this.date, this.name, this.temp, this.main,this.description, this.icon,this.humidity,this.sunrise,this.sunset,this.windSpeed,this.pressure});
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
+
     return WeatherData(
       date: new DateTime.fromMillisecondsSinceEpoch((json['dt']+json['timezone'])*1000, isUtc: true,),
       name: json['name'],

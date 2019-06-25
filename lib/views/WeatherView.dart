@@ -20,15 +20,49 @@ class _WeatherState extends State<WeatherView> {
   ForecastData forecastData;
   double lat = globals.lat;
   double long = globals.long;
+  var forecastResponse=globals.forecastResponse;
+  var weatherResponse=globals.weatherResponse;
+  /// DEFAULT [FALSE] to call the weather API at least one time
+  bool isWeatherUpToDate=false;
+ /// checks WeatherData I fit needs to be updated or not
+  /// return [bool}
+  bool weatherUpToDate(DateTime lastUpdateDateTime){
+    print('last:$lastUpdateDateTime');
+    var now = new DateTime.now().toUtc();
+    print('now :$now');
+    /// Difference between two DatTime the current and the lastUpdated Weather
+    var diff =now.difference(lastUpdateDateTime);
+    print('diff:${diff.inMinutes}');
+    /// Update WeatherData after 15 minutes
+    if(diff.inMinutes > 15){
+      return false;
+    }else{
+      return true;
+    }
+
+  }
   callWeather() async {
     /// Handle loader
     loadWeather();
+    isWeatherUpToDate=weatherUpToDate(globals.lastWeatherUpdateDateTime);
 
-    final weatherResponse = await http.get(
-        "https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}");
-    final forecastResponse = await http.get(
-        'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=e438793d26f931f5c2d283df4f520108&lat=${lat.toString()}&lon=${long.toString()}&units=metric&lang=eng');
+    print(isWeatherUpToDate);
+    if (globals.weatherResponse==null|| isWeatherUpToDate==false) {
 
+      weatherResponse = await http.get(
+          "https://api.openweathermap.org/data/2.5/weather?APPID=e438793d26f931f5c2d283df4f520108&lat=${lat
+              .toString( )}&lon=${long.toString( )}" );
+      globals.weatherResponse=weatherResponse;
+      ///last Update Time;
+    globals.lastWeatherUpdateDateTime=DateTime.now().toUtc();
+    }
+    if(globals.forecastResponse==null||isWeatherUpToDate==false) {
+       forecastResponse = await http.get(
+          'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=e438793d26f931f5c2d283df4f520108&lat=${lat
+              .toString( )}&lon=${long.toString( )}&units=metric&lang=eng' );
+       globals.forecastResponse=forecastResponse;
+
+    }
     if (weatherResponse.statusCode == 200 &&
         forecastResponse.statusCode == 200) {
       return setState(() {
@@ -38,12 +72,21 @@ class _WeatherState extends State<WeatherView> {
             new ForecastData.fromJson(jsonDecode(forecastResponse.body));
         isLoading = false;
       });
+    }else{
+      /// Get Date From Local without calling the weather API
+      return setState(() {
+        weatherData =
+        new WeatherData.fromJson(jsonDecode(globals.weatherResponse.body));
+        forecastData =
+        new ForecastData.fromJson(jsonDecode(globals.forecastResponse.body));
+        isLoading = false;
+      });
     }
 
-    setState(() {
-      // print(isLoading.toString());
-      isLoading = false;
-    });
+/*    setState(() {
+       print(isLoading.toString());
+       isLoading = false;
+    });*/
   }
 
   @override
