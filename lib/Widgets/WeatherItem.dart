@@ -16,7 +16,7 @@ class WeatherItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(weather.name, style: new TextStyle(color: Colors.black)),
+          /*  Text(weather.name, style: new TextStyle(color: Colors.black)),*/
             Text(weather.main,
                 style: new TextStyle(color: Colors.black, fontSize: 26.0)),
             Text('${weather.temp.toString()}°C',

@@ -55,7 +55,7 @@ class _WeatherState extends State<WeatherView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: <Widget>[
+      body:ListView(children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -105,6 +105,7 @@ class _WeatherState extends State<WeatherView> {
           ],
         )
       ]),
+
     );
   }
 

@@ -28,6 +28,7 @@ class Weather extends StatelessWidget {
                         child: Container(
                       width: MediaQuery.of(context).size.width / 4,
                       height: 40,
+
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -36,7 +37,7 @@ class Weather extends StatelessWidget {
                             width: MediaQuery.of(context).size.width / 12,
                             height: MediaQuery.of(context).size.height,
                           ),
-                          Text('${new DateFormat.Hm().format(weather.sunrise)}',
+                          Text(' ${new DateFormat.Hm().format(weather.sunrise)}',
                               style: new TextStyle(
                                   color: Colors.black, fontSize: 16.0)),
                         ],
@@ -55,7 +56,7 @@ class Weather extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 12,
                               height: MediaQuery.of(context).size.height,
                             ),
-                            Text(new DateFormat.yMMMd().format(weather.date),
+                            Text(' ${new DateFormat.yMMMd().format(weather.date)}',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],

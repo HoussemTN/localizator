@@ -30,7 +30,7 @@ class MyLocationViewState extends State<MyLocationView>
 
   double lat;
   double long;
-  double _outZoom = 2.0;
+  double _outZoom = 3.0;
   double _inZoom = 15.0;
   MapController mapController = new MapController();
 
