@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'TabsView.dart';
 
 class SplashView extends StatefulWidget {
   @override

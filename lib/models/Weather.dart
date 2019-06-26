@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:localizer/libraries/globals.dart' as globals;
 
 
 import 'package:localizer/models/WeatherData.dart';

@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'DrawerView.dart';
 
+// ignore: must_be_immutable
 class SearchFavoriteView extends StatefulWidget {
   double lat = 0.00;
   double long = 0.00;
