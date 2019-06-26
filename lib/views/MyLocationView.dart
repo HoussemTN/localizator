@@ -89,41 +89,42 @@ class MyLocationViewState extends State<MyLocationView>
     super.dispose();
     _controller.dispose();
   }
-
+ _moveCamera (){
+   isMoving = true;
+   mapController.move( LatLng( lat, long ), _inZoom );
+   icons[0] = Icons.gps_fixed;
+ }
   _checkGPS() async {
     /// when back to this tab should get previous position from libraries
-    if (mounted && globals.lat != null && globals.long != null) {
-      setState(() {
+    if (globals.lat != null && globals.long != null) {
+      setState( () {
         lat = globals.lat;
         long = globals.long;
-      });
+      } );
     }
-    var status = await geolocator.checkGeolocationPermissionStatus();
-
-    if (status == GeolocationStatus.granted &&
-        await geolocator.isLocationServiceEnabled() == true) {
-
+    var status = await geolocator.checkGeolocationPermissionStatus( );
+    bool isGPSOn = await geolocator.isLocationServiceEnabled( );
+    if (status == GeolocationStatus.granted && isGPSOn) {
       /// Localize Position
-      localize();
-      isMoving = true;
-      mapController.move(LatLng(lat, long), _inZoom);
-      icons[0] = Icons.gps_fixed;
-    } else {
-
-      if(await geolocator.isLocationServiceEnabled() != true){
-       _showDialog("Turn On Your GPS");
-     }
-     if(status != GeolocationStatus.granted ) {
-       await PermissionHandler( ).requestPermissions(
-           [PermissionGroup.location] );
-     }
-      if(await geolocator.isLocationServiceEnabled() != true){
-
-        localize();
-        isMoving = true;
-        mapController.move(LatLng(lat, long), _inZoom);
-        icons[0] = Icons.gps_fixed;
-      }
+      localize( );
+      _moveCamera ();
+    } else if (isGPSOn == false) {
+      _showDialog( "Turn On Your GPS" );
+      localize( );
+      _moveCamera ();
+    }
+    else if (status != GeolocationStatus.granted) {
+      await PermissionHandler( ).requestPermissions(
+          [PermissionGroup.location] );
+      localize( );
+      _moveCamera ();
+    }
+    else{
+      _showDialog( "Turn On Your GPS" );
+      await PermissionHandler( ).requestPermissions(
+          [PermissionGroup.location] );
+      localize( );
+      _moveCamera ();
     }
   }
 

@@ -68,7 +68,6 @@ flutter:
   - images/sunset.png
   - images/temp.png
   - images/date.png
-  - images/time.png
   - images/humidity.png
   - images/wind.png
   - images/pressure.png
