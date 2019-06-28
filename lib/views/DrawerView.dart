@@ -57,10 +57,14 @@ class DrawerViewState extends State<DrawerView> {
                   },
                 ),
               ),
+
               /// Copy Button for every LitTile
-              IconButton(icon: Icon(Icons.content_copy),
+              IconButton(
+                  icon: Icon(Icons.content_copy),
                   onPressed: () {
-                    Clipboard.setData(new ClipboardData(text: "${_getPrefData(prefs.get(key), 0)} ,${_getPrefData(prefs.get(key), 1)}"));
+                    Clipboard.setData(new ClipboardData(
+                        text:
+                            "${_getPrefData(prefs.get(key), 0)} ,${_getPrefData(prefs.get(key), 1)}"));
                   }),
             ]))
         .toList(growable: true);
@@ -93,14 +97,59 @@ class DrawerViewState extends State<DrawerView> {
             });
           },
         ),*/
-        ListTile(
-          title: Text("Delete All"),
-          onTap: () {
-            setState(() {
-              deleteAllPrefs();
-            });
-          },
-        ),
+
+
+          ListTile(
+           leading: Icon(
+                Icons.delete,
+                color: Colors.redAccent,
+                size: 32,
+              ),
+            title: Text("Delete All "),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.warning,
+                            color: Colors.redAccent,
+                            size: 32,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:8.0),
+                            child: Text("Are you sure ?"),
+                          ),
+                        ],
+                      ),
+                      content: Text("Do you really want to delete these records? This process cannot be undone."),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("Cancel"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text("Delete"),
+                          onPressed: () {
+                            setState(() {
+                              deleteAllPrefs();
+                            });
+                            Navigator.of(context).pop();
+
+                          },
+                        ),
+                      ],
+                    );
+                  });
+
+            },
+          ),
+
+
         FutureBuilder<List<Widget>>(
             //  getAllPrefs return List of Widgets
             future: getAllPrefs(),
@@ -108,7 +157,7 @@ class DrawerViewState extends State<DrawerView> {
                 (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return new Center(
-                  child: new CircularProgressIndicator(),
+                  child: Container(),
                 );
               } else if (snapshot.hasError) {
                 return ListTile(
