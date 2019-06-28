@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SearchFavoriteView.dart';
+import 'package:flutter/services.dart';
 
 class DrawerView extends StatefulWidget {
   @override
@@ -12,42 +13,56 @@ class DrawerView extends StatefulWidget {
 class DrawerViewState extends State<DrawerView> {
   //return a specific value order of index : [0]=>lat,[1]=>long,[2]=>ImageUrl
   String _getPrefData(String values, int index) {
-    List<String> _spliterArr = values.split( "," );
-    return _spliterArr[index].toString( );
+    List<String> _spliteArr = values.split(",");
+    return _spliteArr[index].toString();
   }
 
   Future<List<Widget>> getAllPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    //return  a list (Keys ,values) of sharedPreferences and not cache records
+
+    ///return  a list (Keys ,values) of sharedPreferences and not cache(map) records
     return prefs
         .getKeys()
         .where((String key) =>
-    key != "lib_cached_image_data" &&
-      key != "lib_cached_image_data_last_clean" )
-        .map<Widget>((key) => ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Image.asset( _getPrefData( prefs.get( key ), 2 ) ),
-      ),
-      subtitle: Text( "" +
-          _getPrefData( prefs.get( key ), 0 ) +
-          ',' +
-          _getPrefData( prefs.get( key ), 1 ) ),
-      title: Text( key ),
-      onTap: () {
-        List<String> splitArr = prefs.get( key ).toString( ).split( "," );
-        SearchFavoriteView.favoriteLat = double.tryParse( splitArr[0] );
-        SearchFavoriteView.favoriteLong = double.tryParse( splitArr[1] );
-        SearchFavoriteView.locationImage = splitArr[2];
-        print( splitArr[2] );
-        SearchFavoriteView.favoritePlaceName = key;
-        SearchFavoriteView.isFavorite = true;
-        Navigator.push(
-          context,
-          MaterialPageRoute( builder: (context) => SearchFavoriteView( ) ),
-        );
-      },
-    ) )
+            key != "lib_cached_image_data" &&
+            key != "lib_cached_image_data_last_clean")
+        .map<Widget>((key) => Row(children: <Widget>[
+              Expanded(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Image.asset(_getPrefData(prefs.get(key), 2)),
+                  ),
+                  title: Text(key),
+                  subtitle: Text("" +
+                      _getPrefData(prefs.get(key), 0) +
+                      ',' +
+                      _getPrefData(prefs.get(key), 1)),
+                  onTap: () {
+                    List<String> splitArr =
+                        prefs.get(key).toString().split(",");
+                    SearchFavoriteView.favoriteLat =
+                        double.tryParse(splitArr[0]);
+                    SearchFavoriteView.favoriteLong =
+                        double.tryParse(splitArr[1]);
+                    SearchFavoriteView.locationImage = splitArr[2];
+                    print(splitArr[2]);
+                    SearchFavoriteView.favoritePlaceName = key;
+                    SearchFavoriteView.isFavorite = true;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SearchFavoriteView()),
+                    );
+                  },
+                ),
+              ),
+              /// Copy Button for every LitTile
+              IconButton(icon: Icon(Icons.content_copy),
+                  onPressed: () {
+                    Clipboard.setData(new ClipboardData(text: "${_getPrefData(prefs.get(key), 0)} ,${_getPrefData(prefs.get(key), 1)}"));
+                  }),
+            ]))
         .toList(growable: true);
   }
 
@@ -87,8 +102,7 @@ class DrawerViewState extends State<DrawerView> {
           },
         ),
         FutureBuilder<List<Widget>>(
-
-          //  getAllPrefs return List of Widgets
+            //  getAllPrefs return List of Widgets
             future: getAllPrefs(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
@@ -98,11 +112,11 @@ class DrawerViewState extends State<DrawerView> {
                 );
               } else if (snapshot.hasError) {
                 return ListTile(
-                  title: Text( "Couldn\'t get Favorite Positions" ),
+                  title: Text("Couldn\'t get Favorite Positions"),
                 );
               } else if (!snapshot.hasData)
                 return ListTile(
-                  title: Text( "No Favorite Positions Saved" ),
+                  title: Text("No Favorite Positions Saved"),
                 );
               else {
                 return Column(children: snapshot.data);
