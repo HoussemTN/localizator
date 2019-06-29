@@ -72,11 +72,11 @@ flutter:
   - images/wind.png
   - images/pressure.png
   - images/weatherMain/Clouds.jpg
-  - images/weatherMain/Clear.jpg
   - images/weatherMain/Rain.jpg
   - images/weatherMain/Snow.jpg
   - images/splash/splash.png
-
+  - images/weatherMain/01d.jpg
+  - images/weatherMain/01n.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

@@ -8,6 +8,15 @@ class Weather extends StatelessWidget {
 
   Weather({Key key, @required this.weather}) : super(key: key);
 
+  /// return White or Black of the main weather
+   Color _mainWeatherColor(String icon){
+     if(icon[2]=='d'){
+       return Colors.black ;
+     }else{
+       return Colors.white;
+     }
+
+   }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,7 +99,7 @@ class Weather extends StatelessWidget {
                   decoration: new BoxDecoration(
                     image: new DecorationImage(
                       image: new AssetImage(
-                          'images/weatherMain/${weather.main}.jpg'),
+                          'images/weatherMain/${weather.icon}.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -123,7 +132,7 @@ class Weather extends StatelessWidget {
                               'https://openweathermap.org/img/w/${weather.icon}.png'),
                           Text(weather.main,
                               style: new TextStyle(
-                                  color: Colors.black, fontSize: 32.0)),
+                                  color: _mainWeatherColor(weather.icon), fontSize: 32.0)),
                         ],
                       ),
                       //show Current Time
