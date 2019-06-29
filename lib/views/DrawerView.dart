@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SearchFavoriteView.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class DrawerView extends StatefulWidget {
   @override
@@ -61,10 +62,21 @@ class DrawerViewState extends State<DrawerView> {
               /// Copy Button for every LitTile
               IconButton(
                   icon: Icon(Icons.content_copy),
+                  iconSize: 20,
+                  color: Colors.grey[500],
                   onPressed: () {
                     Clipboard.setData(new ClipboardData(
                         text:
                             "${_getPrefData(prefs.get(key), 0)} ,${_getPrefData(prefs.get(key), 1)}"));
+                    Fluttertoast.showToast(
+                        msg: "Copied!",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.grey[400],
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
                   }),
             ]))
         .toList(growable: true);
@@ -98,57 +110,54 @@ class DrawerViewState extends State<DrawerView> {
           },
         ),*/
 
-
-          ListTile(
-           leading: Icon(
-                Icons.delete,
-                color: Colors.redAccent,
-                size: 32,
-              ),
-            title: Text("Delete All "),
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.warning,
-                            color: Colors.redAccent,
-                            size: 32,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:8.0),
-                            child: Text("Are you sure ?"),
-                          ),
-                        ],
-                      ),
-                      content: Text("Do you really want to delete these records? This process cannot be undone."),
-                      actions: <Widget>[
-                        FlatButton(
-                          child: Text("Cancel"),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
+        ListTile(
+          leading: Icon(
+            Icons.delete,
+            color: Colors.redAccent,
+            size: 32,
+          ),
+          title: Text("Delete All "),
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.warning,
+                          color: Colors.redAccent,
+                          size: 32,
                         ),
-                        FlatButton(
-                          child: Text("Delete"),
-                          onPressed: () {
-                            setState(() {
-                              deleteAllPrefs();
-                            });
-                            Navigator.of(context).pop();
-
-                          },
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text("Are you sure ?"),
                         ),
                       ],
-                    );
-                  });
-
-            },
-          ),
-
+                    ),
+                    content: Text(
+                        "Do you really want to delete these records? This process cannot be undone."),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("Cancel"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      FlatButton(
+                        child: Text("Delete"),
+                        onPressed: () {
+                          setState(() {
+                            deleteAllPrefs();
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                });
+          },
+        ),
 
         FutureBuilder<List<Widget>>(
             //  getAllPrefs return List of Widgets

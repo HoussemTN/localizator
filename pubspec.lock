@@ -99,13 +99,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  date_format:
-    dependency: "direct main"
-    description:
-      name: date_format
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.6"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -144,6 +137,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   geolocator:
     dependency: "direct main"
     description:
