@@ -109,20 +109,23 @@ class _WeatherState extends State<WeatherView> {
             ),
           ],
         ),
-        Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width / 0.8,
-              height: 200,
-              child: forecastData != null
-                  ? ListView.builder(
-                      itemCount: forecastData.list.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => WeatherItem(
-                          weather: forecastData.list.elementAt(index)))
-                  : Container(),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(top:10.0,left: 10.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width / 0.8,
+                height: 200,
+                child: forecastData != null
+                    ? ListView.builder(
+                        itemCount: forecastData.list.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => WeatherItem(
+                            weather: forecastData.list.elementAt(index)))
+                    : Container(),
+              ),
+            ],
+          ),
         ),
         Column(
           children: <Widget>[

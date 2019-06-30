@@ -34,6 +34,9 @@ class Weather extends StatelessWidget {
                   children: <Widget>[
                     //sunrise Card
                     Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                        ),
                         child: Container(
                       width: MediaQuery.of(context).size.width / 4,
                       height: 40,
@@ -54,6 +57,9 @@ class Weather extends StatelessWidget {
                     )), // end sunrise Card
 
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2.5,
                         height: 40,
@@ -74,6 +80,9 @@ class Weather extends StatelessWidget {
                     ), //end  Date Card
                     //sunset Card
                     Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0.0),
+                        ),
                         child: Container(
                       width: MediaQuery.of(context).size.width / 4,
                       height: 40,
@@ -95,6 +104,9 @@ class Weather extends StatelessWidget {
                 ),
               ),
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                ),
                 child: Container(
                   decoration: new BoxDecoration(
                     image: new DecorationImage(
@@ -175,6 +187,9 @@ class Weather extends StatelessWidget {
                   children: <Widget>[
                     //Temperature Card
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2.2,
                         height: 40,
@@ -196,6 +211,9 @@ class Weather extends StatelessWidget {
                     ), //end Temperature Card
                     //Humidity Card
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2.2,
                         height: 40,
@@ -223,6 +241,9 @@ class Weather extends StatelessWidget {
                   children: <Widget>[
                     //WindSpeed Card
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2.2,
                         height: 40,
@@ -244,6 +265,9 @@ class Weather extends StatelessWidget {
                     ), //end WindSpeed Card
                     //pressure Card
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0.0),
+                      ),
                       child: Container(
                         width: MediaQuery.of(context).size.width / 2.2,
                         height: 40,

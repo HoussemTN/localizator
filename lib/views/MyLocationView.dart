@@ -261,7 +261,7 @@ class MyLocationViewState extends State<MyLocationView>
               child: new FloatingActionButton(
                 heroTag: null,
                 backgroundColor: backgroundColor,
-                mini: true,
+                mini: false,
                 child: new Icon(icons[index], color: foregroundColor),
                 onPressed: () {
                   ///onPress LockCamera button
