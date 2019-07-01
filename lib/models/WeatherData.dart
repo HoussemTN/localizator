@@ -9,7 +9,7 @@ class WeatherData {
   final DateTime sunrise;
   final DateTime sunset;
   final double windSpeed;
-  final double pressure;
+   var pressure;
 
   WeatherData(
       {this.date,

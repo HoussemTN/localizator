@@ -36,7 +36,7 @@ class _TabsState extends State<TabsView>{
         child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('Localizer'),
+              title: Text('Localizator'),
               bottom: TabBar(tabs: <Widget>[
                 //Tab(icon: Icon(Icons.home), text: 'Home'),
                 new Container(
