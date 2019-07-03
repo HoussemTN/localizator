@@ -72,6 +72,7 @@ flutter:
   - images/wind.png
   - images/pressure.png
   - images/splash/splash.png
+  - images/drawerHeader.jpg
    # Day Wallpaper
   - images/weatherMain/01d.jpg
   - images/weatherMain/02d.jpg

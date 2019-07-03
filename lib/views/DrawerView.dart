@@ -93,10 +93,14 @@ class DrawerViewState extends State<DrawerView> {
       child: ListView(padding: EdgeInsets.zero, children: <Widget>[
         DrawerHeader(
           child: Text(
-            'Favorite Places',
+            '',
             style: TextStyle(fontSize: 20.0, color: Colors.white),
           ),
           decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/drawerHeader.jpg'),
+              fit: BoxFit.cover,
+            ),
             color: Colors.teal,
           ),
         ),

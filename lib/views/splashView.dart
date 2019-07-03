@@ -40,7 +40,7 @@ class _SplashViewState extends State<SplashView> {
           Center(
             child: Container(
               child: Text(
-                "Localizator",
+                "Locativity",
                 style: TextStyle(
                   fontSize: 28,
                 ),
