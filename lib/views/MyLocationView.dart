@@ -3,10 +3,14 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
+import 'package:localizer/fix/bottom_sheet_fix.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../libraries/globals.dart' as globals;
 import "dart:math" as math;
 import 'package:app_settings/app_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'FavoriteLocationDropDownView.dart';
 
 class MyLocationView extends StatefulWidget {
   @override
@@ -22,7 +26,11 @@ class MyLocationViewState extends State<MyLocationView>
   AnimationController _controller;
 
   /// Icons List For FloatActionButtons
-  List<IconData> icons = [Icons.gps_fixed, Icons.content_copy];
+  List<IconData> icons = [
+    Icons.gps_fixed,
+    Icons.favorite,
+    Icons.content_copy,
+  ];
 
   final geolocator = Geolocator()..forceAndroidLocationManager = true;
 
@@ -34,11 +42,13 @@ class MyLocationViewState extends State<MyLocationView>
   double _outZoom = 3.0;
   double _inZoom = 15.0;
   MapController mapController = new MapController();
+  final favoritePlaceController = TextEditingController();
+
   /// Is camera Position Lock is enabled default false
   bool isMoving = false;
 
   /// Show a Alert Dialog
-  void _showDialog(String body)  {
+  void _showDialog(String body) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -57,8 +67,7 @@ class MyLocationViewState extends State<MyLocationView>
                 onPressed: () {
                   AppSettings.openLocationSettings();
 
-                    Navigator.of(context).pop();
-
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -89,42 +98,40 @@ class MyLocationViewState extends State<MyLocationView>
     super.dispose();
     _controller.dispose();
   }
- _moveCamera (){
-   isMoving = true;
-   mapController.move( LatLng( lat, long ), _inZoom );
-   icons[0] = Icons.gps_fixed;
- }
+
+  _moveCamera() {
+    isMoving = true;
+    mapController.move(LatLng(lat, long), _inZoom);
+    icons[0] = Icons.gps_fixed;
+  }
+
   _checkGPS() async {
     /// when back to this tab should get previous position from libraries
     if (globals.lat != null && globals.long != null) {
-      setState( () {
+      setState(() {
         lat = globals.lat;
         long = globals.long;
-      } );
+      });
     }
-    var status = await geolocator.checkGeolocationPermissionStatus( );
-    bool isGPSOn = await geolocator.isLocationServiceEnabled( );
-    if (status == GeolocationStatus.granted && isGPSOn) {
+    var status = await geolocator.checkGeolocationPermissionStatus();
+    bool isGPSOn = await geolocator.isLocationServiceEnabled();
+    if (status == GeolocationStatus.granted  ||isGPSOn) {
       /// Localize Position
-      localize( );
-      _moveCamera ();
+      localize();
+      _moveCamera();
     } else if (isGPSOn == false) {
-      _showDialog( "Turn On Your GPS" );
-      localize( );
-      _moveCamera ();
-    }
-    else if (status != GeolocationStatus.granted) {
-      await PermissionHandler( ).requestPermissions(
-          [PermissionGroup.location] );
-      localize( );
-      _moveCamera ();
-    }
-    else{
-      _showDialog( "Turn On Your GPS" );
-      await PermissionHandler( ).requestPermissions(
-          [PermissionGroup.location] );
-      localize( );
-      _moveCamera ();
+      _showDialog("Turn On Your GPS");
+      localize();
+      _moveCamera();
+    } else if (status != GeolocationStatus.granted) {
+      await PermissionHandler().requestPermissions([PermissionGroup.location]);
+      localize();
+      _moveCamera();
+    } else {
+      _showDialog("Turn On Your GPS");
+      await PermissionHandler().requestPermissions([PermissionGroup.location]);
+      localize();
+      _moveCamera();
     }
   }
 
@@ -149,10 +156,77 @@ class MyLocationViewState extends State<MyLocationView>
     });
   }
 
+  _favoritePlaces() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    /// get the favorite position then added to prefs
+    var placeName = favoritePlaceController.text;
+
+    ///convert position to string and concat it
+    var placePosition = lat.toString() +
+        ',' +
+        long.toString() +
+        ',' +
+        FavoriteLocationDropDown.currentImage.toString();
+    print('Place Name $placeName => $placePosition Captured.');
+    await prefs.setString(
+      '$placeName',
+      '$placePosition',
+    );
+  }
+
+  //declaring Bottom sheet widget
+  Widget buildSheetLogin(BuildContext context) {
+    return new Container(
+      child: Wrap(children: <Widget>[
+        Container(
+          padding: new EdgeInsets.only(left: 10.0, top: 10.0),
+          width: MediaQuery.of(context).size.width / 1.7,
+          child: TextFormField(
+            controller: favoritePlaceController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black)),
+              // focused border color (erasing theme default color [teal])
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderSide: BorderSide(color: Colors.black)),
+              labelText: "Place name",
+              hintText: "Enter Place Name",
+              prefixIcon: Icon(
+                Icons.save_alt,
+                color: Colors.teal,
+              ),
+            ),
+          ),
+        ),
+        Container(child: FavoriteLocationDropDown()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: RaisedButton(
+                color: Colors.teal,
+                textColor: Colors.white,
+                child: Text("Save"),
+                onPressed: () {
+                  _favoritePlaces();
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
+
   ///to show a snackBar after copy
   final GlobalKey<ScaffoldState> mykey = new GlobalKey<ScaffoldState>();
 
   ///=========================================[BUILD]=============================================
+
   @override
   Widget build(BuildContext context) {
     Widget _loadBuild() {
@@ -289,8 +363,18 @@ class MyLocationViewState extends State<MyLocationView>
                       _showSnackBar("Camera Lock Disabled!");
                     }
 
-                    ///OnPress CopyPosition button
+                    ///OnPress Favorite Button
                   } else if (index == 1) {
+                    // Calling bottom sheet Widget
+                    showModalBottomSheetApp(
+                        context: context,
+                        builder: (builder) {
+                          return buildSheetLogin(context);
+                        });
+                  }
+
+                  ///OnPress CopyPosition button
+                  else if (index == 2) {
                     ///Copy Current Position
                     Clipboard.setData(new ClipboardData(text: "$lat,$long"));
 
