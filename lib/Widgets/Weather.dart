@@ -182,6 +182,38 @@ class Weather extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(
               children: <Widget>[
+            Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                //Description Card
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0.0),
+                  ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Image.asset(
+                          'images/description.png',
+                          width: MediaQuery.of(context).size.width / 12,
+                          height: MediaQuery.of(context).size.height,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              ' Description : ${weather.description[0].toUpperCase()}${weather.description.substring(1)}',
+                              style: new TextStyle(
+                                  color: Colors.black, fontSize: 16.0)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                ],),//end Description
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -202,7 +234,7 @@ class Weather extends StatelessWidget {
                               height: MediaQuery.of(context).size.height,
                             ),
                             Text(
-                                ' ${'Temp: ' + weather.temp.toStringAsFixed(2)}°C',
+                                'Temp:  ${weather.temp.toStringAsFixed(0)}°C',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],

@@ -1,3 +1,4 @@
+
 class WeatherData {
   final DateTime date;
   final String name;
@@ -44,7 +45,7 @@ class WeatherData {
           isUtc: true),
       //converting WindSpeed from m/s to Km/h
       windSpeed: json['wind']['speed'] * 3.6,
-      pressure: json['main']['pressure'],
+      pressure: num.parse(json['main']['pressure'].toStringAsFixed(0)),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:localizer/Widgets/WeatherItem.dart';
 
 import 'package:localizer/models/WeatherData.dart';
 import 'package:localizer/models/ForecastData.dart';
+import 'package:geolocator/geolocator.dart';
 
 class WeatherView extends StatefulWidget {
   @override
@@ -88,10 +89,22 @@ class _WeatherState extends State<WeatherView> {
        isLoading = false;
     });*/
   }
-
+ getCurrentPosition()async{
+   Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+   return position;
+  }
   @override
   void initState() {
     super.initState();
+    print(lat);
+    print(long);
+    if(lat==null && long==null){
+      Position position = getCurrentPosition();
+      lat =position.latitude;
+      long =position.longitude ;
+      print(lat);
+      print(long);
+    }
     callWeather();
   }
 

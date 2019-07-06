@@ -102,67 +102,72 @@ class _SearchViewState extends State<SearchView> {
   _searchedLocation(double lat, double long) {
     if ((lat == 0.00 || long == 0.00) &&
         SearchFavoriteView.isFavorite == false) {
-      _searchView = Container(
-        decoration: new BoxDecoration(
-          image: new DecorationImage(
-            image: new AssetImage("images/searchLocation.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextFormField(
-                  cursorColor: Colors.black,
-                  controller: myController,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    prefixIcon: Icon(
-                      Icons.location_searching,
-                      color: Colors.teal,
-                    ),
+      Column(
+        children: <Widget>[
+          _searchView = Container(
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("images/searchLocation.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    TextFormField(
 
-                    //border color
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black)),
-                    // focused border color (erasing theme default color [teal])
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        borderSide: BorderSide(color: Colors.black)),
-                    errorText: _empty ? 'Invalid Position' : null,
-                    hintText: 'Enter Latitude,Longitude',
-                    hintStyle: TextStyle(fontSize: 20.0, color: Colors.grey),
-                  ),
-                  style: TextStyle(fontSize: 20.00, color: Colors.black),
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      child: Text("Search"),
-                      color: Colors.teal,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        myController.text.isEmpty
-                            ? _empty = true
-                            : _empty = false;
-                        setState(() {
-                          //TexField not empty
-                          if (_empty == false) {
-                            //Split entry position and parse it
-                            List<String> _position =
-                                myController.text.split(",");
-                            this.lat = double.tryParse(_position[0]);
-                            this.long = double.tryParse(_position[1]);
-                            // print("LAT/LONG" + '$lat' + "/" + '$long');
-                          }
-                        });
-                      },
-                    )),
-              ]),
-        ),
+                      cursorColor: Colors.black,
+                      controller: myController,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.location_searching,
+                          color: Colors.teal,
+                        ),
+
+                        //border color
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                        // focused border color (erasing theme default color [teal])
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                            borderSide: BorderSide(color: Colors.black)),
+                        errorText: _empty ? 'Invalid Position' : null,
+                        hintText: 'Enter Latitude,Longitude',
+                        hintStyle: TextStyle(fontSize: 20.0, color: Colors.grey),
+                      ),
+                      style: TextStyle(fontSize: 20.00, color: Colors.black),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RaisedButton(
+                          child: Text("Search"),
+                          color: Colors.teal,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            myController.text.isEmpty
+                                ? _empty = true
+                                : _empty = false;
+                            setState(() {
+                              //TexField not empty
+                              if (_empty == false) {
+                                //Split entry position and parse it
+                                List<String> _position =
+                                    myController.text.split(",");
+                                this.lat = double.tryParse(_position[0]);
+                                this.long = double.tryParse(_position[1]);
+                                // print("LAT/LONG" + '$lat' + "/" + '$long');
+                              }
+                            });
+                          },
+                        )),
+                  ]),
+            ),
+          ),
+        ],
       );
     } else {
       if (SearchFavoriteView.isFavorite == true) {

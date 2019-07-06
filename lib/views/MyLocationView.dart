@@ -18,7 +18,7 @@ class MyLocationView extends StatefulWidget {
 class MyLocationViewState extends State<MyLocationView>
     with TickerProviderStateMixin {
   ///=========================================[Declare]=============================================
-  /// Controllor for FloatActionButtons
+  /// Controller for FloatActionButtons
   AnimationController _controller;
 
   /// Icons List For FloatActionButtons
