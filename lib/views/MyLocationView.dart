@@ -173,6 +173,7 @@ class MyLocationViewState extends State<MyLocationView>
       '$placeName',
       '$placePosition',
     );
+    favoritePlaceController.clear();
   }
 
   //declaring Bottom sheet widget
