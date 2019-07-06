@@ -124,12 +124,12 @@ class MyLocationViewState extends State<MyLocationView>
       localize();
       _moveCamera();
     } else if (status != GeolocationStatus.granted) {
-      await PermissionHandler().requestPermissions([PermissionGroup.location]);
+      await PermissionHandler().requestPermissions([PermissionGroup.locationWhenInUse]);
       localize();
       _moveCamera();
     } else {
       _showDialog("Turn On Your GPS");
-      await PermissionHandler().requestPermissions([PermissionGroup.location]);
+      await PermissionHandler().requestPermissions([PermissionGroup.locationWhenInUse]);
       localize();
       _moveCamera();
     }
@@ -304,6 +304,7 @@ class MyLocationViewState extends State<MyLocationView>
     Color backgroundColor = Theme.of(context).cardColor;
     Color foregroundColor = Theme.of(context).accentColor;
 
+
     /// Show Snack Bar Messages
     _showSnackBar(String message) {
       final snackBar =
@@ -336,7 +337,7 @@ class MyLocationViewState extends State<MyLocationView>
                 heroTag: null,
                 backgroundColor: backgroundColor,
                 mini: false,
-                child: new Icon(icons[index], color: foregroundColor),
+                child: new Icon(icons[index],color: index!=1?  foregroundColor:Colors.red ),
                 onPressed: () {
                   ///onPress LockCamera button
                   if (index == 0) {
