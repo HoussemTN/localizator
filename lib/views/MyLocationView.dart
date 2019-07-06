@@ -115,7 +115,7 @@ class MyLocationViewState extends State<MyLocationView>
     }
     var status = await geolocator.checkGeolocationPermissionStatus();
     bool isGPSOn = await geolocator.isLocationServiceEnabled();
-    if (status == GeolocationStatus.granted  ||isGPSOn) {
+    if (status == GeolocationStatus.granted || isGPSOn) {
       /// Localize Position
       localize();
       _moveCamera();
@@ -124,12 +124,14 @@ class MyLocationViewState extends State<MyLocationView>
       localize();
       _moveCamera();
     } else if (status != GeolocationStatus.granted) {
-      await PermissionHandler().requestPermissions([PermissionGroup.locationWhenInUse]);
+      await PermissionHandler()
+          .requestPermissions([PermissionGroup.locationWhenInUse]);
       localize();
       _moveCamera();
     } else {
       _showDialog("Turn On Your GPS");
-      await PermissionHandler().requestPermissions([PermissionGroup.locationWhenInUse]);
+      await PermissionHandler()
+          .requestPermissions([PermissionGroup.locationWhenInUse]);
       localize();
       _moveCamera();
     }
@@ -305,7 +307,6 @@ class MyLocationViewState extends State<MyLocationView>
     Color backgroundColor = Theme.of(context).cardColor;
     Color foregroundColor = Theme.of(context).accentColor;
 
-
     /// Show Snack Bar Messages
     _showSnackBar(String message) {
       final snackBar =
@@ -338,7 +339,8 @@ class MyLocationViewState extends State<MyLocationView>
                 heroTag: null,
                 backgroundColor: backgroundColor,
                 mini: false,
-                child: new Icon(icons[index],color: index!=1?  foregroundColor:Colors.red ),
+                child: new Icon(icons[index],
+                    color: index != 1 ? foregroundColor : Colors.red),
                 onPressed: () {
                   ///onPress LockCamera button
                   if (index == 0) {
