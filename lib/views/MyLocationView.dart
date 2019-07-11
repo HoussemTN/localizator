@@ -115,7 +115,7 @@ class MyLocationViewState extends State<MyLocationView>
     }
     var status = await geolocator.checkGeolocationPermissionStatus();
     bool isGPSOn = await geolocator.isLocationServiceEnabled();
-    if (status == GeolocationStatus.granted || isGPSOn) {
+    if (status == GeolocationStatus.granted && isGPSOn) {
       /// Localize Position
       localize();
       _moveCamera();
