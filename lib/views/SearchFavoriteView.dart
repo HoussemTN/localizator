@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:localizer/fix/bottom_sheet_fix.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'DrawerView.dart';
+import 'FavoriteLocationDropDownView.dart';
 
 // ignore: must_be_immutable
 class SearchFavoriteView extends StatefulWidget {
@@ -21,8 +24,8 @@ class SearchFavoriteView extends StatefulWidget {
 class _SearchFavoriteViewState extends State<SearchFavoriteView> {
   //changes after declaring the desired location
   Widget _searchView;
-  double lat = 0.00;
-  double long = 0.00;
+  double lat ;
+  double long ;
   String placeName = SearchFavoriteView.favoritePlaceName;
   String placePosition = "";
   final myController = TextEditingController();
@@ -33,7 +36,88 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
     this.lat = lat;
     this.long = long;
   }
+  _favoritePlaces(String oldPlaceName,double lat ,double long) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    /// get the favorite position then added to prefs
+    placeName = favoritePlaceController.text;
+
+    ///convert position to string and concat it
+    placePosition = lat.toString() +
+        ',' +
+        long.toString() +
+        ',' +
+        FavoriteLocationDropDown.currentImage.toString();
+    print('Place Name $placeName => $placePosition Captured.');
+    await prefs.setString(
+      '$placeName',
+      '$placePosition',
+    );
+
+
+    ///remove old record
+     prefs.remove(oldPlaceName);
+
+  }
+  //declaring Bottom sheet widget
+  Widget buildSheetLogin(BuildContext context) {
+    favoritePlaceController.text=placeName;
+    return new Container(
+      child: Wrap(children: <Widget>[
+        Container(
+          padding: new EdgeInsets.only(left: 10.0, top: 10.0),
+          width: MediaQuery.of(context).size.width / 1.7,
+          child: Form(
+            key: _formKey,
+            child: TextFormField(
+              controller: favoritePlaceController,
+              validator: (String val){
+                if(val.length==0){
+                  return 'Empty Name';
+                }
+                return null ;
+              },
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                // focused border color (erasing theme default color [teal])
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.black)),
+                labelText: "$placeName",
+
+                prefixIcon: Icon(
+                  Icons.save_alt,
+                  color: Colors.teal,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Container(child: FavoriteLocationDropDown()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: RaisedButton(
+                color: Colors.teal,
+                textColor: Colors.white,
+                child: Text("Save"),
+                onPressed: () {
+    if (_formKey.currentState.validate()) {
+      _favoritePlaces( placeName, SearchFavoriteView.favoriteLat,
+          SearchFavoriteView.favoriteLong );
+      Navigator.pop( context );
+    }
+                },
+              ),
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
   _searchedLocation(double lat, double long) {
     if (SearchFavoriteView.isFavorite == true) {
       lat = SearchFavoriteView.favoriteLat;
@@ -85,8 +169,9 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
     }
     return _searchView;
   }
-
+  final _formKey = GlobalKey<FormState>();
   @override
+
   Widget build(BuildContext context) {
     return new MaterialApp(
       theme: new ThemeData(primarySwatch: Colors.teal),
@@ -103,6 +188,20 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
         ),
         drawer: DrawerView(),
         body: _searchedLocation(this.lat, this.long),
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: "btn1",
+          onPressed: () {
+            // Calling bottom sheet Widget
+            showModalBottomSheetApp(
+                context: context,
+                builder: (builder) {
+                  return buildSheetLogin(context);
+                });
+          },
+          tooltip: 'Edit',
+          icon: Icon(Icons.edit),
+          label: Text("Edit"),
+        ),
       ),
     );
   }
