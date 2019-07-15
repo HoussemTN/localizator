@@ -54,11 +54,10 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
       '$placeName',
       '$placePosition',
     );
-
-
-    ///remove old record
-     prefs.remove(oldPlaceName);
-
+    if(oldPlaceName!=placeName) {
+      ///remove old record
+      prefs.remove( oldPlaceName );
+    }
   }
   //declaring Bottom sheet widget
   Widget buildSheetLogin(BuildContext context) {
