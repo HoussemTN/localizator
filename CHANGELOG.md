@@ -8,5 +8,5 @@
 * Copy Favorite Position added
 ## Version 1.1
 * Favorite Position for current Location added
-Version 1
- * First Release
+## Version 1
+* First Release
