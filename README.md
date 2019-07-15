@@ -2,8 +2,8 @@
 
 # Localizator
 
-Localizator is a flutter application implements flutter_map and Geolocator plugins to provide your current/given position then render it on a map.
-##Changelog
+Localizator is a flutter application implements flutter_map and Geolocator plugins to provide your current/given position then render it on a map.<br>
+## Changelog
 ### Version 1.3
 * Edit Favorite Position Feature Added
 * Location Name Added
@@ -13,17 +13,17 @@ Localizator is a flutter application implements flutter_map and Geolocator plugi
 * Copy Favorite Position added
 ### Version 1.1
 * Favorite Position for current Location added
-Version 1
+### Version 1
  * First Release
 
 ##  :stars: Features
 
-| Version    | New Features| Plugins Added|
-|------------|-------------|-------------| 
-|  <img alt="Version 0.1.0" src="https://img.shields.io/badge/-0.1.0-green.svg" />| Find Your location|Geolocator</br>flutter_map|
-|  <img alt="Version 0.2.0" src="https://img.shields.io/badge/-0.2.0-green.svg" />| Search locations||
-|  <img alt="Version 0.3.0" src="https://img.shields.io/badge/-0.3.0-green.svg" />| Save Your Favorite location|shared_preferences||
-|  <img alt="Version 0.4.2" src="https://img.shields.io/badge/-0.4.2-green.svg" />| Get Current Weather|OpenWeatherMap API||
+| New Features| Plugins Added|
+|-------------|-------------| 
+| Find Your location|Geolocator</br>flutter_map|
+| Search locations||
+| Save Your Favorite location|shared_preferences||
+| Get Current Weather|OpenWeatherMap API||
  ### Screenshots 
  <img  alt="MyLocation" src="https://github.com/HoussemTN/localizer/blob/master/screenshots/myLocation.png?raw=true" heigth="250px" width="300px"/>
   <img  alt="SearchLocation" src="https://github.com/HoussemTN/localizer/blob/master/screenshots/SearchLocation.png?raw=true" heigth="250px" width="300px"/>
