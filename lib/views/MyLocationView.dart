@@ -4,9 +4,12 @@ import 'package:latlong/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'package:localizer/fix/bottom_sheet_fix.dart';
+import 'package:localizer/libraries/globals.dart';
+import 'package:localizer/models/WeatherData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../libraries/globals.dart' as globals;
 import "dart:math" as math;
+import 'dart:convert';
 import 'package:app_settings/app_settings.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -43,6 +46,7 @@ class MyLocationViewState extends State<MyLocationView>
   double _inZoom = 15.0;
   MapController mapController = new MapController();
   final favoritePlaceController = TextEditingController();
+  String placeName ;
 
   /// Is camera Position Lock is enabled default false
   bool isMoving = false;
@@ -105,12 +109,23 @@ class MyLocationViewState extends State<MyLocationView>
     icons[0] = Icons.gps_fixed;
   }
 
+  String positionName() {
+    if (globals.weatherResponse != null) {
+      var weatherData =
+          new WeatherData.fromJson(jsonDecode(weatherResponse.body));
+      return weatherData.name.toString();
+    } else {
+      return null;
+    }
+  }
+
   _checkGPS() async {
     /// when back to this tab should get previous position from libraries
     if (globals.lat != null && globals.long != null) {
       setState(() {
         lat = globals.lat;
         long = globals.long;
+        placeName = positionName();
       });
     }
     var status = await geolocator.checkGeolocationPermissionStatus();
@@ -118,6 +133,7 @@ class MyLocationViewState extends State<MyLocationView>
     if (status == GeolocationStatus.granted && isGPSOn) {
       /// Localize Position
       localize();
+
       _moveCamera();
     } else if (isGPSOn == false) {
       _showDialog("Turn On Your GPS");
@@ -255,16 +271,38 @@ class MyLocationViewState extends State<MyLocationView>
               new MarkerLayerOptions(
                 markers: [
                   new Marker(
+                    width: 200.0,
+                    height: 110.0,
+                    point: new LatLng(lat, long),
+                    builder: (ctx) => new Container(
+                          child: placeName == null
+                              ? Container()
+                              : Text(
+                                  "$placeName",
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue[700],
+                                      backgroundColor:
+                                          Colors.blueAccent.withOpacity(0.2)),
+                                ),
+                        ),
+                  ),
+                  new Marker(
                     width: 50.0,
                     height: 50.0,
                     point: new LatLng(lat, long),
                     builder: (ctx) => new Container(
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.adjust,
-                              color: Colors.blue,
-                            ),
-                            onPressed: null),
+                        child: Column(
+                          children: <Widget>[
+                            IconButton(
+                                icon: Icon(
+                                  Icons.adjust,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: null),
+                          ],
+                        ),
                         decoration: new BoxDecoration(
                           borderRadius: new BorderRadius.circular(100.0),
                           color: Colors.blue[100].withOpacity(0.7),

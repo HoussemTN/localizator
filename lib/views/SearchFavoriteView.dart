@@ -31,6 +31,7 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
   final myController = TextEditingController();
   final favoritePlaceController = TextEditingController();
 
+
   // Constructor
   _SearchFavoriteViewState(double long, double lat) {
     this.lat = lat;
@@ -80,12 +81,12 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black)),
-                // focused border color (erasing theme default color [teal])
+                /// focused border color (erasing theme default color [teal])
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     borderSide: BorderSide(color: Colors.black)),
-                labelText: "$placeName",
-
+                      /// Display Old PlaceName Value
+                     labelText: "$placeName",
                 prefixIcon: Icon(
                   Icons.save_alt,
                   color: Colors.teal,
