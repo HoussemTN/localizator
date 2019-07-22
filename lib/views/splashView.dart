@@ -7,20 +7,19 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  Timer timer ;
   @override
   void initState() {
-    super.initState();
-    Timer(
-        Duration(seconds: 1),
-        () => Navigator.pushReplacementNamed(context,"TabsView" ));
-
+   timer = Timer(
+       Duration(seconds: 1),
+           () => Navigator.pushReplacementNamed(context,"TabsView" ));
+   super.initState();
   }
 
   @override
   void dispose() {
-
-
-    super.dispose();
+  timer.cancel();
+  super.dispose();
   }
 
   @override

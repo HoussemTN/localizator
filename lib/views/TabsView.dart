@@ -10,62 +10,55 @@ class TabsView extends StatefulWidget {
   _TabsState createState() => _TabsState();
 }
 
-class _TabsState extends State<TabsView>{
-
-
+class _TabsState extends State<TabsView> {
   @override
   void initState() {
     super.initState();
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
     return new MaterialApp(
-
       theme: new ThemeData(
         primarySwatch: Colors.teal,
       ),
       title: 'Home',
       home: DefaultTabController(
-
         length: 3,
         child: Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text('Locativity'),
-              bottom: TabBar(tabs: <Widget>[
-                //Tab(icon: Icon(Icons.home), text: 'Home'),
-                new Container(
-                  height: 70,
-                  child: Tab(icon: Icon(Icons.my_location), text: 'Location'),
-                ),
-                new Container(
-                  height: 70,
-                  child: Tab(icon: Icon(Icons.cloud), text: 'Weather'),
-                ),
-                new Container(
-                  height: 70,
-                  child: Tab(icon: Icon(Icons.search), text: 'Search'),
-                ),
-              ]),
-            ),
-            drawer: DrawerView(),
-            body: TabBarView(
-
-                //disable tabs scroll
-                physics: NeverScrollableScrollPhysics(),
-                children: <Widget>[
-                  // HomeView(),
-                  MyLocationView(),
-                  WeatherView(),
-                  SearchView(),
-                ])),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text('Locativity'),
+            bottom: TabBar(tabs: <Widget>[
+              //Tab(icon: Icon(Icons.home), text: 'Home'),
+              new Container(
+                height: 70,
+                child: Tab(icon: Icon(Icons.my_location), text: 'Location'),
+              ),
+              new Container(
+                height: 70,
+                child: Tab(icon: Icon(Icons.cloud), text: 'Weather'),
+              ),
+              new Container(
+                height: 70,
+                child: Tab(icon: Icon(Icons.search), text: 'Search'),
+              ),
+            ]),
+          ),
+          drawer: DrawerView(),
+          body: TabBarView(
+            //disable tabs scroll
+            physics: NeverScrollableScrollPhysics(),
+            children: <Widget>[
+              // HomeView(),
+              MyLocationView(),
+              WeatherView(),
+              SearchView(),
+            ],
+          ),
+        ),
       ),
     );
   }
-
 }

@@ -46,7 +46,7 @@ class MyLocationViewState extends State<MyLocationView>
   double _inZoom = 15.0;
   MapController mapController = new MapController();
   final favoritePlaceController = TextEditingController();
-  String placeName ;
+  String placeName;
 
   /// Is camera Position Lock is enabled default false
   bool isMoving = false;
@@ -205,8 +205,10 @@ class MyLocationViewState extends State<MyLocationView>
             controller: favoritePlaceController,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black)),
-              // focused border color (erasing theme default color [teal])
+                borderSide: BorderSide(color: Colors.black),
+              ),
+
+              /// focused border color (erasing theme default color [teal])
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   borderSide: BorderSide(color: Colors.black)),
@@ -275,38 +277,40 @@ class MyLocationViewState extends State<MyLocationView>
                     height: 110.0,
                     point: new LatLng(lat, long),
                     builder: (ctx) => new Container(
-                          child: placeName == null
-                              ? Container()
-                              : Text(
-                                  "$placeName",
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.blue[700],
-                                      backgroundColor:
-                                          Colors.blueAccent.withOpacity(0.2)),
-                                ),
-                        ),
+                      child: placeName == null
+                          ? Container()
+                          : Text(
+                              "$placeName",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.blue[700],
+                                backgroundColor:
+                                    Colors.blueAccent.withOpacity(0.2),
+                              ),
+                            ),
+                    ),
                   ),
                   new Marker(
                     width: 50.0,
                     height: 50.0,
                     point: new LatLng(lat, long),
                     builder: (ctx) => new Container(
-                        child: Column(
-                          children: <Widget>[
-                            IconButton(
-                                icon: Icon(
-                                  Icons.adjust,
-                                  color: Colors.blue,
-                                ),
-                                onPressed: null),
-                          ],
-                        ),
-                        decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular(100.0),
-                          color: Colors.blue[100].withOpacity(0.7),
-                        )),
+                      child: Column(
+                        children: <Widget>[
+                          IconButton(
+                              icon: Icon(
+                                Icons.adjust,
+                                color: Colors.blue,
+                              ),
+                              onPressed: null),
+                        ],
+                      ),
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(100.0),
+                        color: Colors.blue[100].withOpacity(0.7),
+                      ),
+                    ),
                   ),
                 ],
               ),
