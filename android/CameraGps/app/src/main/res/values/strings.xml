@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CameraGps</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="taken_image">taken Image</string>
+</resources>
