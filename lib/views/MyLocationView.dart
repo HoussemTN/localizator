@@ -8,6 +8,7 @@ import 'package:localizer/libraries/globals.dart';
 import 'package:localizer/models/WeatherData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../libraries/globals.dart' as globals;
+import '../libraries/secrets.dart' as secrets;
 import "dart:math" as math;
 import 'dart:convert';
 import 'package:app_settings/app_settings.dart';
@@ -266,7 +267,7 @@ class MyLocationViewState extends State<MyLocationView>
                     "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                 additionalOptions: {
                   'accessToken':
-                      'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                  secrets.accessToken,
                   'id': 'mapbox.streets',
                 },
               ),
@@ -335,7 +336,7 @@ class MyLocationViewState extends State<MyLocationView>
                     "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                 additionalOptions: {
                   'accessToken':
-                      'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                      secrets.accessToken,
                   'id': 'mapbox.streets',
                 },
               ),

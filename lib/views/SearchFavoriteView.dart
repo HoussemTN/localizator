@@ -5,6 +5,7 @@ import 'package:localizer/fix/bottom_sheet_fix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'DrawerView.dart';
 import 'FavoriteLocationDropDownView.dart';
+import '../libraries/secrets.dart' as secrets;
 
 // ignore: must_be_immutable
 class SearchFavoriteView extends StatefulWidget {
@@ -138,7 +139,7 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
                       "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                   additionalOptions: {
                     'accessToken':
-                        'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                    secrets.accessToken,
                     'id': 'mapbox.streets',
                   },
                 ),

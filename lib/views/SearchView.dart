@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../fix/bottom_sheet_fix.dart';
 import 'SearchFavoriteView.dart';
 import 'FavoriteLocationDropDownView.dart';
-
+import '../libraries/secrets.dart' as secrets;
 class SearchView extends StatefulWidget {
   @override
   _SearchViewState createState() => _SearchViewState();
@@ -195,7 +195,7 @@ class _SearchViewState extends State<SearchView> {
                         "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                     additionalOptions: {
                       'accessToken':
-                          'pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w',
+                          secrets.accessToken,
                       'id': 'mapbox.streets',
                     },
                   ),

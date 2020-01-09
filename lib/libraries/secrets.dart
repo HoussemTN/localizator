@@ -1,0 +1,4 @@
+library localizor.secrets;
+
+const String APPID="e438793d26f931f5c2d283df4f520108";
+const String accessToken="pk.eyJ1IjoiaG91c3NlbXRuIiwiYSI6ImNqc3hvOG82NTA0Ym00YnI1dW40M2hjMjAifQ.VlQl6uacopBKX__qg6cf3w";
