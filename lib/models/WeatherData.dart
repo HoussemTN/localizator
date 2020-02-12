@@ -2,7 +2,8 @@
 class WeatherData {
   final DateTime date;
   final String name;
-  final double temp;
+  final double tempC;
+  final double tempF;
   final String main;
   final String description;
   final String icon;
@@ -15,7 +16,8 @@ class WeatherData {
   WeatherData(
       {this.date,
       this.name,
-      this.temp,
+      this.tempC,
+      this.tempF,
       this.main,
       this.description,
       this.icon,
@@ -32,7 +34,8 @@ class WeatherData {
         isUtc: true,
       ),
       name: json['name'],
-      temp: json['main']['temp'] - 273.15,
+      tempC: json['main']['temp'] - 273.15,
+      tempF: json['main']['temp'],
       main: json['weather'][0]['main'],
       description: json['weather'][0]['description'],
       icon: json['weather'][0]['icon'],

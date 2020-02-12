@@ -83,12 +83,11 @@ class MyLocationViewState extends State<MyLocationView>
   ///=========================================[initState]=============================================
 
   initState() {
-    super.initState();
     if (long == null || lat == null) {
       ///checks GPS then call localize
       _checkGPS();
     } else {
-      /// GPS is Okey just localize
+      /// GPS is Okay just localize
       localize();
     }
 
@@ -96,6 +95,7 @@ class MyLocationViewState extends State<MyLocationView>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+    super.initState();
   }
 
   @override
@@ -106,8 +106,12 @@ class MyLocationViewState extends State<MyLocationView>
 
   _moveCamera() {
     isMoving = true;
-    mapController.move(LatLng(lat, long), _inZoom);
-    icons[0] = Icons.gps_fixed;
+    if (lat != null && long != null) {
+      mapController.onReady.then((result) {
+        mapController.move(LatLng(lat, long), _inZoom);
+        icons[0] = Icons.gps_fixed;
+      });
+    }
   }
 
   String positionName() {

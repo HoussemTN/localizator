@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../libraries/secrets.dart' as secrets;
 import '../libraries/globals.dart' as globals;
 import 'package:localizer/Widgets/Weather.dart';
-import 'package:localizer/Widgets/WeatherItem.dart';
+import 'package:localizer/Widgets/WeatherForecastItem.dart';
 
 import 'package:localizer/models/WeatherData.dart';
 import 'package:localizer/models/ForecastData.dart';

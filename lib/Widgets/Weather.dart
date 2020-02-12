@@ -234,7 +234,7 @@ class Weather extends StatelessWidget {
                               height: MediaQuery.of(context).size.height,
                             ),
                             Text(
-                                'Temp:  ${weather.temp.toStringAsFixed(0)}°C',
+                                'Temp:  ${weather.tempC.toStringAsFixed(0)}°C/${((weather.tempC*9/5) + 32).toStringAsFixed(0)}°F',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],

@@ -22,7 +22,7 @@ class WeatherItem extends StatelessWidget {
           /*  Text(weather.name, style: new TextStyle(color: Colors.black)),*/
             Text(weather.main,
                 style: new TextStyle(color: Colors.black, fontSize: 26.0)),
-            Text('${weather.temp.toStringAsFixed(0)}°C',
+            Text('${weather.tempC.toStringAsFixed(0)}°C/${((weather.tempC*9/5) + 32).toStringAsFixed(0)}°F',
                 style: new TextStyle(color: Colors.black)),
             Image.network(
                 'https://openweathermap.org/img/w/${weather.icon}.png'),
