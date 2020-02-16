@@ -1,5 +1,9 @@
 import 'package:card_settings/card_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:localizer/views/TabsView.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../libraries/globals.dart' as globals;
 
 class SettingsView extends StatefulWidget {
   @override
@@ -41,16 +45,15 @@ class _SettingsViewState extends State<SettingsView> {
             icon: Icon(
               Icons.arrow_back,
               color: Colors.white,
-
             ),
-            onPressed: ()=>Navigator.of(context).pop(),
+            onPressed: (){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> TabsView()));
+            },
           ),
         ),
         body: Form(
           key: _formKey,
-          child: (orientation == Orientation.portrait)
-              ? _buildPortraitLayout()
-              : Container(),
+          child: _buildPortraitLayout()
           //   : _buildLandscapeLayout(),
         ),
       ),
@@ -59,30 +62,14 @@ class _SettingsViewState extends State<SettingsView> {
 
   CardSettings _buildPortraitLayout() {
     return CardSettings.sectioned(
-        labelWidth: 100,
+        labelWidth: 120,
         children: <CardSettingsSection>[
           CardSettingsSection(
               header: CardSettingsHeader(
                 label: 'Weather Preferences',
               ),
               children: <Widget>[
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    primaryColor: Colors.teal,
-
-                    primaryTextTheme: TextTheme(
-                      title: TextStyle(color: Colors.white),
-                      /// Dialog title color
-                      body1: TextStyle(color: Colors.white),
-                      // style for headers
-                    ),
-                    inputDecorationTheme: InputDecorationTheme(
-                      labelStyle: TextStyle(color: Colors.black),
-                      // style for labels
-                    ),
-                  ),
-                  child: _tempUnit(),
-                ),
+               _tempUnit(),
                 _windUnit(),
               ]),
         ]);
@@ -92,19 +79,15 @@ class _SettingsViewState extends State<SettingsView> {
     return CardSettingsListPicker(
       key: _tempUnitKey,
       label: 'Temp Unit',
-      //  initialValue: _ponyModel.type,
+      initialValue: globals.tempUnit,
       hintText: 'Select One',
-      //  autovalidate: _autoValidate,
-      options: <String>['Celsius', 'Fahrenheit','Kelvin'],
-      values: <String>['C', 'F','K'],
-      validator: (String value) {
-        if (value == null || value.isEmpty) return 'You must pick a type.';
-        return null;
-      },
+      options: <String>['Celsius (°C)', 'Fahrenheit (°F)','Kelvin (K)'],
+      values: <String>['C','F','K'],
       //  onSaved: (value) => _ponyModel.type = value,
       onChanged: (value) {
         setState(() {
-          //     _ponyModel.type = value;
+          _saveTempUnit(value);
+          print(value);
         });
         //    _showSnackBar('Type', value);
       },
@@ -115,23 +98,33 @@ class _SettingsViewState extends State<SettingsView> {
     return CardSettingsListPicker(
       key: _windUnitKey,
       label: 'Wind Unit',
-      //  initialValue: _ponyModel.type,
+      initialValue: globals.windUnit,
       hintText: 'Select One',
       //  autovalidate: _autoValidate,
-      options: <String>['mph','knots','km/h'],
-      values: <String>['M','K','KM'],
-      validator: (String value) {
-        if (value == null || value.isEmpty) return 'You must pick a type.';
-        return null;
-      },
-      //  onSaved: (value) => _ponyModel.type = value,
+      options: <String>['Mile Per Hour (mph)','Kilometer Per Hour (km/h)','Meter Per Second (m/s)','Knots (kn)'],
+      values: <String>['mph','km/h','m/s','kn'],
       onChanged: (value) {
         setState(() {
-          //     _ponyModel.type = value;
+          _saveWindUnit(value);
         });
         //    _showSnackBar('Type', value);
       },
     );
   }
 
+   Future<void> _saveWindUnit(String value) async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     setState(() {
+       prefs.setString(globals.WIND_UNIT_PREF,value);
+       globals.windUnit=value ;
+     });
+   }
+
+  Future<void> _saveTempUnit(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString(globals.TEMP_UNIT_PREF,value);
+      globals.tempUnit=value ;
+    });
+  }
 }

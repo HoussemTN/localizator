@@ -1,23 +1,22 @@
+import '../libraries/globals.dart' as globals;
 
 class WeatherData {
   final DateTime date;
   final String name;
-  final double tempC;
-  final double tempF;
+  final String temp;
   final String main;
   final String description;
   final String icon;
   final int humidity;
   final DateTime sunrise;
   final DateTime sunset;
-  final double windSpeed;
+  final String windSpeed;
    var pressure;
 
   WeatherData(
       {this.date,
       this.name,
-      this.tempC,
-      this.tempF,
+      this.temp,
       this.main,
       this.description,
       this.icon,
@@ -26,7 +25,6 @@ class WeatherData {
       this.sunset,
       this.windSpeed,
       this.pressure});
-
   factory WeatherData.fromJson(Map<String, dynamic> json) {
     return WeatherData(
       date: new DateTime.fromMillisecondsSinceEpoch(
@@ -34,8 +32,7 @@ class WeatherData {
         isUtc: true,
       ),
       name: json['name'],
-      tempC: json['main']['temp'] - 273.15,
-      tempF: json['main']['temp'],
+      temp : globals.globalTempPreferredUnit((double.parse(json['main']['temp'].toString()))),
       main: json['weather'][0]['main'],
       description: json['weather'][0]['description'],
       icon: json['weather'][0]['icon'],
@@ -47,8 +44,9 @@ class WeatherData {
           (json['sys']['sunset'] + json['timezone']) * 1000,
           isUtc: true),
       //converting WindSpeed from m/s to Km/h
-      windSpeed: json['wind']['speed'] * 3.6,
+      windSpeed:globals.globalWindPreferredUnit((double.parse(json['wind']['speed'].toString()))),
       pressure: num.parse(json['main']['pressure'].toStringAsFixed(0)),
     );
   }
+
 }

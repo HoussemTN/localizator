@@ -17,6 +17,7 @@ class _TabsState extends State<TabsView> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
@@ -33,13 +34,15 @@ class _TabsState extends State<TabsView> {
             title: Text('Locativity'),
             actions: <Widget>[
               IconButton(
-                icon: Icon(Icons.tune),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsView()));
-                },
-              ),
+                  icon: Icon(
+                    Icons.tune,
+                  ),
+                  onPressed: (){
+                     Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SettingsView()));
+                  }),
             ],
             bottom: TabBar(tabs: <Widget>[
               //Tab(icon: Icon(Icons.home), text: 'Home'),

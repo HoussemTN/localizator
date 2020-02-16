@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'SearchFavoriteView.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../libraries/globals.dart' as globals;
 
 class DrawerView extends StatefulWidget {
   @override
@@ -21,12 +22,14 @@ class DrawerViewState extends State<DrawerView> {
   Future<List<Widget>> getAllPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    ///return  a list (Keys ,values) of sharedPreferences and not cache(map) records
+    ///return  favorite places as list (Keys ,values) of sharedPreferences and not cache(map) nor other app prefs records
     return prefs
         .getKeys()
         .where((String key) =>
             key != "lib_cached_image_data" &&
-            key != "lib_cached_image_data_last_clean")
+            key != "lib_cached_image_data_last_clean" &&
+            key != globals.TEMP_UNIT_PREF &&
+            key != globals.WIND_UNIT_PREF)
         .map<Widget>((key) => Row(children: <Widget>[
               Expanded(
                 child: ListTile(

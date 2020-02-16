@@ -59,8 +59,8 @@ class _WeatherState extends State<WeatherView> {
     }
     if(globals.forecastResponse==null||isWeatherUpToDate==false) {
        forecastResponse = await http.get(
-          'https://api.openweathermap.org/data/2.5/forecast?units=metric&APPID=${secrets.APPID}&lat=${lat
-              .toString( )}&lon=${long.toString( )}&units=metric&lang=eng' );
+          'https://api.openweathermap.org/data/2.5/forecast?APPID=${secrets.APPID}&lat=${lat
+              .toString( )}&lon=${long.toString( )}&lang=eng' );
        globals.forecastResponse=forecastResponse;
 
     }
@@ -113,9 +113,11 @@ class _WeatherState extends State<WeatherView> {
     return Scaffold(
       body:ListView(children: <Widget>[
         Column(
+
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Center(
+
               child: weatherData != null
                   ? Weather(weather: weatherData)
                   : Container(),
@@ -175,4 +177,5 @@ class _WeatherState extends State<WeatherView> {
       });
     }
   }
+
 }

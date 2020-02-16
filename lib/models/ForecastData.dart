@@ -1,4 +1,5 @@
 import 'package:localizer/models/WeatherData.dart';
+import '../libraries/globals.dart' as globals;
 
 class ForecastData {
   final List list;
@@ -12,8 +13,7 @@ class ForecastData {
       WeatherData w = new WeatherData(
           date: new DateTime.fromMillisecondsSinceEpoch(e['dt'] * 1000, isUtc: false),
           name: json['city']['name'],
-          tempC: e['main']['temp'].toDouble(),
-          tempF: e['main']['temp'].toDouble(),
+          temp : globals.globalTempPreferredUnit((double.parse(e['main']['temp'].toString()))),
           main: e['weather'][0]['main'],
           icon: e['weather'][0]['icon']);
       list.add(w);

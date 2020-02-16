@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../libraries/globals.dart' as globals;
 
 class SplashView extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class _SplashViewState extends State<SplashView> {
   Timer timer ;
   @override
   void initState() {
+    _getWeatherPreferences();
    timer = Timer(
        Duration(seconds: 1),
            () => Navigator.pushReplacementNamed(context,"TabsView" ));
@@ -49,5 +52,21 @@ class _SplashViewState extends State<SplashView> {
         ],
       ),
     );
+  }
+  Future<void> _getWeatherPreferences() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      globals.tempUnit=prefs.getString(globals.TEMP_UNIT_PREF);
+      if(globals.tempUnit==null){
+        globals.tempUnit=globals.DEFAULT_TEMP_UNIT;
+      }
+      globals.windUnit=prefs.getString(globals.WIND_UNIT_PREF);
+      if(globals.windUnit==null){
+        globals.windUnit=globals.DEFAULT_WIND_UNIT;
+      }
+      print('temp Unit:'+globals.tempUnit);
+      print('wind Unit:'+globals.windUnit);
+    });
+
   }
 }

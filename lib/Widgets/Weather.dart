@@ -234,7 +234,7 @@ class Weather extends StatelessWidget {
                               height: MediaQuery.of(context).size.height,
                             ),
                             Text(
-                                'Temp:  ${weather.tempC.toStringAsFixed(0)}°C/${((weather.tempC*9/5) + 32).toStringAsFixed(0)}°F',
+                                ' Temp: ${weather.temp.toString()}',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],
@@ -288,7 +288,7 @@ class Weather extends StatelessWidget {
                               height: MediaQuery.of(context).size.height,
                             ),
                             Text(
-                                ' ${'Wind: ' + weather.windSpeed.floor().toString()} km/h',
+                                ' ${'Wind: ' + weather.windSpeed.toString()}',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],
@@ -312,7 +312,7 @@ class Weather extends StatelessWidget {
                               height: MediaQuery.of(context).size.height,
                             ),
                             Text(
-                                ' ${'Pressure : ' + weather.pressure.toString()}',
+                                ' ${' Pressure : ' + weather.pressure.toString()}',
                                 style: new TextStyle(
                                     color: Colors.black, fontSize: 16.0)),
                           ],
