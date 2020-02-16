@@ -33,7 +33,6 @@ dependencies:
   fluttertoast: ^3.1.0
   cached_network_image: ^2.0.0-rc
   card_settings: ^1.6.1
-  font_awesome_flutter: ^8.5.0
 
 
 

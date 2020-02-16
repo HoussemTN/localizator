@@ -1,5 +1,5 @@
 library localizer.globals;
-bool isUpdated=false ;
+
 double lat;
 double long;
 
