@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ErrorWidget.builder = getErrorWidget;
   return  MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
     routes: {
       'TabsView':(context)=>TabsView(),
     },

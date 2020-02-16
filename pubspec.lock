@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+  auto_size_text:
+    dependency: transitive
+    description:
+      name: auto_size_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -50,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  card_settings:
+    dependency: "direct main"
+    description:
+      name: card_settings
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.1"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -111,6 +125,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.3"
+  flutter_colorpicker:
+    dependency: transitive
+    description:
+      name: flutter_colorpicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.6"
+  flutter_cupertino_settings:
+    dependency: transitive
+    description:
+      name: flutter_cupertino_settings
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   flutter_image:
     dependency: transitive
     description:
@@ -132,6 +160,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.2"
+  flutter_masked_text:
+    dependency: transitive
+    description:
+      name: flutter_masked_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
+  flutter_material_pickers:
+    dependency: transitive
+    description:
+      name: flutter_material_pickers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -403,4 +445,4 @@ packages:
     version: "2.2.0"
 sdks:
   dart: ">=2.6.0 <3.0.0"
-  flutter: ">=1.10.15 <2.0.0"
+  flutter: ">=1.12.13-hotfix.5 <2.0.0"
