@@ -369,98 +369,99 @@ class MyLocationViewState extends State<MyLocationView>
       ),
 
       ///floatingActionButtons
-      floatingActionButton: new Column(
-        mainAxisSize: MainAxisSize.min,
-        children: new List.generate(icons.length, (int index) {
-          Widget child = new Container(
-            height: 70.0,
-            width: 56.0,
-            alignment: FractionalOffset.topCenter,
-            child: new ScaleTransition(
-              scale: new CurvedAnimation(
-                parent: _controller,
-                curve: new Interval(0.0, 1.0 - index / icons.length / 2.0,
-                    curve: Curves.easeOut),
-              ),
-              child: new FloatingActionButton(
-                heroTag: null,
-                backgroundColor: backgroundColor,
-                mini: false,
-                child: new Icon(icons[index],
-                    color: index != 1 ? foregroundColor : Colors.red),
-                onPressed: () {
-                  ///onPress LockCamera button
-                  if (index == 0) {
-                    /// if Camera not locked
-                    if (isMoving == false) {
-                      /// if position not null [LatLng]
-                      if (lat != null && long != null) {
-                        setState(() {
-                          ///change icon to lockedCamera
-                          icons[index] = Icons.gps_fixed;
-                          isMoving = true;
-                        });
-                        mapController.move(LatLng(lat, long), _inZoom);
-                        _showSnackBar("Camera Lock Enabled!");
+      floatingActionButton: Container(
+        child: new Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: new List.generate(icons.length, (int index) {
+            Widget child = new Container(
+              alignment: FractionalOffset.topCenter,
+              child: new ScaleTransition(
+                scale: new CurvedAnimation(
+                  parent: _controller,
+                  curve: new Interval(0.0, 1.0 - index / icons.length / 2.0,
+                      curve: Curves.easeOut),
+                ),
+                child: new FloatingActionButton(
+                  heroTag: null,
+                  backgroundColor: backgroundColor,
+                  mini: false,
+                  child: new Icon(icons[index],
+                      color: index != 1 ? foregroundColor : Colors.red),
+                  onPressed: () {
+                    ///onPress LockCamera button
+                    if (index == 0) {
+                      /// if Camera not locked
+                      if (isMoving == false) {
+                        /// if position not null [LatLng]
+                        if (lat != null && long != null) {
+                          setState(() {
+                            ///change icon to lockedCamera
+                            icons[index] = Icons.gps_fixed;
+                            isMoving = true;
+                          });
+                          mapController.move(LatLng(lat, long), _inZoom);
+                          _showSnackBar("Camera Lock Enabled!");
+                        } else {
+                          _showSnackBar("Couldn't get your Position!");
+                        }
                       } else {
-                        _showSnackBar("Couldn't get your Position!");
-                      }
-                    } else {
-                      setState(() {
-                        icons[index] = Icons.gps_not_fixed;
-                        isMoving = false;
-                      });
+                        setState(() {
+                          icons[index] = Icons.gps_not_fixed;
+                          isMoving = false;
+                        });
 
-                      _showSnackBar("Camera Lock Disabled!");
+                        _showSnackBar("Camera Lock Disabled!");
+                      }
+
+                      ///OnPress Favorite Button
+                    } else if (index == 1) {
+                      // Calling bottom sheet Widget
+                      showModalBottomSheetApp(
+                          context: context,
+                          builder: (builder) {
+                            return buildSheetLogin(context);
+                          });
                     }
 
-                    ///OnPress Favorite Button
-                  } else if (index == 1) {
-                    // Calling bottom sheet Widget
-                    showModalBottomSheetApp(
-                        context: context,
-                        builder: (builder) {
-                          return buildSheetLogin(context);
-                        });
-                  }
+                    ///OnPress CopyPosition button
+                    else if (index == 2) {
+                      ///Copy Current Position
+                      Clipboard.setData(new ClipboardData(text: "$lat,$long"));
 
-                  ///OnPress CopyPosition button
-                  else if (index == 2) {
-                    ///Copy Current Position
-                    Clipboard.setData(new ClipboardData(text: "$lat,$long"));
-
-                    _showSnackBar("Location Copied!");
+                      _showSnackBar("Location Copied!");
+                    }
+                  },
+                ),
+              ),
+            );
+            return child;
+          }).toList()
+            ..add(
+              new FloatingActionButton(
+                heroTag: null,
+                child: new AnimatedBuilder(
+                  animation: _controller,
+                  builder: (BuildContext context, Widget child) {
+                    return new Transform(
+                      transform: new Matrix4.rotationZ(
+                          _controller.value * 0.5 * math.pi),
+                      alignment: FractionalOffset.center,
+                      child: new Icon(
+                          _controller.isDismissed ? Icons.add : Icons.close),
+                    );
+                  },
+                ),
+                onPressed: () {
+                  if (_controller.isDismissed) {
+                    _controller.forward();
+                  } else {
+                    _controller.reverse();
                   }
                 },
               ),
             ),
-          );
-          return child;
-        }).toList()
-          ..add(
-            new FloatingActionButton(
-              heroTag: null,
-              child: new AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  return new Transform(
-                    transform: new Matrix4.rotationZ(
-                        _controller.value * 0.5 * math.pi),
-                    alignment: FractionalOffset.center,
-                    child: new Icon(
-                        _controller.isDismissed ? Icons.add : Icons.close),
-                  );
-                },
-              ),
-              onPressed: () {
-                if (_controller.isDismissed) {
-                  _controller.forward();
-                } else {
-                  _controller.reverse();
-                }
-              },
-            ),
-          ),
+        ),
       ),
     );
   }

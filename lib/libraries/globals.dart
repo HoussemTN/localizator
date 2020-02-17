@@ -56,7 +56,7 @@ String globalWindPreferredUnit(double value) {
     } else if (windUnit == 'km/h') {
       var _parsedValue = (value* 3.6).toStringAsFixed(0);
       return '$_parsedValue km/h';
-    } else if (windUnit == 'knots') {
+    } else if (windUnit == 'kn') {
       var _parsedValue = ((value*3.6)*0.539957).toStringAsFixed(0);
       return '$_parsedValue kn';
     } else if (windUnit == 'm/s') {

@@ -80,7 +80,7 @@ class _SettingsViewState extends State<SettingsView> {
       label: 'Temp Unit',
       initialValue: globals.tempUnit,
       hintText: 'Select One',
-      options: <String>['Celsius (°C)', 'Fahrenheit (°F)','Kelvin (K)'],
+      options: <String>['Celsius', 'Fahrenheit','Kelvin'],
       values: <String>['C','F','K'],
       //  onSaved: (value) => _ponyModel.type = value,
       onChanged: (value) {
@@ -100,7 +100,7 @@ class _SettingsViewState extends State<SettingsView> {
       initialValue: globals.windUnit,
       hintText: 'Select One',
       //  autovalidate: _autoValidate,
-      options: <String>['Mile Per Hour (mph)','Kilometer Per Hour (km/h)','Meter Per Second (m/s)','Knots (kn)'],
+      options: <String>['Mile Per Hour','Kilometer Per Hour','Meter Per Second','Knots'],
       values: <String>['mph','km/h','m/s','kn'],
       onChanged: (value) {
         setState(() {
