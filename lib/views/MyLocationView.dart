@@ -370,12 +370,12 @@ class MyLocationViewState extends State<MyLocationView>
 
       ///floatingActionButtons
       floatingActionButton: Container(
+
         child: new Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: new List.generate(icons.length, (int index) {
             Widget child = new Container(
-              alignment: FractionalOffset.topCenter,
               child: new ScaleTransition(
                 scale: new CurvedAnimation(
                   parent: _controller,
