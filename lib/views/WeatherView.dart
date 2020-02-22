@@ -51,7 +51,7 @@ class _WeatherState extends State<WeatherView> {
     if (globals.weatherResponse==null|| isWeatherUpToDate==false) {
 
       weatherResponse = await http.get(
-          "https://api.openweathermap.org/data/2.5/weather?APPID=${secrets.APPID}&lat=${lat
+          "https://api.openweathermap.org/data/2.5/weather?APPID=${secrets.APP_ID}&lat=${lat
               .toString( )}&lon=${long.toString( )}" );
       globals.weatherResponse=weatherResponse;
       ///last Update Time;
@@ -59,7 +59,7 @@ class _WeatherState extends State<WeatherView> {
     }
     if(globals.forecastResponse==null||isWeatherUpToDate==false) {
        forecastResponse = await http.get(
-          'https://api.openweathermap.org/data/2.5/forecast?APPID=${secrets.APPID}&lat=${lat
+          'https://api.openweathermap.org/data/2.5/forecast?APPID=${secrets.APP_ID}&lat=${lat
               .toString( )}&lon=${long.toString( )}&lang=eng' );
        globals.forecastResponse=forecastResponse;
 

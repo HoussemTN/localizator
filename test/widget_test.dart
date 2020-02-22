@@ -7,7 +7,7 @@
 
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:localizer/main.dart';
+
 
 void main() {
   testWidgets('app should Start', (tester) async {

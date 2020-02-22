@@ -18,7 +18,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
+   // var orientation = MediaQuery.of(context).orientation;
     return MaterialApp(
       theme: ThemeData(
         accentColor: Colors.teal,
