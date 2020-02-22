@@ -3,14 +3,15 @@
 
 # Locativity
 <img  align="left" alt="Locativity Logo" src="https://github.com/HoussemTN/localizator/blob/master/images/splash/splash.png?raw=true" heigth="100px" width="100px"/>
-Localizator is a flutter application implements flutter_map and Geolocator plugins to provide your current/given position then render it on a map.
- <a href='https://play.google.com/store/apps/details?id=com.brains404.localizer&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img  align="center" width='200' height='80' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'></a>
+Localizator is a flutter application implements flutter_map and Geolocator plugins to provide your current/given position then render it on a map. 
+</br>
+ <a href='https://play.google.com/store/apps/details?id=com.brains404.localizer&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img  align="left" width='200' height='80' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'></a>
  
 </br>
 
 
-
 ## Changelog
+
 ### Version 1.5.1
 * Settings View added
 * Custom wind speed units added
