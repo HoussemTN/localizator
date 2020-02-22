@@ -4,6 +4,10 @@
 
 Localizator is a flutter application implements flutter_map and Geolocator plugins to provide your current/given position then render it on a map.<br>
 ## Changelog
+### Version 1.5.1
+* Settings View added
+* Custom wind speed units added
+* Custom temperature units added
 ### Version 1.3
 * Edit Favorite Position Feature Added
 * Location Name Added
