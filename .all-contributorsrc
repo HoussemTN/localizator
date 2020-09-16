@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "HoussemTN",
+      "name": "Houssemeddine Souissi",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/33376041?v=4",
+      "profile": "https://github.com/HoussemTN",
+      "contributions": [
+        "design",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "localizator",
+  "projectOwner": "HoussemTN",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
