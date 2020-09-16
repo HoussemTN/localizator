@@ -58,7 +58,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/HoussemTN"><img src="https://avatars2.githubusercontent.com/u/33376041?v=4" width="100px;" alt=""/><br /><sub><b>Houssemeddine Souissi</b></sub></a><br /><a href="#design-HoussemTN" title="Design">🎨</a> <a href="https://github.com/HoussemTN/localizator/commits?author=HoussemTN" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/HoussemTN"><img src="https://avatars2.githubusercontent.com/u/33376041?v=4" width="100px;" alt=""/><br /><sub><b>Houssemeddine Souissi</b></sub></a><br /><a href="#design-HoussemTN" title="Design">🎨</a> <a href="https://github.com/HoussemTN/localizator/commits?author=HoussemTN" title="Code">💻</a> <a href="https://github.com/HoussemTN/localizator/commits?author=HoussemTN" title="Documentation">📖</a> <a href="#maintenance-HoussemTN" title="Maintenance">🚧</a> <a href="#ideas-HoussemTN" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
