@@ -1,4 +1,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ec7a927d194545e3ab87c98f95b8c41f?isInternal=true)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HoussemTN/localizator&amp;utm_campaign=Badge_Grade)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 
 # Locativity
@@ -45,3 +48,22 @@ Locativity is a flutter application implements flutter_map and Geolocator plugin
 ### :gift_heart: Want to contribute
 If you would like to contribute to the project (e.g. by improving the documentation, solving a bug or adding a cool new feature),Just send us your pull request. Please make sure you solved all warnings and errors reported by the static code analyses.
 
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/HoussemTN"><img src="https://avatars2.githubusercontent.com/u/33376041?v=4" width="100px;" alt=""/><br /><sub><b>Houssemeddine Souissi</b></sub></a><br /><a href="#design-HoussemTN" title="Design">🎨</a> <a href="https://github.com/HoussemTN/localizator/commits?author=HoussemTN" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
