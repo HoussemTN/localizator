@@ -8,7 +8,11 @@
 <img  align="left" alt="Locativity Logo" src="https://github.com/HoussemTN/localizator/blob/master/images/splash/splash.png?raw=true" heigth="100px" width="100px" />
 Locativity is a flutter application implements flutter_map and Geolocator plugins to provide your current/given position then render it on a map.
 
- <a href='https://play.google.com/store/apps/details?id=com.brains404.localizer&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img  align="center" width='200' height='80' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'></a>
+| Google Play| AppGallery |
+|-------------|--------------|
+|<a href='https://play.google.com/store/apps/details?id=com.brains404.localizer&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img  align="center" width='200' height='80' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'></a>|<a href='https://appgallery.cloud.huawei.com/ag/n/app/C102976727?channelId=devBrains404&id=2f8caa62b4764da78ffafbefca317791&s=CBDD0BFD682FF4FD48766940BC29209053BEADC1C7C3A0FBBFB33C98E6A02F3E&detailType=0&v='><img   width='200' height='60' alt='Get it on Google Play' src='https://raw.githubusercontent.com/HoussemTN/badges/master/English/RGB/PNG/Badge-Black.png'></a>|
+
+
 
 </br>
 
