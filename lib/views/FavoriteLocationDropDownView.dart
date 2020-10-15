@@ -35,8 +35,8 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
           children: <Widget>[
             CircleAvatar(
               radius: 20.0,
-              backgroundColor: Colors.white,
-              child: Image.asset( favoriteLocationImage[imageKey] ),
+              backgroundColor: Colors.white54,
+              child: Image.asset( favoriteLocationImage[imageKey],height: 20,width: 20,),
             ),
             Container(
               padding: new EdgeInsets.only( top: 10.0, left: 4.0 ),
@@ -52,7 +52,7 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      padding: new EdgeInsets.all(12.0),
+      padding: new EdgeInsets.all(10.0),
       // Ensure the desired width on different devices
       width: MediaQuery.of( context ).size.width / 2.5,
       //dropDown Background Color
@@ -70,7 +70,8 @@ class FavoriteLocationDropDownState extends State<FavoriteLocationDropDown> {
               value: FavoriteLocationDropDown.currentImage,
               items: _dropDownMenuItems,
               onChanged: changedDropDownItem,
-              iconSize: 30.0,
+              isExpanded: true,
+              iconSize: 15.0,
             ),
           )
         ],

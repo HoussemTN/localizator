@@ -28,7 +28,7 @@ dependencies:
   carousel_slider: ^1.3.0
   http: ^0.11.3
   geolocator: ^5.1.5
-  app_settings: ^1.0.1
+  app_settings: ^4.0.4
   permission_handler: ^4.0.0
   fluttertoast: ^3.1.0
   cached_network_image: ^2.0.0-rc
@@ -57,39 +57,39 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-  - images/searchLocation.png
-  - images/house.png
-  - images/hospital.png
-  - images/bank.png
-  - images/hotel.png
-  - images/store.png
-  - images/school.png
-  - images/sunrise.png
-  - images/sunset.png
-  - images/temp.png
-  - images/date.png
-  - images/humidity.png
-  - images/wind.png
-  - images/pressure.png
-  - images/description.png
-  - images/splash/splash.png
-  - images/drawerHeader.jpg
-   # Day Wallpaper
-  - images/weatherMain/01d.jpg
-  - images/weatherMain/02d.jpg
-  - images/weatherMain/03d.jpg
-  - images/weatherMain/04d.jpg
-  - images/weatherMain/10d.jpg
-  - images/weatherMain/13d.jpg
-  - images/weatherMain/50d.jpg
-  # Night Wallpaper
-  - images/weatherMain/01n.jpg
-  - images/weatherMain/02n.jpg
-  - images/weatherMain/03n.jpg
-  - images/weatherMain/04n.jpg
-  - images/weatherMain/10n.jpg
-  - images/weatherMain/13n.jpg
-  - images/weatherMain/50n.jpg
+    - images/searchLocation.png
+    - images/house.png
+    - images/hospital.png
+    - images/bank.png
+    - images/hotel.png
+    - images/store.png
+    - images/school.png
+    - images/sunrise.png
+    - images/sunset.png
+    - images/temp.png
+    - images/date.png
+    - images/humidity.png
+    - images/wind.png
+    - images/pressure.png
+    - images/description.png
+    - images/splash/splash.png
+    - images/drawerHeader.jpg
+    # Day Wallpaper
+    - images/weatherMain/01d.jpg
+    - images/weatherMain/02d.jpg
+    - images/weatherMain/03d.jpg
+    - images/weatherMain/04d.jpg
+    - images/weatherMain/10d.jpg
+    - images/weatherMain/13d.jpg
+    - images/weatherMain/50d.jpg
+    # Night Wallpaper
+    - images/weatherMain/01n.jpg
+    - images/weatherMain/02n.jpg
+    - images/weatherMain/03n.jpg
+    - images/weatherMain/04n.jpg
+    - images/weatherMain/10n.jpg
+    - images/weatherMain/13n.jpg
+    - images/weatherMain/50n.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

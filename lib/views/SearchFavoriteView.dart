@@ -135,8 +135,7 @@ class _SearchFavoriteViewState extends State<SearchFavoriteView> {
               ),
               layers: [
                 new TileLayerOptions(
-                  urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                      "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                  urlTemplate: "https://api.mapbox.com/styles/v1/houssemtn/ckg4f2d9h02tp19nr1ynkt3tf/tiles/{z}/{x}/{y}?access_token={accessToken}",
                   additionalOptions: {
                     'accessToken':
                     secrets.accessToken,
