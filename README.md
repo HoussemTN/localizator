@@ -17,7 +17,9 @@ Locativity is a flutter application implements flutter_map and Geolocator plugin
 </br>
 
 ## Changelog
-
+### Version 1.6.0 - 15 Oct 2020
+* New map style with nearby places
+* Minor Bugs Fixed
 ### Version 1.5.1 - 21 Feb 2020
 * Settings View added
 * Custom wind speed units added
